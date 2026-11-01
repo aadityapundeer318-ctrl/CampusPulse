@@ -11,33 +11,51 @@
 
 <style>
 *{box-sizing:border-box}
-body{font-family:Inter,system-ui,sans-serif;background:#f5f7fb;color:#172033}
-.card{background:white;border:1px solid #e8edf5;border-radius:16px;box-shadow:0 4px 18px rgba(20,35,70,.04)}
-.input{width:100%;padding:11px 12px;border:1px solid #e1e7f0;border-radius:9px;background:#fff;outline:none;font-size:13px}
+body{font-family:Inter,system-ui,sans-serif;background:#f5f7fb;color:#172033;transition:.2s}
+.card{background:white;border:1px solid #e8edf5;border-radius:16px;box-shadow:0 4px 18px #1423460a}
+.input{width:100%;padding:11px 12px;border:1px solid #e1e7f0;border-radius:9px;background:white;color:#172033;outline:none;font-size:13px}
 .input:focus{border-color:#6558e8;box-shadow:0 0 0 3px #6558e81c}
 .btn{background:#6256e8;color:white;padding:11px 16px;border-radius:9px;font-size:13px;font-weight:600}
 .btn:hover{background:#5145d0}
+.btn-light{border:1px solid #e1e7f0;padding:10px 13px;border-radius:9px;font-size:12px;font-weight:600}
 .subject-row{display:grid;grid-template-columns:1fr 75px 95px 28px;gap:7px;align-items:center}
-.sidebar{width:245px;position:fixed;top:0;bottom:0;left:0;background:#fff;border-right:1px solid #e8edf5;padding:25px 17px}
+.sidebar{width:245px;position:fixed;top:0;bottom:0;left:0;background:white;border-right:1px solid #e8edf5;padding:25px 17px;z-index:5}
 .main{margin-left:245px}
 .nav-item{display:flex;gap:12px;align-items:center;padding:12px;border-radius:9px;color:#68758a;font-size:13px;margin:5px 0}
 .nav-item.active{background:#f0efff;color:#6256e8;font-weight:600}
 .progress{height:8px;background:#edf0f6;border-radius:20px;overflow:hidden}
 .progress>div{height:100%;background:#6256e8;border-radius:20px}
-@media(max-width:850px){.sidebar{display:none}.main{margin-left:0}}
-@media(max-width:600px){.subject-row{grid-template-columns:1fr 65px 80px 25px}}
 .developer-credit{display:flex;align-items:center;gap:4px;font-size:12px;font-weight:700;white-space:nowrap}
 .developer-credit .label{color:#64748b;font-weight:500}
-.developer-credit .aaditya{background:linear-gradient(90deg,#6256e8,#9333ea);-webkit-background-clip:text;background-clip:text;color:transparent}
-.developer-credit .ampersand{color:#94a3b8}
-.developer-credit .akshat{background:linear-gradient(90deg,#2563eb,#06b6d4);-webkit-background-clip:text;background-clip:text;color:transparent}
-@media(max-width:600px){.developer-credit{font-size:10px;gap:3px}}
-@media(max-width:380px){.developer-credit{font-size:9px}}
+.aaditya{background:linear-gradient(90deg,#6256e8,#9333ea);-webkit-background-clip:text;background-clip:text;color:transparent}
+.akshat{background:linear-gradient(90deg,#2563eb,#06b6d4);-webkit-background-clip:text;background-clip:text;color:transparent}
+.day-card[open] summary{margin-bottom:12px}
+.task-done{accent-color:#6256e8;width:16px;height:16px}
+.dark{background:#111827;color:#e5e7eb}
+.dark .card,.dark .sidebar,.dark header{background:#1f2937;border-color:#374151;color:#e5e7eb}
+.dark .input{background:#111827;color:#e5e7eb;border-color:#4b5563}
+.dark .nav-item{color:#cbd5e1}
+.dark .nav-item.active{background:#3730a3;color:white}
+.dark .text-gray-400,.dark .text-gray-500,.dark .text-gray-600,.dark .text-gray-700{color:#aab4c3!important}
+.dark .border-gray-100,.dark .border-t{border-color:#374151!important}
+.dark .progress{background:#374151}
+.dark .btn-light{border-color:#4b5563;color:#e5e7eb}
+.dark summary{color:#e5e7eb}
+
+@media(max-width:850px){
+.sidebar{display:none}
+.main{margin-left:0}
+}
+@media(max-width:600px){
+.subject-row{grid-template-columns:1fr 60px 78px 22px}
+.developer-credit{font-size:10px;gap:3px}
+}
 @media print{
 .no-print{display:none!important}
 .main{margin:0}
-body{background:white}
-.card{box-shadow:none}
+body{background:white!important;color:#111!important}
+.card{box-shadow:none;break-inside:avoid}
+.day-card{break-inside:avoid}
 }
 </style>
 </head>
@@ -66,6 +84,12 @@ body{background:white}
     <a href="#schedule" class="nav-item">
         <i class="fa-solid fa-calendar-days"></i> Study Schedule
     </a>
+    <a href="#revision" class="nav-item">
+        <i class="fa-solid fa-rotate"></i> Revision Planner
+    </a>
+    <a href="#weekly" class="nav-item">
+        <i class="fa-solid fa-chart-column"></i> Weekly Report
+    </a>
 
     <div class="absolute bottom-6 left-5 right-5 card p-4">
         <div class="flex items-center gap-2 text-indigo-600 mb-2">
@@ -73,7 +97,7 @@ body{background:white}
             <span class="text-sm font-semibold">Study Smart</span>
         </div>
         <p class="text-xs text-gray-500 leading-5">
-            Plan your subjects, manage your time and prepare confidently for exams.
+            Plan, learn, revise and track your exam preparation.
         </p>
     </div>
 </aside>
@@ -90,98 +114,86 @@ body{background:white}
         <div class="developer-credit">
             <span class="label">Developed by</span>
             <span class="aaditya">Aaditya Pundeer</span>
-            <span class="ampersand">&amp;</span>
+            <span class="text-gray-400">&amp;</span>
             <span class="akshat">Akshat Jha</span>
         </div>
-        <button onclick="loadPresetData()" class="border border-indigo-200 text-indigo-600 px-3 py-2 rounded-lg text-xs font-semibold">
-            <i class="fa-solid fa-wand-magic-sparkles mr-1"></i> BCA Demo
+
+        <button onclick="loadPresetData()" class="btn-light text-indigo-600">
+            BCA Demo
         </button>
-        <button onclick="window.print()" class="border border-gray-200 px-3 py-2 rounded-lg text-gray-600">
-            <i class="fa-solid fa-print"></i>
+
+        <button onclick="toggleTheme()" class="btn-light" title="Dark mode">
+            <i id="themeIcon" class="fa-solid fa-moon"></i>
+        </button>
+
+        <button onclick="window.print()" class="btn-light" title="Print / Save PDF">
+            <i class="fa-solid fa-file-pdf"></i>
         </button>
     </div>
 </header>
 
-<main class="p-5 md:p-8 max-w-7xl mx-auto" id="dashboard">
+<main id="dashboard" class="p-5 md:p-8 max-w-7xl mx-auto">
 
     <div class="mb-7">
         <h1 class="text-2xl font-bold">Welcome to CampusPulse 👋</h1>
-        <p class="text-sm text-gray-500 mt-1">Manage your exam preparation with a smart study plan.</p>
+        <p class="text-sm text-gray-500 mt-1">
+            Your personal smart exam preparation workspace.
+        </p>
     </div>
 
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-7">
 
         <div class="card p-5">
-            <div class="flex justify-between items-center">
-                <p class="text-xs text-gray-500">Days Remaining</p>
-                <i class="fa-regular fa-calendar text-indigo-500"></i>
-            </div>
+            <p class="text-xs text-gray-500">Days Remaining</p>
             <h2 id="statDays" class="text-3xl font-bold mt-3">--</h2>
-            <p class="text-xs text-gray-400 mt-1">Until your exam</p>
         </div>
 
         <div class="card p-5">
-            <div class="flex justify-between items-center">
-                <p class="text-xs text-gray-500">Total Subjects</p>
-                <i class="fa-solid fa-book text-blue-500"></i>
-            </div>
+            <p class="text-xs text-gray-500">Total Subjects</p>
             <h2 id="statSubjects" class="text-3xl font-bold mt-3">--</h2>
-            <p class="text-xs text-gray-400 mt-1">Added subjects</p>
         </div>
 
         <div class="card p-5">
-            <div class="flex justify-between items-center">
-                <p class="text-xs text-gray-500">Total Chapters</p>
-                <i class="fa-solid fa-layer-group text-emerald-500"></i>
-            </div>
+            <p class="text-xs text-gray-500">Total Chapters</p>
             <h2 id="statTopics" class="text-3xl font-bold mt-3">--</h2>
-            <p class="text-xs text-gray-400 mt-1">Topics to prepare</p>
         </div>
 
         <div class="card p-5">
-            <div class="flex justify-between items-center">
-                <p class="text-xs text-gray-500">Readiness Score</p>
-                <i class="fa-solid fa-chart-line text-amber-500"></i>
-            </div>
+            <p class="text-xs text-gray-500">Readiness Score</p>
             <h2 id="statScore" class="text-3xl font-bold mt-3">0%</h2>
-            <p class="text-xs text-gray-400 mt-1">Schedule completion</p>
         </div>
 
     </div>
 
     <section id="configuration" class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-7">
 
-        <div class="card p-6 lg:col-span-1">
-            <div class="flex items-center gap-3 mb-5">
-                <div class="w-9 h-9 bg-indigo-50 text-indigo-600 rounded-lg flex items-center justify-center">
-                    <i class="fa-solid fa-sliders"></i>
-                </div>
-                <div>
-                    <h3 class="font-bold">Exam Configuration</h3>
-                    <p class="text-xs text-gray-400">Set your study preferences</p>
-                </div>
+        <div class="card p-6">
+
+            <div class="mb-5">
+                <h3 class="font-bold">Exam Configuration</h3>
+                <p class="text-xs text-gray-400">Set your study preferences</p>
             </div>
 
             <form id="schedulerForm" onsubmit="generateSchedule(event)" class="space-y-4">
 
                 <div>
-                    <label class="text-xs font-semibold text-gray-500">Exam Name</label>
+                    <label class="text-xs font-semibold">Exam Name</label>
                     <input id="examName" class="input mt-1" required placeholder="BCA Semester Exams">
                 </div>
 
                 <div>
-                    <label class="text-xs font-semibold text-gray-500">Target Exam Date</label>
+                    <label class="text-xs font-semibold">Target Exam Date</label>
                     <input type="date" id="examDate" class="input mt-1" required>
                 </div>
 
                 <div>
-                    <label class="text-xs font-semibold text-gray-500">Daily Study Hours</label>
+                    <label class="text-xs font-semibold">Daily Study Hours</label>
                     <input type="number" id="dailyHours" min="1" max="16" value="5" class="input mt-1" required>
                 </div>
 
                 <div class="border-t pt-4">
                     <div class="flex justify-between items-center mb-3">
-                        <label class="text-xs font-bold text-gray-600">Subjects & Chapters</label>
+                        <label class="text-xs font-bold">Subjects & Chapters</label>
                         <button type="button" onclick="addSubjectRow()" class="text-xs text-indigo-600 font-semibold">
                             <i class="fa-solid fa-plus"></i> Add Subject
                         </button>
@@ -191,64 +203,138 @@ body{background:white}
                 </div>
 
                 <button type="submit" class="btn w-full">
-                    <i class="fa-solid fa-bolt mr-2"></i>Generate Smart Schedule
+                    <i class="fa-solid fa-bolt mr-2"></i>
+                    Generate Smart Schedule
                 </button>
+
             </form>
         </div>
 
         <div class="card p-6 lg:col-span-2">
+
             <div class="flex justify-between items-center mb-5">
                 <div>
                     <h3 class="font-bold">Study Analytics</h3>
-                    <p class="text-xs text-gray-400 mt-1">Subject-wise time allocation</p>
+                    <p class="text-xs text-gray-400 mt-1">Subject-wise chapter workload</p>
                 </div>
-                <span class="text-xs bg-indigo-50 text-indigo-600 px-3 py-2 rounded-lg">Overview</span>
+                <span class="text-xs bg-indigo-50 text-indigo-600 px-3 py-2 rounded-lg">
+                    Overview
+                </span>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5 items-center">
                 <div class="h-64">
                     <canvas id="prepChart"></canvas>
                 </div>
+
                 <div>
                     <h4 class="font-semibold text-sm mb-4">Preparation Summary</h4>
                     <div id="subjectSummary" class="space-y-4 text-sm text-gray-500">
-                        Generate your schedule to see subject analytics.
+                        Generate your schedule to see analytics.
                     </div>
                 </div>
             </div>
-        </div>
 
+        </div>
     </section>
 
-    <section id="schedule" class="card p-6">
+    <section id="schedule" class="card p-6 mb-7">
 
         <div class="flex flex-wrap justify-between items-center gap-3 mb-5">
             <div>
-                <h3 id="scheduleTitle" class="font-bold text-lg">Study Schedule</h3>
-                <p class="text-xs text-gray-400 mt-1">Every subject is covered every day. Open a day to see your full timetable.</p>
+                <h3 id="scheduleTitle" class="font-bold text-lg">Daily Study Schedule</h3>
+                <p class="text-xs text-gray-400 mt-1">
+                    Every subject appears daily, with a chapter focus and individual completion checkbox.
+                </p>
             </div>
+
             <span id="totalHoursAllocated" class="bg-indigo-50 text-indigo-600 px-3 py-2 rounded-lg text-xs font-semibold">
-                Total Hours: 0h
+                Study Target: --
             </span>
         </div>
 
         <div class="mb-5">
             <div class="flex justify-between text-xs mb-2">
-                <span class="font-semibold text-gray-600">Overall Progress</span>
+                <span class="font-semibold">Overall Progress</span>
                 <span id="progressLabel" class="text-indigo-600 font-bold">0%</span>
             </div>
+
             <div class="progress">
                 <div id="mainProgress" style="width:0%"></div>
             </div>
         </div>
 
         <div id="scheduleOutput" class="space-y-3">
-            <div class="text-center py-12 text-gray-400">
-                <i class="fa-solid fa-calendar-check text-4xl mb-3"></i>
-                <p class="text-sm">Your study schedule will appear here.</p>
-                <p class="text-xs mt-2">Add subjects and generate your schedule.</p>
+            <p class="text-center py-10 text-gray-400 text-sm">
+                Add subjects and generate your schedule.
+            </p>
+        </div>
+
+    </section>
+
+    <section id="revision" class="card p-6 mb-7">
+
+        <div class="flex flex-wrap justify-between gap-3 items-center mb-4">
+            <div>
+                <h3 class="font-bold text-lg">Revision Planner</h3>
+                <p class="text-xs text-gray-400 mt-1">
+                    Automatic revision reminders for planned chapters (+1, +3 and +7 days).
+                </p>
+            </div>
+
+            <span class="text-xs bg-purple-50 text-purple-600 px-3 py-2 rounded-lg">
+                Spaced Revision
+            </span>
+        </div>
+
+        <div id="revisionOutput" class="text-sm text-gray-400">
+            Generate a schedule to create your revision plan.
+        </div>
+
+    </section>
+
+    <section id="weekly" class="card p-6 mb-7">
+
+        <div class="flex flex-wrap justify-between items-center gap-3 mb-4">
+            <div>
+                <h3 class="font-bold text-lg">Weekly Report</h3>
+                <p class="text-xs text-gray-400 mt-1">
+                    Your completed study sessions and weekly progress.
+                </p>
+            </div>
+
+            <button onclick="renderWeeklyReport()" class="btn-light no-print">
+                Refresh Report
+            </button>
+        </div>
+
+        <div id="weeklyOutput" class="text-sm text-gray-400">
+            Complete study tasks to see your weekly report.
+        </div>
+
+    </section>
+
+    <section class="card p-6 mb-7 no-print">
+
+        <div class="flex flex-wrap justify-between items-center gap-4">
+            <div>
+                <h3 class="font-bold">Study Reminder</h3>
+                <p class="text-xs text-gray-400 mt-1">
+                    Allow browser notifications and choose a daily reminder time.
+                </p>
+            </div>
+
+            <div class="flex flex-wrap gap-2 items-center">
+                <input id="reminderTime" type="time" value="19:00" class="input" style="width:130px">
+                <button onclick="enableReminder()" class="btn">
+                    Enable Reminder
+                </button>
             </div>
         </div>
+
+        <p id="reminderStatus" class="text-xs text-gray-400 mt-3">
+            Reminder is not enabled.
+        </p>
 
     </section>
 
@@ -260,276 +346,683 @@ body{background:white}
 </div>
 
 <script>
-let chartInstance = null;
 
-function addSubjectRow(name="",chapters=5,difficulty="Medium"){
-    const row=document.createElement("div");
-    row.className="subject-row";
+const STORAGE_KEY='campuspulse_complete_v2';
 
-    const nameInput=document.createElement("input");
-    nameInput.className="input subject-name";
-    nameInput.placeholder="Subject";
-    nameInput.value=name;
-    nameInput.required=true;
+let chartInstance=null;
 
-    const chapterInput=document.createElement("input");
-    chapterInput.className="input subject-chapters";
-    chapterInput.type="number";
-    chapterInput.min="1";
-    chapterInput.value=chapters;
-    chapterInput.required=true;
+let app={
+    subjects:[],
+    examName:'',
+    examDate:'',
+    dailyHours:5,
+    days:0,
+    checks:{},
+    generatedAt:null
+};
 
-    const select=document.createElement("select");
-    select.className="input subject-diff";
+function addSubjectRow(name='',chapters=5,difficulty='Medium'){
 
-    ["Easy","Medium","Hard"].forEach(level=>{
-        const option=document.createElement("option");
-        option.value=level;
-        option.textContent=level;
-        if(level===difficulty) option.selected=true;
-        select.appendChild(option);
+    const row=document.createElement('div');
+    row.className='subject-row';
+
+    const n=document.createElement('input');
+    n.className='input subject-name';
+    n.placeholder='Subject';
+    n.value=name;
+    n.required=true;
+
+    const c=document.createElement('input');
+    c.className='input subject-chapters';
+    c.type='number';
+    c.min='1';
+    c.max='100';
+    c.value=chapters;
+    c.required=true;
+
+    const d=document.createElement('select');
+    d.className='input subject-diff';
+
+    ['Easy','Medium','Hard'].forEach(x=>{
+        let o=document.createElement('option');
+        o.value=x;
+        o.textContent=x;
+        if(x===difficulty)o.selected=true;
+        d.appendChild(o);
     });
 
-    const remove=document.createElement("button");
-    remove.type="button";
-    remove.className="text-red-400 hover:text-red-600";
-    remove.innerHTML='<i class="fa-solid fa-trash"></i>';
-    remove.onclick=()=>row.remove();
+    const del=document.createElement('button');
+    del.type='button';
+    del.className='text-red-400';
+    del.innerHTML='<i class="fa-solid fa-trash"></i>';
+    del.title='Remove subject';
+    del.onclick=()=>row.remove();
 
-    row.append(nameInput,chapterInput,select,remove);
-    document.getElementById("subjectsContainer").appendChild(row);
+    row.append(n,c,d,del);
+
+    document.getElementById('subjectsContainer').appendChild(row);
 }
 
 function loadPresetData(){
-    document.getElementById("examName").value="BCA 4th Semester Final Exams";
 
-    const date=new Date();
-    date.setDate(date.getDate()+20);
-    document.getElementById("examDate").value=
-        `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}-${String(date.getDate()).padStart(2,"0")}`;
+    document.getElementById('examName').value='BCA 4th Semester Final Exams';
 
-    document.getElementById("dailyHours").value=5;
+    let dt=new Date();
+    dt.setDate(dt.getDate()+20);
 
-    const container=document.getElementById("subjectsContainer");
-    container.innerHTML="";
+    document.getElementById('examDate').value=toISO(dt);
+    document.getElementById('dailyHours').value=5;
 
-    addSubjectRow("Java Programming",8,"Hard");
-    addSubjectRow("Computer Networks",6,"Medium");
-    addSubjectRow("Data Structures",7,"Hard");
-    addSubjectRow("Software Engineering",5,"Easy");
+    document.getElementById('subjectsContainer').innerHTML='';
 
-    generateSchedule(new Event("submit",{cancelable:true}));
+    addSubjectRow('Java Programming',8,'Hard');
+    addSubjectRow('Computer Networks',6,'Medium');
+    addSubjectRow('Data Structures',7,'Hard');
+    addSubjectRow('Software Engineering',5,'Easy');
+
+    generateSchedule();
+}
+
+function toISO(d){
+    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+
+function escapeHTML(v){
+    return String(v).replace(/[&<>"']/g,c=>({
+        '&':'&amp;',
+        '<':'&lt;',
+        '>':'&gt;',
+        '"':'&quot;',
+        "'":'&#39;'
+    }[c]));
 }
 
 function generateSchedule(e){
-    if(e) e.preventDefault();
 
-    const examName=document.getElementById("examName").value.trim();
-    const examDateVal=document.getElementById("examDate").value;
-    const dailyHours=Number(document.getElementById("dailyHours").value);
+    if(e)e.preventDefault();
 
-    const names=[...document.querySelectorAll(".subject-name")];
-    const chapters=[...document.querySelectorAll(".subject-chapters")];
-    const difficulties=[...document.querySelectorAll(".subject-diff")];
+    const examName=document.getElementById('examName').value.trim();
+    const examDate=document.getElementById('examDate').value;
+    const dailyHours=Number(document.getElementById('dailyHours').value);
 
-    if(names.length===0){
-        alert("Please add at least one subject!");
+    const ns=[...document.querySelectorAll('.subject-name')];
+    const cs=[...document.querySelectorAll('.subject-chapters')];
+    const ds=[...document.querySelectorAll('.subject-diff')];
+
+    if(!examName||!examDate||dailyHours<1||dailyHours>16||!ns.length){
+        alert('Please enter valid exam details and at least one subject.');
         return;
     }
 
-    if(!examName || !examDateVal || dailyHours<1 || dailyHours>16){
-        alert("Please enter valid exam details.");
-        return;
-    }
+    const subjects=ns.map((n,i)=>({
+        name:n.value.trim(),
+        chapters:Number(cs[i].value),
+        difficulty:ds[i].value
+    })).filter(s=>s.name&&s.chapters>0);
 
-    const subjects=names.map((input,i)=>{
-        const chapterCount=Number(chapters[i].value);
-        if(!input.value.trim() || chapterCount<1) return null;
-
-        const difficulty=difficulties[i].value;
-        const weight=difficulty==="Hard"?1.7:difficulty==="Medium"?1.3:1;
-
-        return {
-            name:input.value.trim(),
-            chapters:chapterCount,
-            difficulty,
-            weight
-        };
-    }).filter(Boolean);
-
-    if(subjects.length===0){
-        alert("Please enter valid subjects and chapters.");
+    if(!subjects.length){
+        alert('Please add valid subjects and chapter counts.');
         return;
     }
 
     const today=new Date();
     today.setHours(0,0,0,0);
 
-    const target=new Date(examDateVal+"T00:00:00");
-    const diffDays=Math.ceil((target-today)/86400000);
+    const target=new Date(examDate+'T00:00:00');
+    const days=Math.ceil((target-today)/86400000);
 
-    if(diffDays<=0){
-        alert("Exam date must be in the future!");
+    if(days<1){
+        alert('Exam date must be in the future.');
         return;
     }
 
-    const totalChapters=subjects.reduce((sum,s)=>sum+s.chapters,0);
-    const totalWeight=subjects.reduce((sum,s)=>sum+s.chapters*s.weight,0);
-    const totalHours=diffDays*dailyHours;
+    const previousChecks=app.checks||{};
 
-    document.getElementById("statDays").textContent=diffDays;
-    document.getElementById("statSubjects").textContent=subjects.length;
-    document.getElementById("statTopics").textContent=totalChapters;
-    document.getElementById("scheduleTitle").textContent=examName+" - Study Schedule";
-    document.getElementById("totalHoursAllocated").textContent="Study Target: "+totalHours+" hrs";
+    app={
+        subjects,
+        examName,
+        examDate,
+        dailyHours,
+        days,
+        checks:previousChecks,
+        generatedAt:Date.now()
+    };
 
-    const allocations=subjects.map(s=>({
-        ...s,
-        hours:Math.round((s.chapters*s.weight/totalWeight)*totalHours*10)/10
-    }));
+    document.getElementById('statDays').textContent=days;
+    document.getElementById('statSubjects').textContent=subjects.length;
+    document.getElementById('statTopics').textContent=subjects.reduce((a,s)=>a+s.chapters,0);
 
-    renderChart(allocations);
-    renderSummary(allocations);
+    document.getElementById('scheduleTitle').textContent=examName+' — Daily Study Schedule';
 
-    let output="";
-    const daysToShow=Math.min(diffDays,30);
-    const hoursPerSubject=dailyHours/subjects.length;
+    document.getElementById('totalHoursAllocated').textContent=
+        `${days*dailyHours} total study hours`;
 
-    for(let day=1;day<=daysToShow;day++){
-        const date=new Date(today);
+    renderChart();
+    renderSchedule();
+    renderRevision();
+    renderWeeklyReport();
+    saveApp();
+}
+
+function chapterForDay(subject,day,totalDays){
+
+    const idx=Math.min(
+        subject.chapters-1,
+        Math.floor((day-1)*subject.chapters/totalDays)
+    );
+
+    return subject.chapters<=totalDays
+        ?`Chapter ${idx+1}`
+        :`Chapter ${idx+1} (focus)`;
+}
+
+function renderSchedule(){
+
+    let html='';
+    let count=Math.min(app.days,60);
+    let per=app.dailyHours/app.subjects.length;
+
+    for(let day=1;day<=count;day++){
+
+        let date=new Date();
+        date.setHours(0,0,0,0);
         date.setDate(date.getDate()+day);
-        const dateText=date.toLocaleDateString("en-IN",{
-            weekday:"long",day:"2-digit",month:"short",year:"numeric"
-        });
 
-        let currentMinutes=8*60;
-        let subjectRows="";
+        let time=8*60;
+        let rows='';
 
-        subjects.forEach((subject,index)=>{
-            const blockMinutes=hoursPerSubject*60;
-            const startMinutes=currentMinutes;
-            const endMinutes=startMinutes+blockMinutes;
+        app.subjects.forEach((s,i)=>{
 
-            const formatTime=mins=>{
-                const h=Math.floor(mins/60)%24;
-                const m=Math.round(mins%60);
-                const suffix=h>=12?"PM":"AM";
-                const hour=(h%12)||12;
-                return `${hour}:${String(m).padStart(2,"0")} ${suffix}`;
+            let start=time;
+            let end=time+per*60;
+
+            const fmt=m=>{
+                let h=Math.floor(m/60)%24;
+                let mm=Math.round(m%60);
+                let ap=h>=12?'PM':'AM';
+
+                return `${h%12||12}:${String(mm).padStart(2,'0')} ${ap}`;
             };
 
-            const duration=hoursPerSubject.toFixed(2).replace(/\.?0+$/,"");
+            const chapter=chapterForDay(s,day,app.days);
+            const key=`${day}_${i}`;
+            const checked=!!app.checks[key];
 
-            subjectRows+=`<div class="flex flex-wrap items-center justify-between gap-3 border-t border-gray-100 py-3">
-                <div class="flex items-center gap-3 min-w-0">
-                    <div class="bg-indigo-50 text-indigo-600 rounded-lg px-3 py-2 text-xs font-bold whitespace-nowrap">${formatTime(startMinutes)} – ${formatTime(endMinutes)}</div>
-                    <div class="min-w-0">
-                        <h4 class="font-semibold text-sm">${escapeHTML(subject.name)}</h4>
-                        <p class="text-xs text-gray-400">${duration} study hours · ${subject.difficulty} · Revision &amp; practice</p>
+            rows+=`
+            <div class="flex flex-wrap justify-between items-center gap-3 border-t border-gray-100 py-3">
+
+                <div class="flex items-center gap-3">
+
+                    <span class="bg-indigo-50 text-indigo-600 rounded-lg px-3 py-2 text-xs font-bold whitespace-nowrap">
+                        ${fmt(start)} – ${fmt(end)}
+                    </span>
+
+                    <div>
+                        <p class="font-semibold text-sm">${escapeHTML(s.name)}</p>
+                        <p class="text-xs text-gray-400">
+                            ${chapter} · ${s.difficulty} · ${per.toFixed(1)} hours
+                        </p>
                     </div>
+
                 </div>
-                <label class="flex items-center gap-2 text-xs text-gray-500 cursor-pointer whitespace-nowrap">
-                    <input type="checkbox" class="task-check w-4 h-4 accent-indigo-600" onchange="updateProgress()">
+
+                <label class="flex items-center gap-2 text-xs text-gray-500 cursor-pointer">
+                    <input type="checkbox" class="task-done"
+                    ${checked?'checked':''}
+                    onchange="setTask('${key}',this.checked)">
                     Done
                 </label>
+
             </div>`;
 
-            currentMinutes=endMinutes+10;
+            time=end+10;
         });
 
-        output+=`<details class="border border-gray-100 rounded-xl p-4 hover:border-indigo-200 transition" ${day===1?"open":""}>
+        html+=`
+        <details class="day-card border border-gray-100 rounded-xl p-4" ${day===1?'open':''}>
+
             <summary class="flex flex-wrap justify-between items-center gap-2 cursor-pointer list-none">
-                <div class="flex items-center gap-3">
-                    <div class="bg-indigo-50 text-indigo-600 rounded-lg px-3 py-2 text-center min-w-16">
-                        <p class="text-xs font-bold">DAY ${day}</p>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold text-sm">Complete Daily Study Plan</h4>
-                        <p class="text-xs text-gray-400 mt-1">${dateText} · ${dailyHours} total study hours · ${subjects.length} subjects</p>
-                    </div>
+
+                <div>
+                    <span class="text-xs font-bold text-indigo-600">DAY ${day}</span>
+
+                    <h4 class="font-semibold text-sm mt-1">
+                        ${date.toLocaleDateString('en-IN',{
+                            weekday:'long',
+                            day:'2-digit',
+                            month:'short',
+                            year:'numeric'
+                        })}
+                    </h4>
+
+                    <p class="text-xs text-gray-400 mt-1">
+                        ${app.subjects.length} subjects · ${app.dailyHours} study hours
+                    </p>
                 </div>
-                <span class="text-xs text-indigo-600 font-semibold">View full day <i class="fa-solid fa-chevron-down ml-1"></i></span>
+
+                <span class="text-xs text-indigo-600">
+                    View day <i class="fa-solid fa-chevron-down ml-1"></i>
+                </span>
+
             </summary>
-            <div class="mt-3">${subjectRows}</div>
+
+            <div>${rows}</div>
+
         </details>`;
     }
 
-    if(diffDays>30){
-        output+=`<p class="text-center text-xs text-gray-400 py-3">Showing first 30 days of your ${diffDays}-day preparation period.</p>`;
+    if(app.days>60){
+        html+=`
+        <p class="text-center text-xs text-gray-400 py-3">
+            First 60 days are displayed. Your exam period is ${app.days} days.
+        </p>`;
     }
 
-    document.getElementById("scheduleOutput").innerHTML=output;
+    document.getElementById('scheduleOutput').innerHTML=html;
+
     updateProgress();
 }
 
-function escapeHTML(value){
-    return value.replace(/[&<>"']/g,char=>({
-        "&":"&amp;",
-        "<":"&lt;",
-        ">":"&gt;",
-        '"':"&quot;",
-        "'":"&#39;"
-    })[char]);
+function setTask(key,checked){
+
+    app.checks[key]=checked;
+
+    saveApp();
+    updateProgress();
+    renderWeeklyReport();
 }
 
-function renderChart(data){
-    const ctx=document.getElementById("prepChart").getContext("2d");
+function updateProgress(){
 
-    if(chartInstance) chartInstance.destroy();
+    const total=Math.min(app.days,60)*app.subjects.length;
+
+    const done=Object.values(app.checks).filter(Boolean).length;
+
+    const score=total?Math.round(done/total*100):0;
+
+    document.getElementById('statScore').textContent=score+'%';
+    document.getElementById('progressLabel').textContent=score+'%';
+    document.getElementById('mainProgress').style.width=score+'%';
+}
+
+function renderChart(){
+
+    const ctx=document.getElementById('prepChart').getContext('2d');
+
+    if(chartInstance)chartInstance.destroy();
 
     chartInstance=new Chart(ctx,{
-        type:"doughnut",
+        type:'doughnut',
+
         data:{
-            labels:data.map(s=>s.name),
+            labels:app.subjects.map(s=>s.name),
+
             datasets:[{
-                data:data.map(s=>s.hours),
-                backgroundColor:["#6256e8","#20b8d5","#24b47e","#f5ad42","#ec6a9b","#8b75e8"],
+                data:app.subjects.map(s=>s.chapters),
+
+                backgroundColor:[
+                    '#6256e8',
+                    '#20b8d5',
+                    '#24b47e',
+                    '#f5ad42',
+                    '#ec6a9b',
+                    '#8b75e8'
+                ],
+
                 borderWidth:3,
-                borderColor:"#fff"
+                borderColor:'#fff'
             }]
         },
+
         options:{
             responsive:true,
             maintainAspectRatio:false,
-            cutout:"68%",
+            cutout:'68%',
+
             plugins:{
                 legend:{
-                    position:"bottom",
-                    labels:{usePointStyle:true,boxWidth:8,padding:16}
+                    position:'bottom',
+                    labels:{
+                        usePointStyle:true,
+                        boxWidth:8,
+                        padding:14
+                    }
                 }
             }
         }
     });
-}
 
-function renderSummary(data){
-    const container=document.getElementById("subjectSummary");
-
-    container.innerHTML=data.map(s=>`
+    document.getElementById('subjectSummary').innerHTML=
+        app.subjects.map(s=>`
         <div>
+
             <div class="flex justify-between mb-2">
                 <span class="text-gray-700 font-medium">${escapeHTML(s.name)}</span>
-                <span class="font-semibold text-indigo-600">${s.hours}h</span>
+                <span class="font-semibold text-indigo-600">${s.chapters} chapters</span>
             </div>
+
             <div class="progress">
-                <div style="width:${Math.min(100,s.hours/data.reduce((a,b)=>a+b.hours,0)*100)}%"></div>
+                <div style="width:${s.chapters/Math.max(...app.subjects.map(x=>x.chapters))*100}%"></div>
             </div>
+
         </div>
-    `).join("");
+        `).join('');
 }
 
-function updateProgress(){
-    const checkboxes=[...document.querySelectorAll(".task-check")];
-    const total=checkboxes.length;
-    const done=checkboxes.filter(cb=>cb.checked).length;
-    const score=total?Math.round(done/total*100):0;
+function renderRevision(){
 
-    document.getElementById("statScore").textContent=score+"%";
-    document.getElementById("progressLabel").textContent=score+"%";
-    document.getElementById("mainProgress").style.width=score+"%";
+    let entries=[];
+
+    app.subjects.forEach((s,i)=>{
+
+        for(let ch=1;ch<=s.chapters;ch++){
+
+            let base=Math.max(1,Math.ceil(ch*app.days/s.chapters));
+
+            [1,3,7].forEach(offset=>{
+
+                let day=base+offset;
+
+                if(day<=app.days){
+
+                    let d=new Date();
+                    d.setHours(0,0,0,0);
+                    d.setDate(d.getDate()+day);
+
+                    entries.push({
+                        name:s.name,
+                        chapter:ch,
+                        day,
+                        date:d
+                    });
+                }
+            });
+        }
+    });
+
+    entries.sort((a,b)=>a.day-b.day);
+
+    document.getElementById('revisionOutput').innerHTML=
+        entries.length
+        ?`
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+
+            ${entries.slice(0,90).map(r=>`
+
+            <div class="rounded-xl border border-gray-100 p-3">
+
+                <p class="text-xs text-purple-600 font-bold">
+                    DAY ${r.day} · ${r.date.toLocaleDateString('en-IN',{
+                        day:'2-digit',
+                        month:'short'
+                    })}
+                </p>
+
+                <p class="font-semibold text-sm mt-1">
+                    ${escapeHTML(r.name)}
+                </p>
+
+                <p class="text-xs text-gray-400">
+                    Chapter ${r.chapter} revision
+                </p>
+
+            </div>
+
+            `).join('')}
+
+        </div>
+
+        ${entries.length>90
+            ?'<p class="text-xs text-gray-400 mt-3">Showing first 90 revision reminders.</p>'
+            :''}
+        `
+        :'<p class="text-sm text-gray-400">No revision dates fall before the exam date. Try an earlier exam date or fewer chapters.</p>';
 }
 
-window.onload=loadPresetData;
+function renderWeeklyReport(){
+
+    if(!app.subjects.length){
+        document.getElementById('weeklyOutput').textContent=
+            'Generate your schedule to view the weekly report.';
+        return;
+    }
+
+    let total=0;
+    let done=0;
+    const perWeek=[];
+
+    for(let w=0;w<Math.ceil(Math.min(app.days,60)/7);w++){
+
+        let start=w*7+1;
+        let end=Math.min((w+1)*7,app.days,60);
+
+        let wDone=0;
+        let wTotal=(end-start+1)*app.subjects.length;
+
+        for(let d=start;d<=end;d++){
+
+            app.subjects.forEach((s,i)=>{
+
+                if(app.checks[`${d}_${i}`])wDone++;
+
+            });
+        }
+
+        total+=wTotal;
+        done+=wDone;
+
+        perWeek.push({
+            w:w+1,
+            wDone,
+            wTotal
+        });
+    }
+
+    document.getElementById('weeklyOutput').innerHTML=`
+
+    <div class="grid grid-cols-2 gap-3 mb-4">
+
+        <div class="rounded-xl bg-indigo-50 p-4">
+            <p class="text-xs text-indigo-600">Completed study sessions</p>
+            <p class="text-2xl font-bold text-indigo-700">${done}</p>
+        </div>
+
+        <div class="rounded-xl bg-emerald-50 p-4">
+            <p class="text-xs text-emerald-700">Overall completion</p>
+            <p class="text-2xl font-bold text-emerald-700">
+                ${total?Math.round(done/total*100):0}%
+            </p>
+        </div>
+
+    </div>
+
+    <div class="space-y-3">
+
+        ${perWeek.map(x=>`
+
+        <div>
+
+            <div class="flex justify-between text-xs mb-1">
+                <span class="font-semibold">Week ${x.w}</span>
+                <span>${x.wDone}/${x.wTotal} sessions</span>
+            </div>
+
+            <div class="progress">
+                <div style="width:${x.wTotal?x.wDone/x.wTotal*100:0}%"></div>
+            </div>
+
+        </div>
+
+        `).join('')}
+
+    </div>`;
+}
+
+function saveApp(){
+
+    try{
+        localStorage.setItem(STORAGE_KEY,JSON.stringify(app));
+    }catch(e){
+        console.warn('Could not save progress',e);
+    }
+}
+
+function restoreApp(){
+
+    try{
+
+        const raw=localStorage.getItem(STORAGE_KEY);
+
+        if(!raw)return false;
+
+        const saved=JSON.parse(raw);
+
+        if(!saved.subjects?.length)return false;
+
+        app=saved;
+
+        document.getElementById('examName').value=app.examName;
+        document.getElementById('examDate').value=app.examDate;
+        document.getElementById('dailyHours').value=app.dailyHours;
+
+        document.getElementById('subjectsContainer').innerHTML='';
+
+        app.subjects.forEach(s=>{
+            addSubjectRow(s.name,s.chapters,s.difficulty);
+        });
+
+        const today=new Date();
+        today.setHours(0,0,0,0);
+
+        const days=Math.ceil(
+            (new Date(app.examDate+'T00:00:00')-today)/86400000
+        );
+
+        if(days>0)app.days=days;
+
+        document.getElementById('statDays').textContent=app.days;
+        document.getElementById('statSubjects').textContent=app.subjects.length;
+
+        document.getElementById('statTopics').textContent=
+            app.subjects.reduce((a,s)=>a+s.chapters,0);
+
+        document.getElementById('scheduleTitle').textContent=
+            app.examName+' — Daily Study Schedule';
+
+        document.getElementById('totalHoursAllocated').textContent=
+            `${app.days*app.dailyHours} total study hours`;
+
+        renderChart();
+        renderSchedule();
+        renderRevision();
+        renderWeeklyReport();
+
+        return true;
+
+    }catch(e){
+        return false;
+    }
+}
+
+function toggleTheme(){
+
+    document.body.classList.toggle('dark');
+
+    const dark=document.body.classList.contains('dark');
+
+    localStorage.setItem('campuspulse_dark',dark?'1':'0');
+
+    document.getElementById('themeIcon').className=
+        dark?'fa-solid fa-sun':'fa-solid fa-moon';
+}
+
+function enableReminder(){
+
+    if(!('Notification'in window)){
+
+        document.getElementById('reminderStatus').textContent=
+            'This browser does not support notifications.';
+
+        return;
+    }
+
+    Notification.requestPermission().then(p=>{
+
+        if(p!=='granted'){
+
+            document.getElementById('reminderStatus').textContent=
+                'Notification permission was not granted. Allow notifications in browser settings.';
+
+            return;
+        }
+
+        const t=document.getElementById('reminderTime').value;
+
+        localStorage.setItem('campuspulse_reminder',t);
+
+        document.getElementById('reminderStatus').textContent=
+            `Daily reminder set for ${t}. Keep this browser open to receive reminders.`;
+
+        scheduleReminder(t);
+    });
+}
+
+let reminderTimer=null;
+
+function scheduleReminder(t){
+
+    if(reminderTimer)clearInterval(reminderTimer);
+
+    reminderTimer=setInterval(()=>{
+
+        const now=new Date();
+
+        const hh=String(now.getHours()).padStart(2,'0');
+        const mm=String(now.getMinutes()).padStart(2,'0');
+
+        const key=toISO(now)+'_'+t;
+
+        if(`${hh}:${mm}`===t&&localStorage.getItem('campuspulse_last_notice')!==key){
+
+            new Notification('CampusPulse Study Reminder',{
+                body:'It is time for your planned study session. Keep going!'
+            });
+
+            localStorage.setItem('campuspulse_last_notice',key);
+        }
+
+    },15000);
+}
+
+window.addEventListener('load',()=>{
+
+    if(localStorage.getItem('campuspulse_dark')==='1'){
+
+        document.body.classList.add('dark');
+
+        document.getElementById('themeIcon').className='fa-solid fa-sun';
+    }
+
+    if(!restoreApp()){
+        loadPresetData();
+    }
+
+    const r=localStorage.getItem('campuspulse_reminder');
+
+    if(r){
+
+        document.getElementById('reminderTime').value=r;
+
+        document.getElementById('reminderStatus').textContent=
+            `Daily reminder set for ${r}.`;
+
+        if('Notification'in window&&Notification.permission==='granted'){
+            scheduleReminder(r);
+        }
+    }
+
+});
+
 </script>
 
 </body>
