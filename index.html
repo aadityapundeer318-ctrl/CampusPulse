@@ -7,1019 +7,1549 @@
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
-*{box-sizing:border-box}
-body{font-family:Inter,system-ui,sans-serif;background:#f5f7fb;color:#172033;transition:.2s}
-.card{background:white;border:1px solid #e8edf5;border-radius:16px;box-shadow:0 4px 18px #1423460a}
-.input{width:100%;padding:11px 12px;border:1px solid #e1e7f0;border-radius:9px;background:white;color:#172033;outline:none;font-size:13px}
-.input:focus{border-color:#6558e8;box-shadow:0 0 0 3px #6558e81c}
-.btn{background:#6256e8;color:white;padding:11px 16px;border-radius:9px;font-size:13px;font-weight:600}
-.btn:hover{background:#5145d0}
-.btn-light{border:1px solid #e1e7f0;padding:10px 13px;border-radius:9px;font-size:12px;font-weight:600}
-.subject-row{display:grid;grid-template-columns:1fr 75px 95px 28px;gap:7px;align-items:center}
-.sidebar{width:245px;position:fixed;top:0;bottom:0;left:0;background:white;border-right:1px solid #e8edf5;padding:25px 17px;z-index:5}
-.main{margin-left:245px}
-.nav-item{display:flex;gap:12px;align-items:center;padding:12px;border-radius:9px;color:#68758a;font-size:13px;margin:5px 0}
-.nav-item.active{background:#f0efff;color:#6256e8;font-weight:600}
-.progress{height:8px;background:#edf0f6;border-radius:20px;overflow:hidden}
-.progress>div{height:100%;background:#6256e8;border-radius:20px}
-.developer-credit{display:flex;align-items:center;gap:4px;font-size:12px;font-weight:700;white-space:nowrap}
-.developer-credit .label{color:#64748b;font-weight:500}
-.aaditya{background:linear-gradient(90deg,#6256e8,#9333ea);-webkit-background-clip:text;background-clip:text;color:transparent}
-.akshat{background:linear-gradient(90deg,#2563eb,#06b6d4);-webkit-background-clip:text;background-clip:text;color:transparent}
-.day-card[open] summary{margin-bottom:12px}
-.task-done{accent-color:#6256e8;width:16px;height:16px}
-.dark{background:#111827;color:#e5e7eb}
-.dark .card,.dark .sidebar,.dark header{background:#1f2937;border-color:#374151;color:#e5e7eb}
-.dark .input{background:#111827;color:#e5e7eb;border-color:#4b5563}
-.dark .nav-item{color:#cbd5e1}
-.dark .nav-item.active{background:#3730a3;color:white}
-.dark .text-gray-400,.dark .text-gray-500,.dark .text-gray-600,.dark .text-gray-700{color:#aab4c3!important}
-.dark .border-gray-100,.dark .border-t{border-color:#374151!important}
-.dark .progress{background:#374151}
-.dark .btn-light{border-color:#4b5563;color:#e5e7eb}
-.dark summary{color:#e5e7eb}
+:root {
+ --purple:#6425df;
+ --purple2:#8b45f2;
+ --ink:#17172f;
+ --muted:#77788f;
+ --line:#ecebfa;
+ --bg:#f7f6ff;
+}
 
-@media(max-width:850px){
-.sidebar{display:none}
-.main{margin-left:0}
+*{box-sizing:border-box;scroll-behavior:smooth}
+
+body{
+ margin:0;
+ background:var(--bg);
+ color:var(--ink);
+ font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+ transition:background .25s,color .25s;
 }
-@media(max-width:600px){
-.subject-row{grid-template-columns:1fr 60px 78px 22px}
-.developer-credit{font-size:10px;gap:3px}
+
+button,a{-webkit-tap-highlight-color:transparent}
+
+.sidebar{
+ position:fixed;
+ inset:0 auto 0 0;
+ width:270px;
+ background:#fff;
+ border-right:1px solid var(--line);
+ padding:25px 18px;
+ z-index:20;
+ display:flex;
+ flex-direction:column;
 }
+
+.brand-icon{
+ width:48px;height:48px;
+ border-radius:16px;
+ background:linear-gradient(135deg,#7426e8,#a855f7);
+ color:white;
+ display:grid;
+ place-items:center;
+ box-shadow:0 8px 18px #7426e833;
+}
+
+.nav-label{
+ font-size:10px;
+ font-weight:800;
+ letter-spacing:1.5px;
+ color:#a3a0b8;
+ padding:0 12px;
+ margin:27px 0 10px;
+}
+
+/* PROFESSIONAL ACTIVE ICON EFFECT */
+.nav-item{
+ position:relative;
+ display:flex;
+ align-items:center;
+ gap:14px;
+ width:100%;
+ padding:10px 14px;
+ margin:5px 0;
+ border-radius:15px;
+ color:#68677e;
+ text-decoration:none;
+ font-size:13px;
+ font-weight:650;
+ transition:all .25s ease;
+}
+
+.nav-item .nav-icon{
+ width:38px;
+ height:38px;
+ border-radius:12px;
+ display:grid;
+ place-items:center;
+ font-size:16px;
+ transition:all .25s ease;
+}
+
+.nav-item:hover{
+ background:#f7f3ff;
+ color:var(--purple);
+ transform:translateX(3px);
+}
+
+.nav-item.active{
+ background:linear-gradient(105deg,#f0e5ff,#f8f2ff);
+ color:var(--purple);
+ box-shadow:0 7px 18px #702be90d;
+}
+
+.nav-item.active:before{
+ content:"";
+ position:absolute;
+ left:0;
+ top:12px;
+ bottom:12px;
+ width:4px;
+ border-radius:0 6px 6px 0;
+ background:linear-gradient(#6425df,#a855f7);
+}
+
+.nav-item.active .nav-icon{
+ background:linear-gradient(135deg,#6c25e5,#a34cf2);
+ color:white;
+ box-shadow:0 5px 12px #702be944;
+ transform:scale(1.07);
+}
+
+.nav-item:not(.active) .nav-icon{
+ background:#f6f5fb;
+ color:#77758d;
+}
+
+.nav-item:active .nav-icon{
+ transform:scale(.91);
+}
+
+.encourage{
+ margin-top:auto;
+ border-radius:18px;
+ padding:17px 14px;
+ background:linear-gradient(125deg,#ead7ff,#f5eaff);
+ color:#4e1aa9;
+}
+
+.topbar{
+ min-height:78px;
+ background:#fff;
+ border-bottom:1px solid var(--line);
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:15px;
+ padding:16px 34px;
+ position:sticky;
+ top:0;
+ z-index:10;
+}
+
+.main{margin-left:270px;min-height:100vh}
+.page{max-width:1400px;margin:auto;padding:30px 34px 55px}
+
+.card{
+ background:white;
+ border:1px solid var(--line);
+ border-radius:22px;
+ box-shadow:0 7px 25px #29205b08;
+}
+
+.stat-card{
+ padding:20px;
+ display:flex;
+ align-items:center;
+ gap:14px;
+}
+
+.stat-icon{
+ width:46px;
+ height:46px;
+ border-radius:15px;
+ display:grid;
+ place-items:center;
+ font-size:19px;
+}
+
+.input{
+ width:100%;
+ padding:12px 13px;
+ border:1px solid #e7e5f1;
+ border-radius:11px;
+ background:#fff;
+ color:#27243e;
+ font-size:13px;
+ outline:none;
+}
+
+.input:focus{
+ border-color:#8b45f2;
+ box-shadow:0 0 0 3px #8b45f21a;
+}
+
+.btn{
+ border:0;
+ background:linear-gradient(100deg,#6425df,#9145ed);
+ color:#fff;
+ padding:12px 17px;
+ border-radius:12px;
+ font-size:13px;
+ font-weight:750;
+ cursor:pointer;
+ box-shadow:0 6px 14px #702be922;
+ transition:.2s;
+}
+
+.btn:hover{transform:translateY(-2px)}
+
+.btn-light{
+ border:1px solid #e8e5f3;
+ background:#fff;
+ color:#55516e;
+ padding:10px 13px;
+ border-radius:11px;
+ font-size:12px;
+ font-weight:700;
+ cursor:pointer;
+}
+
+.quick-tile{
+ border-radius:19px;
+ padding:18px 12px;
+ text-align:center;
+ cursor:pointer;
+ transition:.22s;
+ border:1px solid transparent;
+}
+
+.quick-tile:hover{
+ transform:translateY(-4px);
+ box-shadow:0 10px 20px #25204412;
+}
+
+.quick-tile:active{transform:scale(.97)}
+
+.subject-row{
+ display:grid;
+ grid-template-columns:1fr 78px 100px 28px;
+ gap:8px;
+ align-items:center;
+}
+
+.progress{
+ height:9px;
+ background:#efedf6;
+ border-radius:30px;
+ overflow:hidden;
+}
+
+.progress>div{
+ height:100%;
+ background:linear-gradient(90deg,#6425df,#a855f7);
+ border-radius:30px;
+ transition:width .3s;
+}
+
+.task-done{
+ accent-color:#6425df;
+ width:17px;
+ height:17px;
+}
+
+.day-card{
+ border:1px solid #eeecf5;
+ border-radius:15px;
+ padding:15px;
+}
+
+.day-card summary{
+ cursor:pointer;
+ list-style:none;
+}
+
+.day-card summary::-webkit-details-marker{display:none}
+
+.developer-credit{
+ font-size:11px;
+ font-weight:750;
+ white-space:nowrap;
+}
+
+.aaditya{
+ background:linear-gradient(90deg,#6425df,#a855f7);
+ background-clip:text;
+ color:transparent;
+}
+
+.akshat{
+ background:linear-gradient(90deg,#2563eb,#06b6d4);
+ background-clip:text;
+ color:transparent;
+}
+
+.mobile-menu{display:none}
+
+.dark{
+ --bg:#111827;
+ --ink:#f2efff;
+ --muted:#b9b4ce;
+ --line:#343149;
+}
+
+.dark .sidebar,
+.dark .topbar,
+.dark .card,
+.dark .btn-light{
+ background:#1e1b2d;
+ border-color:#343149;
+ color:#f2efff;
+}
+
+.dark .nav-item{color:#c7c1dc}
+
+.dark .nav-item.active{
+ background:#38265c;
+ color:#e5d4ff;
+}
+
+.dark .nav-item:not(.active) .nav-icon{
+ background:#2b273d;
+ color:#c9c1df;
+}
+
+.dark .encourage{
+ background:#38265c;
+ color:#eadcff;
+}
+
+.dark .input{
+ background:#242036;
+ color:#fff;
+ border-color:#45405b;
+}
+
+.dark .text-gray-400,
+.dark .text-gray-500,
+.dark .text-gray-600,
+.dark .text-gray-700{
+ color:#b9b4ce!important;
+}
+
+.dark .day-card{border-color:#39344f}
+.dark .progress{background:#38334b}
+
+@media(max-width:950px){
+ .sidebar{width:235px}
+ .main{margin-left:235px}
+ .topbar{padding:14px 20px}
+ .page{padding:24px 20px}
+}
+
+@media(max-width:720px){
+ .sidebar{
+  transform:translateX(-105%);
+  transition:.25s;
+  width:270px;
+  box-shadow:12px 0 30px #17102b20;
+ }
+ .sidebar.open{transform:translateX(0)}
+ .main{margin-left:0}
+ .mobile-menu{display:inline-grid;place-items:center}
+ .topbar{padding:13px 16px}
+ .page{padding:20px 14px 45px}
+ .developer-credit{display:none}
+}
+
+@media(max-width:520px){
+ .subject-row{grid-template-columns:1fr 58px 82px 24px}
+ .top-actions .btn-light{padding:9px}
+ .welcome-title{font-size:27px}
+ .stat-card{padding:14px;gap:9px}
+ .stat-icon{width:38px;height:38px}
+}
+
 @media print{
-.no-print{display:none!important}
-.main{margin:0}
-body{background:white!important;color:#111!important}
-.card{box-shadow:none;break-inside:avoid}
-.day-card{break-inside:avoid}
+ .sidebar,.topbar,.no-print{display:none!important}
+ .main{margin:0}
+ .page{padding:0}
+ .card{box-shadow:none;break-inside:avoid}
+ body{background:white;color:#111}
 }
 </style>
 </head>
 
 <body>
 
-<aside class="sidebar no-print">
-    <div class="flex items-center gap-3 mb-10">
-        <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center">
-            <i class="fa-solid fa-graduation-cap text-lg"></i>
-        </div>
-        <div>
-            <h1 class="font-bold text-lg">CampusPulse</h1>
-            <p class="text-xs text-gray-400">Smart Study Planner</p>
-        </div>
-    </div>
+<aside class="sidebar no-print" id="sidebar">
 
-    <p class="text-xs text-gray-400 uppercase font-semibold px-3 mb-3">Workspace</p>
+ <div class="flex items-center gap-3 px-2">
+  <div class="brand-icon">
+   <i class="fa-solid fa-graduation-cap text-2xl"></i>
+  </div>
+  <div>
+   <div class="font-extrabold text-xl tracking-tight">
+    Campus<span style="color:#7426e8">Pulse</span>
+   </div>
+   <p class="text-xs text-gray-400">Learn · Plan · Achieve</p>
+  </div>
+ </div>
 
-    <a href="#dashboard" class="nav-item active">
-        <i class="fa-solid fa-chart-pie"></i> Dashboard
-    </a>
-    <a href="#configuration" class="nav-item">
-        <i class="fa-solid fa-sliders"></i> Exam Configuration
-    </a>
-    <a href="#schedule" class="nav-item">
-        <i class="fa-solid fa-calendar-days"></i> Study Schedule
-    </a>
-    <a href="#revision" class="nav-item">
-        <i class="fa-solid fa-rotate"></i> Revision Planner
-    </a>
-    <a href="#weekly" class="nav-item">
-        <i class="fa-solid fa-chart-column"></i> Weekly Report
-    </a>
+ <div class="nav-label">YOUR WORKSPACE</div>
 
-    <div class="absolute bottom-6 left-5 right-5 card p-4">
-        <div class="flex items-center gap-2 text-indigo-600 mb-2">
-            <i class="fa-solid fa-lightbulb"></i>
-            <span class="text-sm font-semibold">Study Smart</span>
-        </div>
-        <p class="text-xs text-gray-500 leading-5">
-            Plan, learn, revise and track your exam preparation.
-        </p>
-    </div>
+ <nav id="sideNav">
+  <a href="#dashboard" class="nav-item active">
+   <span class="nav-icon"><i class="fa-solid fa-house"></i></span>
+   Dashboard
+  </a>
+
+  <a href="#configuration" class="nav-item">
+   <span class="nav-icon"><i class="fa-solid fa-sliders"></i></span>
+   Exam Configuration
+  </a>
+
+  <a href="#schedule" class="nav-item">
+   <span class="nav-icon"><i class="fa-solid fa-calendar-check"></i></span>
+   Study Schedule
+  </a>
+
+  <a href="#revision" class="nav-item">
+   <span class="nav-icon"><i class="fa-solid fa-arrows-rotate"></i></span>
+   Revision Planner
+  </a>
+
+  <a href="#weekly" class="nav-item">
+   <span class="nav-icon"><i class="fa-solid fa-chart-column"></i></span>
+   Performance
+  </a>
+ </nav>
+
+ <div class="encourage">
+  <div class="flex items-center gap-2 mb-2">
+   <i class="fa-solid fa-trophy text-xl"></i>
+   <b class="text-sm">Keep Going!</b>
+  </div>
+  <p class="text-xs leading-5">
+   Small steps every day create big results. You’ve got this!
+  </p>
+ </div>
+
 </aside>
 
 <div class="main">
 
-<header class="bg-white border-b border-gray-100 px-5 md:px-8 py-4 flex flex-wrap justify-between items-center gap-3 no-print">
-    <div>
-        <p class="text-xs text-gray-400">Workspace / Dashboard</p>
-        <h2 class="font-bold text-lg">Study Dashboard</h2>
-    </div>
+<header class="topbar no-print">
 
-    <div class="flex flex-wrap items-center gap-3">
-        <div class="developer-credit">
-            <span class="label">Developed by</span>
-            <span class="aaditya">Aaditya Pundeer</span>
-            <span class="text-gray-400">&amp;</span>
-            <span class="akshat">Akshat Jha</span>
-        </div>
+ <div class="flex items-center gap-3">
+  <button class="mobile-menu btn-light" onclick="toggleMenu()">
+   <i class="fa-solid fa-bars"></i>
+  </button>
 
-        <button onclick="loadPresetData()" class="btn-light text-indigo-600">
-            BCA Demo
-        </button>
+  <div>
+   <p class="text-xs text-gray-400">
+    Workspace / <span id="crumb">Dashboard</span>
+   </p>
+   <h2 class="font-bold">Study Dashboard</h2>
+  </div>
+ </div>
 
-        <button onclick="toggleTheme()" class="btn-light" title="Dark mode">
-            <i id="themeIcon" class="fa-solid fa-moon"></i>
-        </button>
+ <div class="flex items-center gap-2 top-actions">
 
-        <button onclick="window.print()" class="btn-light" title="Print / Save PDF">
-            <i class="fa-solid fa-file-pdf"></i>
-        </button>
-    </div>
+  <div class="developer-credit">
+   <span class="text-gray-400 font-medium">Developed by</span>
+   <span class="aaditya">Aaditya Pundeer</span>
+   <span class="text-gray-400">&amp;</span>
+   <span class="akshat">Akshat Jha</span>
+  </div>
+
+  <button class="btn-light" onclick="loadPresetData()">BCA Demo</button>
+
+  <button class="btn-light" onclick="toggleTheme()">
+   <i id="themeIcon" class="fa-solid fa-moon"></i>
+  </button>
+
+  <button class="btn-light" onclick="window.print()">
+   <i class="fa-solid fa-file-pdf"></i>
+  </button>
+
+ </div>
 </header>
 
-<main id="dashboard" class="p-5 md:p-8 max-w-7xl mx-auto">
+<main class="page">
 
-    <div class="mb-7">
-        <h1 class="text-2xl font-bold">Welcome to CampusPulse 👋</h1>
-        <p class="text-sm text-gray-500 mt-1">
-            Your personal smart exam preparation workspace.
-        </p>
+<section id="dashboard" class="mb-8">
+
+ <div class="mb-6">
+  <p class="text-xs font-bold tracking-widest uppercase mb-2" style="color:#8b45f2">
+   YOUR PERSONAL STUDY SPACE
+  </p>
+
+  <h1 class="welcome-title text-3xl font-extrabold">
+   Welcome back, <span style="color:#702be9">Student!</span> 👋
+  </h1>
+
+  <p class="text-sm text-gray-500 mt-2">
+   Let’s make today productive. One chapter at a time.
+  </p>
+ </div>
+
+ <div class="rounded-3xl p-6 md:p-7 mb-6 text-white flex flex-wrap justify-between items-center gap-5"
+ style="background:linear-gradient(110deg,#5315c9,#923ff0)">
+
+  <div class="flex items-center gap-4">
+   <i class="fa-solid fa-bullseye text-4xl"></i>
+   <div>
+    <p class="text-sm text-purple-100">Your preparation goal</p>
+    <p class="text-3xl font-extrabold" id="heroGoal">0%</p>
+   </div>
+  </div>
+
+  <div class="h-12 w-px bg-white/30 hidden sm:block"></div>
+
+  <div class="flex items-center gap-4">
+   <i class="fa-solid fa-fire text-4xl text-orange-300"></i>
+   <div>
+    <p class="text-sm text-purple-100">Keep your momentum</p>
+    <p class="text-2xl font-extrabold" id="heroDays">Let’s begin!</p>
+   </div>
+  </div>
+
+  <i class="fa-solid fa-chart-line text-5xl text-white/40 ml-auto"></i>
+ </div>
+
+ <div class="grid grid-cols-2 xl:grid-cols-4 gap-3 mb-7">
+
+  <div class="card stat-card">
+   <div class="stat-icon bg-purple-100 text-purple-700">
+    <i class="fa-regular fa-calendar"></i>
+   </div>
+   <div>
+    <p class="text-xs text-gray-500">Days Remaining</p>
+    <b id="statDays" class="text-2xl">--</b>
+   </div>
+  </div>
+
+  <div class="card stat-card">
+   <div class="stat-icon bg-blue-100 text-blue-700">
+    <i class="fa-solid fa-book"></i>
+   </div>
+   <div>
+    <p class="text-xs text-gray-500">Total Subjects</p>
+    <b id="statSubjects" class="text-2xl">--</b>
+   </div>
+  </div>
+
+  <div class="card stat-card">
+   <div class="stat-icon bg-orange-100 text-orange-700">
+    <i class="fa-solid fa-layer-group"></i>
+   </div>
+   <div>
+    <p class="text-xs text-gray-500">Total Chapters</p>
+    <b id="statTopics" class="text-2xl">--</b>
+   </div>
+  </div>
+
+  <div class="card stat-card">
+   <div class="stat-icon bg-green-100 text-green-700">
+    <i class="fa-solid fa-chart-pie"></i>
+   </div>
+   <div>
+    <p class="text-xs text-gray-500">Readiness Score</p>
+    <b id="statScore" class="text-2xl">0%</b>
+   </div>
+  </div>
+
+ </div>
+
+ <div class="flex items-center justify-between mb-3">
+  <h3 class="font-extrabold text-lg">Quick Access</h3>
+  <span class="text-xs font-semibold" style="color:#702be9">
+   Choose a section <i class="fa-solid fa-arrow-right ml-1"></i>
+  </span>
+ </div>
+
+ <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+
+  <button class="quick-tile" style="background:#e8efff;color:#315ed4"
+  onclick="goTo('schedule')">
+   <i class="fa-solid fa-book-open text-3xl mb-3"></i>
+   <p class="font-bold text-sm">Study Schedule</p>
+  </button>
+
+  <button class="quick-tile" style="background:#e1faef;color:#16834d"
+  onclick="goTo('revision')">
+   <i class="fa-solid fa-arrows-rotate text-3xl mb-3"></i>
+   <p class="font-bold text-sm">Revision Planner</p>
+  </button>
+
+  <button class="quick-tile" style="background:#fff0df;color:#d97706"
+  onclick="goTo('configuration')">
+   <i class="fa-solid fa-clipboard-list text-3xl mb-3"></i>
+   <p class="font-bold text-sm">Exam Setup</p>
+  </button>
+
+  <button class="quick-tile" style="background:#f0e5ff;color:#7426e8"
+  onclick="goTo('weekly')">
+   <i class="fa-solid fa-chart-simple text-3xl mb-3"></i>
+   <p class="font-bold text-sm">Performance</p>
+  </button>
+
+ </div>
+</section>
+
+<section id="configuration" class="grid grid-cols-1 xl:grid-cols-3 gap-5 mb-7">
+
+ <div class="card p-5 md:p-6">
+
+  <div class="mb-5">
+   <h3 class="font-extrabold text-lg">Exam Configuration</h3>
+   <p class="text-xs text-gray-400 mt-1">Set your exam and subjects</p>
+  </div>
+
+  <form id="schedulerForm" onsubmit="generateSchedule(event)" class="space-y-4">
+
+   <div>
+    <label class="text-xs font-bold">Exam Name</label>
+    <input id="examName" class="input mt-1" required placeholder="BCA Semester Exams">
+   </div>
+
+   <div>
+    <label class="text-xs font-bold">Target Exam Date</label>
+    <input type="date" id="examDate" class="input mt-1" required>
+   </div>
+
+   <div>
+    <label class="text-xs font-bold">Daily Study Hours</label>
+    <input type="number" id="dailyHours" min="1" max="16" value="5" class="input mt-1" required>
+   </div>
+
+   <div class="border-t pt-4">
+    <div class="flex justify-between items-center mb-3">
+     <label class="text-xs font-extrabold">Subjects & Chapters</label>
+     <button type="button" onclick="addSubjectRow()"
+     class="text-xs font-bold" style="color:#702be9">
+      <i class="fa-solid fa-plus"></i> Add Subject
+     </button>
     </div>
 
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-7">
+    <div id="subjectsContainer" class="space-y-3"></div>
+   </div>
 
-        <div class="card p-5">
-            <p class="text-xs text-gray-500">Days Remaining</p>
-            <h2 id="statDays" class="text-3xl font-bold mt-3">--</h2>
-        </div>
+   <button type="submit" class="btn w-full">
+    <i class="fa-solid fa-wand-magic-sparkles mr-2"></i>
+    Generate Smart Schedule
+   </button>
 
-        <div class="card p-5">
-            <p class="text-xs text-gray-500">Total Subjects</p>
-            <h2 id="statSubjects" class="text-3xl font-bold mt-3">--</h2>
-        </div>
+  </form>
+ </div>
 
-        <div class="card p-5">
-            <p class="text-xs text-gray-500">Total Chapters</p>
-            <h2 id="statTopics" class="text-3xl font-bold mt-3">--</h2>
-        </div>
+ <div class="card p-5 md:p-6 xl:col-span-2">
 
-        <div class="card p-5">
-            <p class="text-xs text-gray-500">Readiness Score</p>
-            <h2 id="statScore" class="text-3xl font-bold mt-3">0%</h2>
-        </div>
+  <div class="flex justify-between items-center mb-4">
+   <div>
+    <h3 class="font-extrabold text-lg">Study Analytics</h3>
+    <p class="text-xs text-gray-400 mt-1">Subject-wise chapter workload</p>
+   </div>
+   <span class="text-xs rounded-xl px-3 py-2 bg-purple-50 text-purple-700 font-bold">
+    Overview
+   </span>
+  </div>
 
-    </div>
+  <div class="grid md:grid-cols-2 gap-4 items-center">
+   <div style="height:260px">
+    <canvas id="prepChart"></canvas>
+   </div>
+   <div id="subjectSummary" class="space-y-4 text-sm text-gray-500">
+    Generate your schedule to see analytics.
+   </div>
+  </div>
 
-    <section id="configuration" class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-7">
+ </div>
+</section>
 
-        <div class="card p-6">
+<section id="schedule" class="card p-5 md:p-6 mb-7">
 
-            <div class="mb-5">
-                <h3 class="font-bold">Exam Configuration</h3>
-                <p class="text-xs text-gray-400">Set your study preferences</p>
-            </div>
+ <div class="flex flex-wrap justify-between items-center gap-3 mb-5">
+  <div>
+   <h3 id="scheduleTitle" class="font-extrabold text-lg">Daily Study Schedule</h3>
+   <p class="text-xs text-gray-400 mt-1">
+    Every subject gets a daily time slot and its own completion checkbox.
+   </p>
+  </div>
 
-            <form id="schedulerForm" onsubmit="generateSchedule(event)" class="space-y-4">
+  <span id="totalHoursAllocated"
+  class="rounded-xl px-3 py-2 bg-purple-50 text-purple-700 text-xs font-bold">
+   Study Target: --
+  </span>
+ </div>
 
-                <div>
-                    <label class="text-xs font-semibold">Exam Name</label>
-                    <input id="examName" class="input mt-1" required placeholder="BCA Semester Exams">
-                </div>
+ <div class="mb-5">
+  <div class="flex justify-between text-xs mb-2">
+   <b>Overall Progress</b>
+   <b id="progressLabel" style="color:#702be9">0%</b>
+  </div>
+  <div class="progress">
+   <div id="mainProgress" style="width:0%"></div>
+  </div>
+ </div>
 
-                <div>
-                    <label class="text-xs font-semibold">Target Exam Date</label>
-                    <input type="date" id="examDate" class="input mt-1" required>
-                </div>
+ <div id="scheduleOutput" class="space-y-3 text-sm text-gray-400 text-center py-8">
+  Add subjects and generate your schedule.
+ </div>
 
-                <div>
-                    <label class="text-xs font-semibold">Daily Study Hours</label>
-                    <input type="number" id="dailyHours" min="1" max="16" value="5" class="input mt-1" required>
-                </div>
+</section>
 
-                <div class="border-t pt-4">
-                    <div class="flex justify-between items-center mb-3">
-                        <label class="text-xs font-bold">Subjects & Chapters</label>
-                        <button type="button" onclick="addSubjectRow()" class="text-xs text-indigo-600 font-semibold">
-                            <i class="fa-solid fa-plus"></i> Add Subject
-                        </button>
-                    </div>
+<section id="revision" class="card p-5 md:p-6 mb-7">
 
-                    <div id="subjectsContainer" class="space-y-3"></div>
-                </div>
+ <div class="flex flex-wrap justify-between items-center gap-3 mb-4">
+  <div>
+   <h3 class="font-extrabold text-lg">Revision Planner</h3>
+   <p class="text-xs text-gray-400 mt-1">
+    Suggested revision reminders (+1, +3 and +7 days).
+   </p>
+  </div>
+  <span class="text-xs rounded-xl px-3 py-2 bg-purple-50 text-purple-700 font-bold">
+   Spaced Revision
+  </span>
+ </div>
 
-                <button type="submit" class="btn w-full">
-                    <i class="fa-solid fa-bolt mr-2"></i>
-                    Generate Smart Schedule
-                </button>
+ <div id="revisionOutput" class="text-sm text-gray-400">
+  Generate a schedule to create your revision plan.
+ </div>
 
-            </form>
-        </div>
+</section>
 
-        <div class="card p-6 lg:col-span-2">
+<section id="weekly" class="card p-5 md:p-6 mb-7">
 
-            <div class="flex justify-between items-center mb-5">
-                <div>
-                    <h3 class="font-bold">Study Analytics</h3>
-                    <p class="text-xs text-gray-400 mt-1">Subject-wise chapter workload</p>
-                </div>
-                <span class="text-xs bg-indigo-50 text-indigo-600 px-3 py-2 rounded-lg">
-                    Overview
-                </span>
-            </div>
+ <div class="flex flex-wrap justify-between items-center gap-3 mb-4">
+  <div>
+   <h3 class="font-extrabold text-lg">Performance Report</h3>
+   <p class="text-xs text-gray-400 mt-1">
+    Completed study sessions by week.
+   </p>
+  </div>
+  <button onclick="renderWeeklyReport()" class="btn-light no-print">
+   Refresh Report
+  </button>
+ </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 items-center">
-                <div class="h-64">
-                    <canvas id="prepChart"></canvas>
-                </div>
+ <div id="weeklyOutput" class="text-sm text-gray-400">
+  Complete study tasks to see your report.
+ </div>
 
-                <div>
-                    <h4 class="font-semibold text-sm mb-4">Preparation Summary</h4>
-                    <div id="subjectSummary" class="space-y-4 text-sm text-gray-500">
-                        Generate your schedule to see analytics.
-                    </div>
-                </div>
-            </div>
+</section>
 
-        </div>
-    </section>
+<section class="card p-5 md:p-6 mb-7 no-print">
 
-    <section id="schedule" class="card p-6 mb-7">
+ <div class="flex flex-wrap justify-between items-center gap-4">
+  <div>
+   <h3 class="font-extrabold">Study Reminder</h3>
+   <p class="text-xs text-gray-400 mt-1">
+    Browser reminder works while this page stays open.
+   </p>
+  </div>
 
-        <div class="flex flex-wrap justify-between items-center gap-3 mb-5">
-            <div>
-                <h3 id="scheduleTitle" class="font-bold text-lg">Daily Study Schedule</h3>
-                <p class="text-xs text-gray-400 mt-1">
-                    Every subject appears daily, with a chapter focus and individual completion checkbox.
-                </p>
-            </div>
+  <div class="flex flex-wrap gap-2 items-center">
+   <input id="reminderTime" type="time" value="19:00"
+   class="input" style="width:130px">
+   <button onclick="enableReminder()" class="btn">
+    Enable Reminder
+   </button>
+  </div>
+ </div>
 
-            <span id="totalHoursAllocated" class="bg-indigo-50 text-indigo-600 px-3 py-2 rounded-lg text-xs font-semibold">
-                Study Target: --
-            </span>
-        </div>
+ <p id="reminderStatus" class="text-xs text-gray-400 mt-3">
+  Reminder is not enabled.
+ </p>
 
-        <div class="mb-5">
-            <div class="flex justify-between text-xs mb-2">
-                <span class="font-semibold">Overall Progress</span>
-                <span id="progressLabel" class="text-indigo-600 font-bold">0%</span>
-            </div>
+</section>
 
-            <div class="progress">
-                <div id="mainProgress" style="width:0%"></div>
-            </div>
-        </div>
-
-        <div id="scheduleOutput" class="space-y-3">
-            <p class="text-center py-10 text-gray-400 text-sm">
-                Add subjects and generate your schedule.
-            </p>
-        </div>
-
-    </section>
-
-    <section id="revision" class="card p-6 mb-7">
-
-        <div class="flex flex-wrap justify-between gap-3 items-center mb-4">
-            <div>
-                <h3 class="font-bold text-lg">Revision Planner</h3>
-                <p class="text-xs text-gray-400 mt-1">
-                    Automatic revision reminders for planned chapters (+1, +3 and +7 days).
-                </p>
-            </div>
-
-            <span class="text-xs bg-purple-50 text-purple-600 px-3 py-2 rounded-lg">
-                Spaced Revision
-            </span>
-        </div>
-
-        <div id="revisionOutput" class="text-sm text-gray-400">
-            Generate a schedule to create your revision plan.
-        </div>
-
-    </section>
-
-    <section id="weekly" class="card p-6 mb-7">
-
-        <div class="flex flex-wrap justify-between items-center gap-3 mb-4">
-            <div>
-                <h3 class="font-bold text-lg">Weekly Report</h3>
-                <p class="text-xs text-gray-400 mt-1">
-                    Your completed study sessions and weekly progress.
-                </p>
-            </div>
-
-            <button onclick="renderWeeklyReport()" class="btn-light no-print">
-                Refresh Report
-            </button>
-        </div>
-
-        <div id="weeklyOutput" class="text-sm text-gray-400">
-            Complete study tasks to see your weekly report.
-        </div>
-
-    </section>
-
-    <section class="card p-6 mb-7 no-print">
-
-        <div class="flex flex-wrap justify-between items-center gap-4">
-            <div>
-                <h3 class="font-bold">Study Reminder</h3>
-                <p class="text-xs text-gray-400 mt-1">
-                    Allow browser notifications and choose a daily reminder time.
-                </p>
-            </div>
-
-            <div class="flex flex-wrap gap-2 items-center">
-                <input id="reminderTime" type="time" value="19:00" class="input" style="width:130px">
-                <button onclick="enableReminder()" class="btn">
-                    Enable Reminder
-                </button>
-            </div>
-        </div>
-
-        <p id="reminderStatus" class="text-xs text-gray-400 mt-3">
-            Reminder is not enabled.
-        </p>
-
-    </section>
-
-    <footer class="text-center text-xs text-gray-400 py-7">
-        CampusPulse © 2026 | Smart Exam Prep & Study Scheduler
-    </footer>
+<footer class="text-center text-xs text-gray-400 py-5">
+ CampusPulse © 2026 · Smart Exam Prep & Study Planner
+</footer>
 
 </main>
 </div>
 
 <script>
 
-const STORAGE_KEY='campuspulse_complete_v2';
+const STORAGE_KEY='campuspulse_v3';
 
 let chartInstance=null;
+let reminderTimer=null;
 
 let app={
-    subjects:[],
-    examName:'',
-    examDate:'',
-    dailyHours:5,
-    days:0,
-    checks:{},
-    generatedAt:null
+ subjects:[],
+ examName:'',
+ examDate:'',
+ dailyHours:5,
+ days:0,
+ checks:{},
+ generatedAt:null
 };
 
 function addSubjectRow(name='',chapters=5,difficulty='Medium'){
 
-    const row=document.createElement('div');
-    row.className='subject-row';
+ const row=document.createElement('div');
+ row.className='subject-row';
 
-    const n=document.createElement('input');
-    n.className='input subject-name';
-    n.placeholder='Subject';
-    n.value=name;
-    n.required=true;
+ const n=document.createElement('input');
+ n.className='input subject-name';
+ n.placeholder='Subject name';
+ n.value=name;
+ n.required=true;
 
-    const c=document.createElement('input');
-    c.className='input subject-chapters';
-    c.type='number';
-    c.min='1';
-    c.max='100';
-    c.value=chapters;
-    c.required=true;
+ const c=document.createElement('input');
+ c.className='input subject-chapters';
+ c.type='number';
+ c.min='1';
+ c.max='100';
+ c.value=chapters;
+ c.required=true;
+ c.title='Chapters';
 
-    const d=document.createElement('select');
-    d.className='input subject-diff';
+ const d=document.createElement('select');
+ d.className='input subject-diff';
 
-    ['Easy','Medium','Hard'].forEach(x=>{
-        let o=document.createElement('option');
-        o.value=x;
-        o.textContent=x;
-        if(x===difficulty)o.selected=true;
-        d.appendChild(o);
-    });
+ ['Easy','Medium','Hard'].forEach(x=>{
+  let o=document.createElement('option');
+  o.value=x;
+  o.textContent=x;
+  if(x===difficulty)o.selected=true;
+  d.appendChild(o);
+ });
 
-    const del=document.createElement('button');
-    del.type='button';
-    del.className='text-red-400';
-    del.innerHTML='<i class="fa-solid fa-trash"></i>';
-    del.title='Remove subject';
-    del.onclick=()=>row.remove();
+ const del=document.createElement('button');
+ del.type='button';
+ del.className='text-red-500';
+ del.innerHTML='<i class="fa-solid fa-trash"></i>';
+ del.title='Remove subject';
+ del.onclick=()=>row.remove();
 
-    row.append(n,c,d,del);
+ row.append(n,c,d,del);
 
-    document.getElementById('subjectsContainer').appendChild(row);
+ document.getElementById('subjectsContainer').append(row);
+}
+
+function toISO(d){
+ return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+
+function escapeHTML(v){
+ return String(v).replace(/[&<>"']/g,c=>({
+  '&':'&amp;',
+  '<':'&lt;',
+  '>':'&gt;',
+  '"':'&quot;',
+  "'":'&#39;'
+ }[c]));
 }
 
 function loadPresetData(){
 
-    document.getElementById('examName').value='BCA 4th Semester Final Exams';
+ document.getElementById('examName').value='BCA 4th Semester Exams';
 
-    let dt=new Date();
-    dt.setDate(dt.getDate()+20);
+ let dt=new Date();
+ dt.setDate(dt.getDate()+20);
 
-    document.getElementById('examDate').value=toISO(dt);
-    document.getElementById('dailyHours').value=5;
+ document.getElementById('examDate').value=toISO(dt);
+ document.getElementById('dailyHours').value=5;
 
-    document.getElementById('subjectsContainer').innerHTML='';
+ document.getElementById('subjectsContainer').innerHTML='';
 
-    addSubjectRow('Java Programming',8,'Hard');
-    addSubjectRow('Computer Networks',6,'Medium');
-    addSubjectRow('Data Structures',7,'Hard');
-    addSubjectRow('Software Engineering',5,'Easy');
+ addSubjectRow('Java Programming',8,'Hard');
+ addSubjectRow('Computer Networks',6,'Medium');
+ addSubjectRow('Data Structures',7,'Hard');
+ addSubjectRow('Software Engineering',5,'Easy');
 
-    generateSchedule();
-}
-
-function toISO(d){
-    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-}
-
-function escapeHTML(v){
-    return String(v).replace(/[&<>"']/g,c=>({
-        '&':'&amp;',
-        '<':'&lt;',
-        '>':'&gt;',
-        '"':'&quot;',
-        "'":'&#39;'
-    }[c]));
+ generateSchedule();
 }
 
 function generateSchedule(e){
 
-    if(e)e.preventDefault();
+ if(e)e.preventDefault();
 
-    const examName=document.getElementById('examName').value.trim();
-    const examDate=document.getElementById('examDate').value;
-    const dailyHours=Number(document.getElementById('dailyHours').value);
+ const examName=document.getElementById('examName').value.trim();
+ const examDate=document.getElementById('examDate').value;
+ const dailyHours=Number(document.getElementById('dailyHours').value);
 
-    const ns=[...document.querySelectorAll('.subject-name')];
-    const cs=[...document.querySelectorAll('.subject-chapters')];
-    const ds=[...document.querySelectorAll('.subject-diff')];
+ const ns=[...document.querySelectorAll('.subject-name')];
+ const cs=[...document.querySelectorAll('.subject-chapters')];
+ const ds=[...document.querySelectorAll('.subject-diff')];
 
-    if(!examName||!examDate||dailyHours<1||dailyHours>16||!ns.length){
-        alert('Please enter valid exam details and at least one subject.');
-        return;
-    }
+ if(!examName||!examDate||dailyHours<1||dailyHours>16||!ns.length){
+  alert('Please enter exam details and at least one subject.');
+  return;
+ }
 
-    const subjects=ns.map((n,i)=>({
-        name:n.value.trim(),
-        chapters:Number(cs[i].value),
-        difficulty:ds[i].value
-    })).filter(s=>s.name&&s.chapters>0);
+ const subjects=ns.map((n,i)=>({
+  name:n.value.trim(),
+  chapters:Number(cs[i].value),
+  difficulty:ds[i].value
+ })).filter(s=>s.name&&s.chapters>0);
 
-    if(!subjects.length){
-        alert('Please add valid subjects and chapter counts.');
-        return;
-    }
+ if(!subjects.length){
+  alert('Please add valid subjects and chapter counts.');
+  return;
+ }
 
-    const today=new Date();
-    today.setHours(0,0,0,0);
+ const today=new Date();
+ today.setHours(0,0,0,0);
 
-    const target=new Date(examDate+'T00:00:00');
-    const days=Math.ceil((target-today)/86400000);
+ const target=new Date(examDate+'T00:00:00');
+ const days=Math.ceil((target-today)/86400000);
 
-    if(days<1){
-        alert('Exam date must be in the future.');
-        return;
-    }
+ if(days<1){
+  alert('Exam date must be in the future.');
+  return;
+ }
 
-    const previousChecks=app.checks||{};
+ app={
+  subjects,
+  examName,
+  examDate,
+  dailyHours,
+  days,
+  checks:{},
+  generatedAt:Date.now()
+ };
 
-    app={
-        subjects,
-        examName,
-        examDate,
-        dailyHours,
-        days,
-        checks:previousChecks,
-        generatedAt:Date.now()
-    };
+ document.getElementById('statDays').textContent=days;
+ document.getElementById('statSubjects').textContent=subjects.length;
+ document.getElementById('statTopics').textContent=
+ subjects.reduce((a,s)=>a+s.chapters,0);
 
-    document.getElementById('statDays').textContent=days;
-    document.getElementById('statSubjects').textContent=subjects.length;
-    document.getElementById('statTopics').textContent=subjects.reduce((a,s)=>a+s.chapters,0);
+ document.getElementById('scheduleTitle').textContent=
+ examName+' — Daily Study Schedule';
 
-    document.getElementById('scheduleTitle').textContent=examName+' — Daily Study Schedule';
+ document.getElementById('totalHoursAllocated').textContent=
+ (days*dailyHours)+' total study hours';
 
-    document.getElementById('totalHoursAllocated').textContent=
-        `${days*dailyHours} total study hours`;
+ renderChart();
+ renderSchedule();
+ renderRevision();
+ renderWeeklyReport();
+ saveApp();
 
-    renderChart();
-    renderSchedule();
-    renderRevision();
-    renderWeeklyReport();
-    saveApp();
+ goTo('schedule');
 }
 
 function chapterForDay(subject,day,totalDays){
 
-    const idx=Math.min(
-        subject.chapters-1,
-        Math.floor((day-1)*subject.chapters/totalDays)
-    );
+ const idx=((day-1)%subject.chapters)+1;
 
-    return subject.chapters<=totalDays
-        ?`Chapter ${idx+1}`
-        :`Chapter ${idx+1} (focus)`;
+ return 'Chapter '+idx+' focus';
 }
 
 function renderSchedule(){
 
-    let html='';
-    let count=Math.min(app.days,60);
-    let per=app.dailyHours/app.subjects.length;
+ let html='';
+ let count=Math.min(app.days,90);
+ let per=app.dailyHours/app.subjects.length;
 
-    for(let day=1;day<=count;day++){
+ for(let day=1;day<=count;day++){
 
-        let date=new Date();
-        date.setHours(0,0,0,0);
-        date.setDate(date.getDate()+day);
+  let date=new Date();
+  date.setHours(0,0,0,0);
+  date.setDate(date.getDate()+day);
 
-        let time=8*60;
-        let rows='';
+  let time=8*60;
+  let rows='';
 
-        app.subjects.forEach((s,i)=>{
+  app.subjects.forEach((s,i)=>{
 
-            let start=time;
-            let end=time+per*60;
+   const start=time;
+   const end=time+per*60;
 
-            const fmt=m=>{
-                let h=Math.floor(m/60)%24;
-                let mm=Math.round(m%60);
-                let ap=h>=12?'PM':'AM';
+   const fmt=m=>{
+    let h=Math.floor(m/60)%24;
+    let mm=Math.round(m%60);
+    let ap=h>=12?'PM':'AM';
+    return `${h%12||12}:${String(mm).padStart(2,'0')} ${ap}`;
+   };
 
-                return `${h%12||12}:${String(mm).padStart(2,'0')} ${ap}`;
-            };
+   const chapter=chapterForDay(s,day,app.days);
+   const key=`${day}_${i}`;
+   const checked=!!app.checks[key];
 
-            const chapter=chapterForDay(s,day,app.days);
-            const key=`${day}_${i}`;
-            const checked=!!app.checks[key];
+   rows+=`
+   <div class="flex flex-wrap justify-between items-center gap-3 border-t py-3"
+   style="border-color:var(--line)">
 
-            rows+=`
-            <div class="flex flex-wrap justify-between items-center gap-3 border-t border-gray-100 py-3">
+    <div class="flex items-center gap-3">
 
-                <div class="flex items-center gap-3">
+     <span class="rounded-xl px-3 py-2 text-xs font-bold whitespace-nowrap bg-purple-50 text-purple-700">
+      ${fmt(start)} – ${fmt(end)}
+     </span>
 
-                    <span class="bg-indigo-50 text-indigo-600 rounded-lg px-3 py-2 text-xs font-bold whitespace-nowrap">
-                        ${fmt(start)} – ${fmt(end)}
-                    </span>
+     <div>
+      <p class="font-bold text-sm">${escapeHTML(s.name)}</p>
+      <p class="text-xs text-gray-400">
+       ${chapter} · ${s.difficulty} · ${per.toFixed(1)} hours
+      </p>
+     </div>
 
-                    <div>
-                        <p class="font-semibold text-sm">${escapeHTML(s.name)}</p>
-                        <p class="text-xs text-gray-400">
-                            ${chapter} · ${s.difficulty} · ${per.toFixed(1)} hours
-                        </p>
-                    </div>
+    </div>
 
-                </div>
+    <label class="flex items-center gap-2 text-xs text-gray-500 cursor-pointer">
+     <input type="checkbox" class="task-done"
+     ${checked?'checked':''}
+     onchange="setTask('${key}',this.checked)">
+     Done
+    </label>
 
-                <label class="flex items-center gap-2 text-xs text-gray-500 cursor-pointer">
-                    <input type="checkbox" class="task-done"
-                    ${checked?'checked':''}
-                    onchange="setTask('${key}',this.checked)">
-                    Done
-                </label>
+   </div>`;
 
-            </div>`;
+   time=end+10;
+  });
 
-            time=end+10;
-        });
+  html+=`
+  <details class="day-card" ${day===1?'open':''}>
 
-        html+=`
-        <details class="day-card border border-gray-100 rounded-xl p-4" ${day===1?'open':''}>
+   <summary class="flex flex-wrap justify-between items-center gap-2">
 
-            <summary class="flex flex-wrap justify-between items-center gap-2 cursor-pointer list-none">
+    <div>
+     <span class="text-xs font-extrabold" style="color:#702be9">
+      DAY ${day}
+     </span>
 
-                <div>
-                    <span class="text-xs font-bold text-indigo-600">DAY ${day}</span>
+     <h4 class="font-bold text-sm mt-1">
+      ${date.toLocaleDateString('en-IN',{
+       weekday:'long',
+       day:'2-digit',
+       month:'short',
+       year:'numeric'
+      })}
+     </h4>
 
-                    <h4 class="font-semibold text-sm mt-1">
-                        ${date.toLocaleDateString('en-IN',{
-                            weekday:'long',
-                            day:'2-digit',
-                            month:'short',
-                            year:'numeric'
-                        })}
-                    </h4>
+     <p class="text-xs text-gray-400 mt-1">
+      ${app.subjects.length} subjects · ${app.dailyHours} study hours
+     </p>
+    </div>
 
-                    <p class="text-xs text-gray-400 mt-1">
-                        ${app.subjects.length} subjects · ${app.dailyHours} study hours
-                    </p>
-                </div>
+    <span class="text-xs font-bold" style="color:#702be9">
+     View day <i class="fa-solid fa-chevron-down ml-1"></i>
+    </span>
 
-                <span class="text-xs text-indigo-600">
-                    View day <i class="fa-solid fa-chevron-down ml-1"></i>
-                </span>
+   </summary>
 
-            </summary>
+   <div>${rows}</div>
 
-            <div>${rows}</div>
+  </details>`;
+ }
 
-        </details>`;
-    }
+ if(app.days>90){
+  html+=`
+  <p class="text-center text-xs text-gray-400 py-3">
+   First 90 days shown. Your exam period is ${app.days} days.
+  </p>`;
+ }
 
-    if(app.days>60){
-        html+=`
-        <p class="text-center text-xs text-gray-400 py-3">
-            First 60 days are displayed. Your exam period is ${app.days} days.
-        </p>`;
-    }
+ document.getElementById('scheduleOutput').innerHTML=html;
 
-    document.getElementById('scheduleOutput').innerHTML=html;
-
-    updateProgress();
+ updateProgress();
 }
 
 function setTask(key,checked){
 
-    app.checks[key]=checked;
+ app.checks[key]=checked;
 
-    saveApp();
-    updateProgress();
-    renderWeeklyReport();
+ saveApp();
+ updateProgress();
+ renderWeeklyReport();
 }
 
 function updateProgress(){
 
-    const total=Math.min(app.days,60)*app.subjects.length;
+ const total=Math.min(app.days,90)*app.subjects.length;
 
-    const done=Object.values(app.checks).filter(Boolean).length;
+ const done=Object.values(app.checks).filter(Boolean).length;
 
-    const score=total?Math.round(done/total*100):0;
+ const score=total?Math.round(done/total*100):0;
 
-    document.getElementById('statScore').textContent=score+'%';
-    document.getElementById('progressLabel').textContent=score+'%';
-    document.getElementById('mainProgress').style.width=score+'%';
+ document.getElementById('statScore').textContent=score+'%';
+ document.getElementById('progressLabel').textContent=score+'%';
+ document.getElementById('mainProgress').style.width=score+'%';
+ document.getElementById('heroGoal').textContent=score+'%';
+
+ document.getElementById('heroDays').textContent=
+ done?done+' sessions done':'Start your streak';
 }
 
 function renderChart(){
 
-    const ctx=document.getElementById('prepChart').getContext('2d');
+ const ctx=document.getElementById('prepChart').getContext('2d');
 
-    if(chartInstance)chartInstance.destroy();
+ if(chartInstance)chartInstance.destroy();
 
-    chartInstance=new Chart(ctx,{
-        type:'doughnut',
+ chartInstance=new Chart(ctx,{
+  type:'doughnut',
 
-        data:{
-            labels:app.subjects.map(s=>s.name),
+  data:{
+   labels:app.subjects.map(s=>s.name),
 
-            datasets:[{
-                data:app.subjects.map(s=>s.chapters),
+   datasets:[{
+    data:app.subjects.map(s=>s.chapters),
+    backgroundColor:[
+     '#6425df',
+     '#3d83e8',
+     '#22b982',
+     '#f5a642',
+     '#ec6a9b',
+     '#8b75e8'
+    ],
+    borderWidth:3,
+    borderColor:'#fff'
+   }]
+  },
 
-                backgroundColor:[
-                    '#6256e8',
-                    '#20b8d5',
-                    '#24b47e',
-                    '#f5ad42',
-                    '#ec6a9b',
-                    '#8b75e8'
-                ],
+  options:{
+   responsive:true,
+   maintainAspectRatio:false,
+   cutout:'68%',
 
-                borderWidth:3,
-                borderColor:'#fff'
-            }]
-        },
+   plugins:{
+    legend:{
+     position:'bottom',
+     labels:{
+      usePointStyle:true,
+      boxWidth:8,
+      padding:14
+     }
+    }
+   }
+  }
+ });
 
-        options:{
-            responsive:true,
-            maintainAspectRatio:false,
-            cutout:'68%',
+ const max=Math.max(...app.subjects.map(s=>s.chapters));
 
-            plugins:{
-                legend:{
-                    position:'bottom',
-                    labels:{
-                        usePointStyle:true,
-                        boxWidth:8,
-                        padding:14
-                    }
-                }
-            }
-        }
-    });
+ document.getElementById('subjectSummary').innerHTML=
+ app.subjects.map(s=>`
+  <div>
 
-    document.getElementById('subjectSummary').innerHTML=
-        app.subjects.map(s=>`
-        <div>
+   <div class="flex justify-between mb-2 gap-2">
+    <span class="font-semibold">${escapeHTML(s.name)}</span>
+    <b style="color:#702be9">${s.chapters} chapters</b>
+   </div>
 
-            <div class="flex justify-between mb-2">
-                <span class="text-gray-700 font-medium">${escapeHTML(s.name)}</span>
-                <span class="font-semibold text-indigo-600">${s.chapters} chapters</span>
-            </div>
+   <div class="progress">
+    <div style="width:${s.chapters/max*100}%"></div>
+   </div>
 
-            <div class="progress">
-                <div style="width:${s.chapters/Math.max(...app.subjects.map(x=>x.chapters))*100}%"></div>
-            </div>
-
-        </div>
-        `).join('');
+  </div>
+ `).join('');
 }
 
 function renderRevision(){
 
-    let entries=[];
+ let entries=[];
 
-    app.subjects.forEach((s,i)=>{
+ app.subjects.forEach(s=>{
 
-        for(let ch=1;ch<=s.chapters;ch++){
+  for(let ch=1;ch<=s.chapters;ch++){
 
-            let base=Math.max(1,Math.ceil(ch*app.days/s.chapters));
+   let base=Math.max(1,Math.ceil(ch*app.days/s.chapters));
 
-            [1,3,7].forEach(offset=>{
+   [1,3,7].forEach(offset=>{
 
-                let day=base+offset;
+    let day=base+offset;
 
-                if(day<=app.days){
+    if(day<=app.days){
 
-                    let d=new Date();
-                    d.setHours(0,0,0,0);
-                    d.setDate(d.getDate()+day);
+     let d=new Date();
+     d.setHours(0,0,0,0);
+     d.setDate(d.getDate()+day);
 
-                    entries.push({
-                        name:s.name,
-                        chapter:ch,
-                        day,
-                        date:d
-                    });
-                }
-            });
-        }
-    });
+     entries.push({
+      name:s.name,
+      chapter:ch,
+      day,
+      date:d
+     });
+    }
+   });
+  }
+ });
 
-    entries.sort((a,b)=>a.day-b.day);
+ entries.sort((a,b)=>a.day-b.day);
 
-    document.getElementById('revisionOutput').innerHTML=
-        entries.length
-        ?`
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+ document.getElementById('revisionOutput').innerHTML=
+ entries.length?
+ `
+ <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
 
-            ${entries.slice(0,90).map(r=>`
+ ${entries.slice(0,90).map(r=>`
 
-            <div class="rounded-xl border border-gray-100 p-3">
+  <div class="rounded-2xl border p-3" style="border-color:var(--line)">
 
-                <p class="text-xs text-purple-600 font-bold">
-                    DAY ${r.day} · ${r.date.toLocaleDateString('en-IN',{
-                        day:'2-digit',
-                        month:'short'
-                    })}
-                </p>
+   <p class="text-xs font-extrabold" style="color:#702be9">
+    DAY ${r.day} ·
+    ${r.date.toLocaleDateString('en-IN',{
+     day:'2-digit',
+     month:'short'
+    })}
+   </p>
 
-                <p class="font-semibold text-sm mt-1">
-                    ${escapeHTML(r.name)}
-                </p>
+   <p class="font-bold text-sm mt-1">${escapeHTML(r.name)}</p>
 
-                <p class="text-xs text-gray-400">
-                    Chapter ${r.chapter} revision
-                </p>
+   <p class="text-xs text-gray-400">
+    Chapter ${r.chapter} revision
+   </p>
 
-            </div>
+  </div>
 
-            `).join('')}
+ `).join('')}
 
-        </div>
+ </div>
 
-        ${entries.length>90
-            ?'<p class="text-xs text-gray-400 mt-3">Showing first 90 revision reminders.</p>'
-            :''}
-        `
-        :'<p class="text-sm text-gray-400">No revision dates fall before the exam date. Try an earlier exam date or fewer chapters.</p>';
+ ${entries.length>90?
+ '<p class="text-xs text-gray-400 mt-3">Showing first 90 revision reminders.</p>':''
+ }
+ `
+ :
+ '<p class="text-sm text-gray-400">No revision dates fall before the exam date.</p>';
 }
 
 function renderWeeklyReport(){
 
-    if(!app.subjects.length){
-        document.getElementById('weeklyOutput').textContent=
-            'Generate your schedule to view the weekly report.';
-        return;
-    }
+ if(!app.subjects.length){
 
-    let total=0;
-    let done=0;
-    const perWeek=[];
+  document.getElementById('weeklyOutput').textContent=
+  'Generate your schedule to view the report.';
 
-    for(let w=0;w<Math.ceil(Math.min(app.days,60)/7);w++){
+  return;
+ }
 
-        let start=w*7+1;
-        let end=Math.min((w+1)*7,app.days,60);
+ let total=0;
+ let done=0;
+ let perWeek=[];
 
-        let wDone=0;
-        let wTotal=(end-start+1)*app.subjects.length;
+ for(let w=0;w<Math.ceil(Math.min(app.days,90)/7);w++){
 
-        for(let d=start;d<=end;d++){
+  let start=w*7+1;
+  let end=Math.min((w+1)*7,app.days,90);
 
-            app.subjects.forEach((s,i)=>{
+  let wDone=0;
+  let wTotal=(end-start+1)*app.subjects.length;
 
-                if(app.checks[`${d}_${i}`])wDone++;
+  for(let d=start;d<=end;d++){
 
-            });
-        }
+   app.subjects.forEach((s,i)=>{
 
-        total+=wTotal;
-        done+=wDone;
+    if(app.checks[`${d}_${i}`])wDone++;
 
-        perWeek.push({
-            w:w+1,
-            wDone,
-            wTotal
-        });
-    }
+   });
+  }
 
-    document.getElementById('weeklyOutput').innerHTML=`
+  total+=wTotal;
+  done+=wDone;
 
-    <div class="grid grid-cols-2 gap-3 mb-4">
+  perWeek.push({
+   w:w+1,
+   wDone,
+   wTotal
+  });
+ }
 
-        <div class="rounded-xl bg-indigo-50 p-4">
-            <p class="text-xs text-indigo-600">Completed study sessions</p>
-            <p class="text-2xl font-bold text-indigo-700">${done}</p>
-        </div>
+ document.getElementById('weeklyOutput').innerHTML=`
 
-        <div class="rounded-xl bg-emerald-50 p-4">
-            <p class="text-xs text-emerald-700">Overall completion</p>
-            <p class="text-2xl font-bold text-emerald-700">
-                ${total?Math.round(done/total*100):0}%
-            </p>
-        </div>
+ <div class="grid grid-cols-2 gap-3 mb-4">
 
-    </div>
+  <div class="rounded-2xl p-4 bg-purple-50 text-purple-800">
+   <p class="text-xs">Completed study sessions</p>
+   <p class="text-2xl font-extrabold">${done}</p>
+  </div>
 
-    <div class="space-y-3">
+  <div class="rounded-2xl p-4 bg-green-50 text-green-800">
+   <p class="text-xs">Overall completion</p>
+   <p class="text-2xl font-extrabold">
+    ${total?Math.round(done/total*100):0}%
+   </p>
+  </div>
 
-        ${perWeek.map(x=>`
+ </div>
 
-        <div>
+ <div class="space-y-3">
 
-            <div class="flex justify-between text-xs mb-1">
-                <span class="font-semibold">Week ${x.w}</span>
-                <span>${x.wDone}/${x.wTotal} sessions</span>
-            </div>
+ ${perWeek.map(x=>`
 
-            <div class="progress">
-                <div style="width:${x.wTotal?x.wDone/x.wTotal*100:0}%"></div>
-            </div>
+  <div>
 
-        </div>
+   <div class="flex justify-between text-xs mb-1">
+    <b>Week ${x.w}</b>
+    <span>${x.wDone}/${x.wTotal} sessions</span>
+   </div>
 
-        `).join('')}
+   <div class="progress">
+    <div style="width:${x.wTotal?x.wDone/x.wTotal*100:0}%"></div>
+   </div>
 
-    </div>`;
+  </div>
+
+ `).join('')}
+
+ </div>`;
 }
 
 function saveApp(){
 
-    try{
-        localStorage.setItem(STORAGE_KEY,JSON.stringify(app));
-    }catch(e){
-        console.warn('Could not save progress',e);
-    }
+ try{
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(app));
+ }catch(e){
+  console.warn(e);
+ }
 }
 
 function restoreApp(){
 
-    try{
+ try{
 
-        const raw=localStorage.getItem(STORAGE_KEY);
+  const raw=localStorage.getItem(STORAGE_KEY);
 
-        if(!raw)return false;
+  if(!raw)return false;
 
-        const saved=JSON.parse(raw);
+  const saved=JSON.parse(raw);
 
-        if(!saved.subjects?.length)return false;
+  if(!saved.subjects?.length)return false;
 
-        app=saved;
+  app=saved;
 
-        document.getElementById('examName').value=app.examName;
-        document.getElementById('examDate').value=app.examDate;
-        document.getElementById('dailyHours').value=app.dailyHours;
+  document.getElementById('examName').value=app.examName;
+  document.getElementById('examDate').value=app.examDate;
+  document.getElementById('dailyHours').value=app.dailyHours;
 
-        document.getElementById('subjectsContainer').innerHTML='';
+  document.getElementById('subjectsContainer').innerHTML='';
 
-        app.subjects.forEach(s=>{
-            addSubjectRow(s.name,s.chapters,s.difficulty);
-        });
+  app.subjects.forEach(s=>{
+   addSubjectRow(s.name,s.chapters,s.difficulty);
+  });
 
-        const today=new Date();
-        today.setHours(0,0,0,0);
+  const today=new Date();
+  today.setHours(0,0,0,0);
 
-        const days=Math.ceil(
-            (new Date(app.examDate+'T00:00:00')-today)/86400000
-        );
+  const remaining=Math.ceil(
+   (new Date(app.examDate+'T00:00:00')-today)/86400000
+  );
 
-        if(days>0)app.days=days;
+  if(remaining>0)app.days=remaining;
 
-        document.getElementById('statDays').textContent=app.days;
-        document.getElementById('statSubjects').textContent=app.subjects.length;
+  document.getElementById('statDays').textContent=app.days;
+  document.getElementById('statSubjects').textContent=app.subjects.length;
 
-        document.getElementById('statTopics').textContent=
-            app.subjects.reduce((a,s)=>a+s.chapters,0);
+  document.getElementById('statTopics').textContent=
+  app.subjects.reduce((a,s)=>a+s.chapters,0);
 
-        document.getElementById('scheduleTitle').textContent=
-            app.examName+' — Daily Study Schedule';
+  document.getElementById('scheduleTitle').textContent=
+  app.examName+' — Daily Study Schedule';
 
-        document.getElementById('totalHoursAllocated').textContent=
-            `${app.days*app.dailyHours} total study hours`;
+  document.getElementById('totalHoursAllocated').textContent=
+  (app.days*app.dailyHours)+' total study hours';
 
-        renderChart();
-        renderSchedule();
-        renderRevision();
-        renderWeeklyReport();
+  renderChart();
+  renderSchedule();
+  renderRevision();
+  renderWeeklyReport();
 
-        return true;
+  return true;
 
-    }catch(e){
-        return false;
-    }
+ }catch(e){
+  console.warn(e);
+  return false;
+ }
 }
 
 function toggleTheme(){
 
-    document.body.classList.toggle('dark');
+ document.body.classList.toggle('dark');
 
-    const dark=document.body.classList.contains('dark');
+ const dark=document.body.classList.contains('dark');
 
-    localStorage.setItem('campuspulse_dark',dark?'1':'0');
+ localStorage.setItem('campuspulse_dark',dark?'1':'0');
 
-    document.getElementById('themeIcon').className=
-        dark?'fa-solid fa-sun':'fa-solid fa-moon';
+ document.getElementById('themeIcon').className=
+ dark?'fa-solid fa-sun':'fa-solid fa-moon';
 }
+
+/* ACTIVE ICON NAVIGATION */
+function setActive(id){
+
+ document.querySelectorAll('.nav-item').forEach(a=>{
+
+  a.classList.toggle(
+   'active',
+   a.getAttribute('href')==='#'+id
+  );
+
+ });
+
+ const link=document.querySelector(`.nav-item[href="#${id}"]`);
+
+ document.getElementById('crumb').textContent=
+ link?link.textContent.trim():'Dashboard';
+}
+
+function goTo(id){
+
+ const el=document.getElementById(id);
+
+ if(el){
+
+  el.scrollIntoView({
+   behavior:'smooth',
+   block:'start'
+  });
+
+  setActive(id);
+
+  document.getElementById('sidebar').classList.remove('open');
+ }
+}
+
+function toggleMenu(){
+
+ document.getElementById('sidebar').classList.toggle('open');
+}
+
+document.querySelectorAll('.nav-item').forEach(a=>{
+
+ a.addEventListener('click',()=>{
+
+  const id=a.getAttribute('href').slice(1);
+
+  setActive(id);
+
+  document.getElementById('sidebar').classList.remove('open');
+
+ });
+
+});
+
+const sections=[
+ 'dashboard',
+ 'configuration',
+ 'schedule',
+ 'revision',
+ 'weekly'
+];
+
+let scrollTick=false;
+
+window.addEventListener('scroll',()=>{
+
+ if(scrollTick)return;
+
+ scrollTick=true;
+
+ requestAnimationFrame(()=>{
+
+  let current='dashboard';
+
+  for(const id of sections){
+
+   const el=document.getElementById(id);
+
+   if(el&&el.getBoundingClientRect().top<180){
+    current=id;
+   }
+  }
+
+  setActive(current);
+
+  scrollTick=false;
+
+ });
+
+});
 
 function enableReminder(){
 
-    if(!('Notification'in window)){
+ if(!('Notification'in window)){
 
-        document.getElementById('reminderStatus').textContent=
-            'This browser does not support notifications.';
+  document.getElementById('reminderStatus').textContent=
+  'This browser does not support notifications.';
 
-        return;
-    }
+  return;
+ }
 
-    Notification.requestPermission().then(p=>{
+ Notification.requestPermission().then(p=>{
 
-        if(p!=='granted'){
+  if(p!=='granted'){
 
-            document.getElementById('reminderStatus').textContent=
-                'Notification permission was not granted. Allow notifications in browser settings.';
+   document.getElementById('reminderStatus').textContent=
+   'Please allow notifications in browser settings.';
 
-            return;
-        }
+   return;
+  }
 
-        const t=document.getElementById('reminderTime').value;
+  const t=document.getElementById('reminderTime').value;
 
-        localStorage.setItem('campuspulse_reminder',t);
+  localStorage.setItem('campuspulse_reminder',t);
 
-        document.getElementById('reminderStatus').textContent=
-            `Daily reminder set for ${t}. Keep this browser open to receive reminders.`;
+  document.getElementById('reminderStatus').textContent=
+  `Daily reminder set for ${t}. Keep this page open.`;
 
-        scheduleReminder(t);
-    });
+  scheduleReminder(t);
+
+ });
 }
-
-let reminderTimer=null;
 
 function scheduleReminder(t){
 
-    if(reminderTimer)clearInterval(reminderTimer);
+ if(reminderTimer)clearInterval(reminderTimer);
 
-    reminderTimer=setInterval(()=>{
+ reminderTimer=setInterval(()=>{
 
-        const now=new Date();
+  const n=new Date();
 
-        const hh=String(now.getHours()).padStart(2,'0');
-        const mm=String(now.getMinutes()).padStart(2,'0');
+  const hh=String(n.getHours()).padStart(2,'0');
+  const mm=String(n.getMinutes()).padStart(2,'0');
 
-        const key=toISO(now)+'_'+t;
+  const key=toISO(n)+'_'+t;
 
-        if(`${hh}:${mm}`===t&&localStorage.getItem('campuspulse_last_notice')!==key){
+  if(`${hh}:${mm}`===t&&
+  localStorage.getItem('campuspulse_last_notice')!==key){
 
-            new Notification('CampusPulse Study Reminder',{
-                body:'It is time for your planned study session. Keep going!'
-            });
+   new Notification('CampusPulse Study Reminder',{
+    body:'It is time for your planned study session. Keep going!'
+   });
 
-            localStorage.setItem('campuspulse_last_notice',key);
-        }
+   localStorage.setItem('campuspulse_last_notice',key);
+  }
 
-    },15000);
+ },15000);
 }
 
 window.addEventListener('load',()=>{
 
-    if(localStorage.getItem('campuspulse_dark')==='1'){
+ if(localStorage.getItem('campuspulse_dark')==='1'){
 
-        document.body.classList.add('dark');
+  document.body.classList.add('dark');
 
-        document.getElementById('themeIcon').className='fa-solid fa-sun';
-    }
+  document.getElementById('themeIcon').className=
+  'fa-solid fa-sun';
+ }
 
-    if(!restoreApp()){
-        loadPresetData();
-    }
+ if(!restoreApp()){
+  loadPresetData();
+ }
 
-    const r=localStorage.getItem('campuspulse_reminder');
+ const r=localStorage.getItem('campuspulse_reminder');
 
-    if(r){
+ if(r){
 
-        document.getElementById('reminderTime').value=r;
+  document.getElementById('reminderTime').value=r;
 
-        document.getElementById('reminderStatus').textContent=
-            `Daily reminder set for ${r}.`;
+  document.getElementById('reminderStatus').textContent=
+  `Daily reminder set for ${r}.`;
 
-        if('Notification'in window&&Notification.permission==='granted'){
-            scheduleReminder(r);
-        }
-    }
+  if('Notification'in window&&Notification.permission==='granted'){
+   scheduleReminder(r);
+  }
+ }
 
 });
 
