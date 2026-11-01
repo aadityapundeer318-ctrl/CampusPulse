@@ -19,12 +19,9 @@
  --bg:#f7f6ff;
 }
 
-* {
- box-sizing:border-box;
- scroll-behavior:smooth;
-}
+*{box-sizing:border-box;scroll-behavior:smooth}
 
-body {
+body{
  margin:0;
  background:var(--bg);
  color:var(--ink);
@@ -32,11 +29,9 @@ body {
  transition:background .25s,color .25s;
 }
 
-button,a {
- -webkit-tap-highlight-color:transparent;
-}
+button,a{-webkit-tap-highlight-color:transparent}
 
-.sidebar {
+.sidebar{
  position:fixed;
  inset:0 auto 0 0;
  width:270px;
@@ -48,9 +43,8 @@ button,a {
  flex-direction:column;
 }
 
-.brand-icon {
- width:48px;
- height:48px;
+.brand-icon{
+ width:48px;height:48px;
  border-radius:16px;
  background:linear-gradient(135deg,#7426e8,#a855f7);
  color:white;
@@ -59,7 +53,7 @@ button,a {
  box-shadow:0 8px 18px #7426e833;
 }
 
-.nav-label {
+.nav-label{
  font-size:10px;
  font-weight:800;
  letter-spacing:1.5px;
@@ -68,7 +62,7 @@ button,a {
  margin:27px 0 10px;
 }
 
-.nav-item {
+.nav-item{
  position:relative;
  display:flex;
  align-items:center;
@@ -84,7 +78,7 @@ button,a {
  transition:all .25s ease;
 }
 
-.nav-item .nav-icon {
+.nav-item .nav-icon{
  width:38px;
  height:38px;
  border-radius:12px;
@@ -94,19 +88,19 @@ button,a {
  transition:all .25s ease;
 }
 
-.nav-item:hover {
+.nav-item:hover{
  background:#f7f3ff;
  color:var(--purple);
  transform:translateX(3px);
 }
 
-.nav-item.active {
+.nav-item.active{
  background:linear-gradient(105deg,#f0e5ff,#f8f2ff);
  color:var(--purple);
  box-shadow:0 7px 18px #702be90d;
 }
 
-.nav-item.active:before {
+.nav-item.active:before{
  content:"";
  position:absolute;
  left:0;
@@ -117,23 +111,23 @@ button,a {
  background:linear-gradient(#6425df,#a855f7);
 }
 
-.nav-item.active .nav-icon {
+.nav-item.active .nav-icon{
  background:linear-gradient(135deg,#6c25e5,#a34cf2);
  color:white;
  box-shadow:0 5px 12px #702be944;
  transform:scale(1.07);
 }
 
-.nav-item:not(.active) .nav-icon {
+.nav-item:not(.active) .nav-icon{
  background:#f6f5fb;
  color:#77758d;
 }
 
-.nav-item:active .nav-icon {
+.nav-item:active .nav-icon{
  transform:scale(.91);
 }
 
-.encourage {
+.encourage{
  margin-top:auto;
  border-radius:18px;
  padding:17px 14px;
@@ -141,7 +135,7 @@ button,a {
  color:#4e1aa9;
 }
 
-.topbar {
+.topbar{
  min-height:78px;
  background:#fff;
  border-bottom:1px solid var(--line);
@@ -155,32 +149,24 @@ button,a {
  z-index:10;
 }
 
-.main {
- margin-left:270px;
- min-height:100vh;
-}
+.main{margin-left:270px;min-height:100vh}
+.page{max-width:1400px;margin:auto;padding:30px 34px 55px}
 
-.page {
- max-width:1400px;
- margin:auto;
- padding:30px 34px 55px;
-}
-
-.card {
+.card{
  background:white;
  border:1px solid var(--line);
  border-radius:22px;
  box-shadow:0 7px 25px #29205b08;
 }
 
-.stat-card {
+.stat-card{
  padding:20px;
  display:flex;
  align-items:center;
  gap:14px;
 }
 
-.stat-icon {
+.stat-icon{
  width:46px;
  height:46px;
  border-radius:15px;
@@ -189,7 +175,7 @@ button,a {
  font-size:19px;
 }
 
-.input {
+.input{
  width:100%;
  padding:12px 13px;
  border:1px solid #e7e5f1;
@@ -200,12 +186,12 @@ button,a {
  outline:none;
 }
 
-.input:focus {
+.input:focus{
  border-color:#8b45f2;
  box-shadow:0 0 0 3px #8b45f21a;
 }
 
-.btn {
+.btn{
  border:0;
  background:linear-gradient(100deg,#6425df,#9145ed);
  color:#fff;
@@ -218,11 +204,9 @@ button,a {
  transition:.2s;
 }
 
-.btn:hover {
- transform:translateY(-2px);
-}
+.btn:hover{transform:translateY(-2px)}
 
-.btn-light {
+.btn-light{
  border:1px solid #e8e5f3;
  background:#fff;
  color:#55516e;
@@ -233,7 +217,7 @@ button,a {
  cursor:pointer;
 }
 
-.quick-tile {
+.quick-tile{
  border-radius:19px;
  padding:18px 12px;
  text-align:center;
@@ -242,80 +226,74 @@ button,a {
  border:1px solid transparent;
 }
 
-.quick-tile:hover {
+.quick-tile:hover{
  transform:translateY(-4px);
  box-shadow:0 10px 20px #25204412;
 }
 
-.quick-tile:active {
- transform:scale(.97);
-}
+.quick-tile:active{transform:scale(.97)}
 
-.subject-row {
+.subject-row{
  display:grid;
  grid-template-columns:1fr 78px 100px 28px;
  gap:8px;
  align-items:center;
 }
 
-.progress {
+.progress{
  height:9px;
  background:#efedf6;
  border-radius:30px;
  overflow:hidden;
 }
 
-.progress>div {
+.progress>div{
  height:100%;
  background:linear-gradient(90deg,#6425df,#a855f7);
  border-radius:30px;
  transition:width .3s;
 }
 
-.task-done {
+.task-done{
  accent-color:#6425df;
  width:17px;
  height:17px;
 }
 
-.day-card {
+.day-card{
  border:1px solid #eeecf5;
  border-radius:15px;
  padding:15px;
 }
 
-.day-card summary {
+.day-card summary{
  cursor:pointer;
  list-style:none;
 }
 
-.day-card summary::-webkit-details-marker {
- display:none;
-}
+.day-card summary::-webkit-details-marker{display:none}
 
-.developer-credit {
+.developer-credit{
  font-size:11px;
  font-weight:750;
  white-space:nowrap;
 }
 
-.aaditya {
+.aaditya{
  background:linear-gradient(90deg,#6425df,#a855f7);
  background-clip:text;
  color:transparent;
 }
 
-.akshat {
+.akshat{
  background:linear-gradient(90deg,#2563eb,#06b6d4);
  background-clip:text;
  color:transparent;
 }
 
-.mobile-menu {
- display:none;
-}
+.mobile-menu{display:none}
 
-.dark {
+.dark{
  --bg:#111827;
  --ink:#f2efff;
  --muted:#b9b4ce;
@@ -325,32 +303,30 @@ button,a {
 .dark .sidebar,
 .dark .topbar,
 .dark .card,
-.dark .btn-light {
+.dark .btn-light{
  background:#1e1b2d;
  border-color:#343149;
  color:#f2efff;
 }
 
-.dark .nav-item {
- color:#c7c1dc;
-}
+.dark .nav-item{color:#c7c1dc}
 
-.dark .nav-item.active {
+.dark .nav-item.active{
  background:#38265c;
  color:#e5d4ff;
 }
 
-.dark .nav-item:not(.active) .nav-icon {
+.dark .nav-item:not(.active) .nav-icon{
  background:#2b273d;
  color:#c9c1df;
 }
 
-.dark .encourage {
+.dark .encourage{
  background:#38265c;
  color:#eadcff;
 }
 
-.dark .input {
+.dark .input{
  background:#242036;
  color:#fff;
  border-color:#45405b;
@@ -359,210 +335,281 @@ button,a {
 .dark .text-gray-400,
 .dark .text-gray-500,
 .dark .text-gray-600,
-.dark .text-gray-700 {
+.dark .text-gray-700{
  color:#b9b4ce!important;
 }
 
-.dark .day-card {
- border-color:#39344f;
+.dark .day-card{border-color:#39344f}
+.dark .progress{background:#38334b}
+
+@media(max-width:950px){
+ .sidebar{width:235px}
+ .main{margin-left:235px}
+ .topbar{padding:14px 20px}
+ .page{padding:24px 20px}
 }
 
-.dark .progress {
- background:#38334b;
-}
-
-@media(max-width:950px) {
- .sidebar {
-  width:235px;
- }
-
- .main {
-  margin-left:235px;
- }
-
- .topbar {
-  padding:14px 20px;
- }
-
- .page {
-  padding:24px 20px;
- }
-}
-
-@media(max-width:720px) {
- .sidebar {
+@media(max-width:720px){
+ .sidebar{
   transform:translateX(-105%);
   transition:.25s;
   width:270px;
   box-shadow:12px 0 30px #17102b20;
  }
-
- .sidebar.open {
-  transform:translateX(0);
- }
-
- .main {
-  margin-left:0;
- }
-
- .mobile-menu {
-  display:inline-grid;
-  place-items:center;
- }
-
- .topbar {
-  padding:13px 16px;
- }
-
- .page {
-  padding:20px 14px 45px;
- }
-
- .developer-credit {
-  display:none;
- }
+ .sidebar.open{transform:translateX(0)}
+ .main{margin-left:0}
+ .mobile-menu{display:inline-grid;place-items:center}
+ .topbar{padding:13px 16px}
+ .page{padding:20px 14px 45px}
+ .developer-credit{display:none}
 }
 
-@media(max-width:520px) {
- .subject-row {
-  grid-template-columns:1fr 58px 82px 24px;
- }
-
- .top-actions .btn-light {
-  padding:9px;
- }
-
- .welcome-title {
-  font-size:27px;
- }
-
- .stat-card {
-  padding:14px;
-  gap:9px;
- }
-
- .stat-icon {
-  width:38px;
-  height:38px;
- }
+@media(max-width:520px){
+ .subject-row{grid-template-columns:1fr 58px 82px 24px}
+ .top-actions .btn-light{padding:9px}
+ .welcome-title{font-size:27px}
+ .stat-card{padding:14px;gap:9px}
+ .stat-icon{width:38px;height:38px}
 }
 
-@media print {
- .sidebar,
- .topbar,
- .no-print {
-  display:none!important;
- }
-
- .main {
-  margin:0;
- }
-
- .page {
-  padding:0;
- }
-
- .card {
-  box-shadow:none;
-  break-inside:avoid;
- }
-
- body {
-  background:white;
-  color:#111;
- }
+@media print{
+ .sidebar,.topbar,.no-print{display:none!important}
+ .main{margin:0}
+ .page{padding:0}
+ .card{box-shadow:none;break-inside:avoid}
+ body{background:white;color:#111}
 }
+
+/* BEAUTIFUL GRAPHIC ENHANCEMENTS */
+
+.page { position:relative; }
+#dashboard { position:relative; }
+
+.welcome-art {
+ position:absolute;
+ right:4px;
+ top:-8px;
+ width:190px;
+ height:145px;
+ opacity:.96;
+ pointer-events:none;
+ filter:drop-shadow(0 14px 18px #6b36c51c);
+}
+
+.hero-banner {
+ position:relative;
+ overflow:hidden;
+ isolation:isolate;
+ background:linear-gradient(115deg,#4f19bf 0%,#7632dc 52%,#a65af2 100%) !important;
+ box-shadow:0 18px 35px #6724c52c;
+}
+
+.hero-banner:before,.hero-banner:after {
+ content:"";
+ position:absolute;
+ border-radius:50%;
+ z-index:-1;
+ background:rgba(255,255,255,.09);
+}
+
+.hero-banner:before {
+ width:250px;
+ height:250px;
+ right:130px;
+ top:-155px;
+}
+
+.hero-banner:after {
+ width:190px;
+ height:190px;
+ right:-65px;
+ bottom:-125px;
+}
+
+.hero-art {
+ width:210px;
+ max-width:35%;
+ height:auto;
+ margin-left:auto;
+ filter:drop-shadow(0 12px 16px #27105b45);
+ animation:floatStudy 5s ease-in-out infinite;
+}
+
+@keyframes floatStudy {
+ 0%,100%{transform:translateY(0)}
+ 50%{transform:translateY(-8px)}
+}
+
+.stat-card {
+ position:relative;
+ overflow:hidden;
+ transition:transform .22s,box-shadow .22s;
+}
+
+.stat-card:after {
+ content:"";
+ position:absolute;
+ width:75px;
+ height:75px;
+ border-radius:50%;
+ right:-28px;
+ top:-28px;
+ background:linear-gradient(135deg,#8b45f214,#8b45f202);
+}
+
+.stat-card:hover {
+ transform:translateY(-4px);
+ box-shadow:0 14px 28px #34215b12;
+}
+
+.stat-icon { box-shadow:0 7px 15px #34215b0d; }
+
+.quick-tile {
+ position:relative;
+ overflow:hidden;
+ min-height:118px;
+}
+
+.quick-tile:after {
+ content:"";
+ position:absolute;
+ width:85px;
+ height:85px;
+ border-radius:50%;
+ right:-30px;
+ bottom:-45px;
+ background:#ffffff70;
+ transition:transform .25s;
+}
+
+.quick-tile:hover:after { transform:scale(1.5); }
+
+.quick-tile i {
+ display:inline-grid;
+ place-items:center;
+ width:54px;
+ height:54px;
+ border-radius:17px;
+ background:#ffffffa8;
+ box-shadow:0 8px 18px #34215b0d;
+}
+
+.card { transition:box-shadow .2s,border-color .2s; }
+.card:hover { box-shadow:0 12px 30px #29205b0d; }
+
+.brand-icon { position:relative; overflow:hidden; }
+
+.brand-icon:after {
+ content:"";
+ position:absolute;
+ width:22px;
+ height:60px;
+ background:#ffffff35;
+ transform:rotate(35deg);
+ left:9px;
+ top:-8px;
+}
+
+.dashboard-kicker {
+ display:inline-flex;
+ align-items:center;
+ gap:8px;
+ padding:7px 11px;
+ border:1px solid #e9ddff;
+ border-radius:999px;
+ background:#fff;
+ box-shadow:0 5px 15px #4d2a8310;
+}
+
+.dark .dashboard-kicker {
+ background:#211b35;
+ border-color:#40335e;
+}
+
+.dark .quick-tile i { background:#ffffffb8; }
+
+@media(max-width:720px) {
+ .welcome-art {
+  width:112px;
+  height:95px;
+  right:0;
+  top:4px;
+  opacity:.75;
+ }
+ .hero-art { max-width:100%;width:125px;margin:0 auto; }
+ .hero-banner { padding:20px !important; }
+}
+
+@media(max-width:430px) {
+ .welcome-art { width:82px;height:75px;top:15px; }
+ .welcome-title { max-width:75%; }
+}
+
 </style>
 </head>
 
 <body>
 
-<!-- SIDEBAR -->
-
 <aside class="sidebar no-print" id="sidebar">
 
  <div class="flex items-center gap-3 px-2">
-
   <div class="brand-icon">
    <i class="fa-solid fa-graduation-cap text-2xl"></i>
   </div>
-
   <div>
    <div class="font-extrabold text-xl tracking-tight">
     Campus<span style="color:#7426e8">Pulse</span>
    </div>
-
-   <p class="text-xs text-gray-400">
-    Learn · Plan · Achieve
-   </p>
+   <p class="text-xs text-gray-400">Learn · Plan · Achieve</p>
   </div>
-
  </div>
 
  <div class="nav-label">YOUR WORKSPACE</div>
 
  <nav id="sideNav">
-
   <a href="#dashboard" class="nav-item active">
-   <span class="nav-icon">
-    <i class="fa-solid fa-house"></i>
-   </span>
+   <span class="nav-icon"><i class="fa-solid fa-house"></i></span>
    Dashboard
   </a>
 
   <a href="#configuration" class="nav-item">
-   <span class="nav-icon">
-    <i class="fa-solid fa-sliders"></i>
-   </span>
+   <span class="nav-icon"><i class="fa-solid fa-sliders"></i></span>
    Exam Configuration
   </a>
 
   <a href="#schedule" class="nav-item">
-   <span class="nav-icon">
-    <i class="fa-solid fa-calendar-check"></i>
-   </span>
+   <span class="nav-icon"><i class="fa-solid fa-calendar-check"></i></span>
    Study Schedule
   </a>
 
   <a href="#weekly" class="nav-item">
-   <span class="nav-icon">
-    <i class="fa-solid fa-chart-column"></i>
-   </span>
+   <span class="nav-icon"><i class="fa-solid fa-chart-column"></i></span>
    Performance
   </a>
 
   <a href="#personalNotes" class="nav-item">
-   <span class="nav-icon">
-    <i class="fa-solid fa-note-sticky"></i>
-   </span>
+   <span class="nav-icon"><i class="fa-solid fa-note-sticky"></i></span>
    Personal Notes
   </a>
-
  </nav>
 
  <div class="encourage">
-
   <div class="flex items-center gap-2 mb-2">
    <i class="fa-solid fa-trophy text-xl"></i>
    <b class="text-sm">Keep Going!</b>
   </div>
-
   <p class="text-xs leading-5">
    Small steps every day create big results. You’ve got this!
   </p>
-
  </div>
 
 </aside>
 
 <div class="main">
 
-<!-- TOP BAR -->
-
 <header class="topbar no-print">
 
  <div class="flex items-center gap-3">
-
   <button class="mobile-menu btn-light" onclick="toggleMenu()">
    <i class="fa-solid fa-bars"></i>
   </button>
@@ -571,12 +618,8 @@ button,a {
    <p class="text-xs text-gray-400">
     Workspace / <span id="crumb">Dashboard</span>
    </p>
-
-   <h2 class="font-bold">
-    Study Dashboard
-   </h2>
+   <h2 class="font-bold">Study Dashboard</h2>
   </div>
-
  </div>
 
  <div class="flex items-center gap-2 top-actions">
@@ -588,9 +631,7 @@ button,a {
    <span class="akshat">Akshat Jha</span>
   </div>
 
-  <button class="btn-light" onclick="loadPresetData()">
-   BCA Demo
-  </button>
+  <button class="btn-light" onclick="loadPresetData()">BCA Demo</button>
 
   <button class="btn-light" onclick="toggleTheme()">
    <i id="themeIcon" class="fa-solid fa-moon"></i>
@@ -601,343 +642,228 @@ button,a {
   </button>
 
  </div>
-
 </header>
 
 <main class="page">
 
-<!-- DASHBOARD -->
-
 <section id="dashboard" class="mb-8">
 
- <div class="mb-6">
-
-  <p class="text-xs font-bold tracking-widest uppercase mb-2" style="color:#8b45f2">
-   YOUR PERSONAL STUDY SPACE
-  </p>
+ <div class="mb-6 relative">
+  <div class="dashboard-kicker text-xs font-extrabold tracking-wider uppercase mb-3" style="color:#8b45f2">
+   <i class="fa-solid fa-sparkles"></i> YOUR PERSONAL STUDY SPACE
+  </div>
 
   <h1 class="welcome-title text-3xl font-extrabold">
-   Welcome back,
-   <span style="color:#702be9">Student!</span> 👋
+   Welcome back, <span style="color:#702be9">Student!</span> 👋
   </h1>
 
   <p class="text-sm text-gray-500 mt-2">
    Let’s make today productive. One chapter at a time.
   </p>
 
+  <svg class="welcome-art" viewBox="0 0 190 145" fill="none" aria-hidden="true">
+   <circle cx="120" cy="68" r="53" fill="#E9D9FF" opacity=".7"/>
+   <path d="M49 106c0-4 3-7 7-7h67c4 0 7 3 7 7v8H49v-8Z" fill="#8B5CF6"/>
+   <path d="M58 98V56c0-5 4-9 9-9h54c5 0 9 4 9 9v42H58Z" fill="#fff" stroke="#7C3AED" stroke-width="3"/>
+   <path d="M67 59h53M67 69h42M67 79h47M67 89h32" stroke="#C4B5FD" stroke-width="4" stroke-linecap="round"/>
+   <path d="M39 113h102" stroke="#6D28D9" stroke-width="5" stroke-linecap="round"/>
+   <path d="m145 30 4 9 10 1-8 7 2 10-8-5-9 5 2-10-7-7 10-1 4-9Z" fill="#FBBF24"/>
+   <circle cx="39" cy="43" r="5" fill="#A78BFA"/><circle cx="157" cy="91" r="4" fill="#F59E0B"/>
+   <path d="M23 91c8-12 15-12 22 0M28 91c0-8-4-13-10-15M39 91c2-9 7-13 14-14" stroke="#8B5CF6" stroke-width="3" stroke-linecap="round"/>
+  </svg>
  </div>
 
- <div class="rounded-3xl p-6 md:p-7 mb-6 text-white flex flex-wrap justify-between items-center gap-5"
- style="background:linear-gradient(110deg,#5315c9,#923ff0)">
+ <div class="hero-banner rounded-3xl p-6 md:p-7 mb-6 text-white flex flex-wrap justify-between items-center gap-5">
 
-  <div class="flex items-center gap-4">
-
-   <i class="fa-solid fa-bullseye text-4xl"></i>
-
-   <div>
-    <p class="text-sm text-purple-100">
-     Your preparation goal
-    </p>
-
-    <p class="text-3xl font-extrabold" id="heroGoal">
-     0%
-    </p>
+  <div class="flex items-center gap-4 relative z-10">
+   <div class="w-14 h-14 rounded-2xl bg-white/15 grid place-items-center border border-white/20">
+    <i class="fa-solid fa-bullseye text-3xl"></i>
    </div>
-
+   <div>
+    <p class="text-sm text-purple-100">Your preparation goal</p>
+    <p class="text-3xl font-extrabold" id="heroGoal">0%</p>
+   </div>
   </div>
 
   <div class="h-12 w-px bg-white/30 hidden sm:block"></div>
 
-  <div class="flex items-center gap-4">
-
-   <i class="fa-solid fa-fire text-4xl text-orange-300"></i>
-
-   <div>
-    <p class="text-sm text-purple-100">
-     Keep your momentum
-    </p>
-
-    <p class="text-2xl font-extrabold" id="heroDays">
-     Let’s begin!
-    </p>
+  <div class="flex items-center gap-4 relative z-10">
+   <div class="w-14 h-14 rounded-2xl bg-white/15 grid place-items-center border border-white/20">
+    <i class="fa-solid fa-fire text-3xl text-orange-300"></i>
    </div>
-
+   <div>
+    <p class="text-sm text-purple-100">Keep your momentum</p>
+    <p class="text-2xl font-extrabold" id="heroDays">Let’s begin!</p>
+   </div>
   </div>
 
-  <i class="fa-solid fa-chart-line text-5xl text-white/40 ml-auto"></i>
-
+  <svg class="hero-art" viewBox="0 0 220 150" fill="none" aria-hidden="true">
+   <path d="M20 123h180" stroke="#fff" stroke-opacity=".45" stroke-width="3" stroke-linecap="round"/>
+   <path d="M47 115V61c0-5 4-9 9-9h43v63H47Z" fill="#fff"/>
+   <path d="M99 115V52h43c5 0 9 4 9 9v54H99Z" fill="#EDE9FE"/>
+   <path d="M99 52v63" stroke="#8B5CF6" stroke-width="3"/>
+   <path d="M58 67h30M58 78h30M58 89h23M111 67h29M111 78h29M111 89h22" stroke="#A78BFA" stroke-width="4" stroke-linecap="round"/>
+   <path d="m160 42 8-16 8 16 17 3-13 12 3 17-15-8-15 8 3-17-13-12 17-3Z" fill="#FDE68A"/>
+   <path d="M25 47c7-13 15-13 22 0M31 47c0-8-4-13-10-15M41 47c2-9 7-13 14-14" stroke="#C4B5FD" stroke-width="3" stroke-linecap="round"/>
+   <circle cx="183" cy="105" r="5" fill="#FDE68A"/><circle cx="28" cy="100" r="4" fill="#fff"/>
+  </svg>
  </div>
-
- <!-- STATISTICS -->
 
  <div class="grid grid-cols-2 xl:grid-cols-4 gap-3 mb-7">
 
   <div class="card stat-card">
-
    <div class="stat-icon bg-purple-100 text-purple-700">
     <i class="fa-regular fa-calendar"></i>
    </div>
-
    <div>
     <p class="text-xs text-gray-500">Days Remaining</p>
     <b id="statDays" class="text-2xl">--</b>
    </div>
-
   </div>
 
   <div class="card stat-card">
-
    <div class="stat-icon bg-blue-100 text-blue-700">
     <i class="fa-solid fa-book"></i>
    </div>
-
    <div>
     <p class="text-xs text-gray-500">Total Subjects</p>
     <b id="statSubjects" class="text-2xl">--</b>
    </div>
-
   </div>
 
   <div class="card stat-card">
-
    <div class="stat-icon bg-orange-100 text-orange-700">
     <i class="fa-solid fa-layer-group"></i>
    </div>
-
    <div>
     <p class="text-xs text-gray-500">Total Chapters</p>
     <b id="statTopics" class="text-2xl">--</b>
    </div>
-
   </div>
 
   <div class="card stat-card">
-
    <div class="stat-icon bg-green-100 text-green-700">
     <i class="fa-solid fa-chart-pie"></i>
    </div>
-
    <div>
     <p class="text-xs text-gray-500">Readiness Score</p>
     <b id="statScore" class="text-2xl">0%</b>
    </div>
-
   </div>
 
  </div>
 
- <!-- QUICK ACCESS -->
-
  <div class="flex items-center justify-between mb-3">
-
-  <h3 class="font-extrabold text-lg">
-   Quick Access
-  </h3>
-
+  <h3 class="font-extrabold text-lg">Quick Access</h3>
   <span class="text-xs font-semibold" style="color:#702be9">
-   Choose a section
-   <i class="fa-solid fa-arrow-right ml-1"></i>
+   Choose a section <i class="fa-solid fa-arrow-right ml-1"></i>
   </span>
-
  </div>
 
  <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
 
-  <button class="quick-tile"
-  style="background:#e8efff;color:#315ed4"
+  <button class="quick-tile" style="background:#e8efff;color:#315ed4"
   onclick="goTo('schedule')">
-
    <i class="fa-solid fa-book-open text-3xl mb-3"></i>
-
-   <p class="font-bold text-sm">
-    Study Schedule
-   </p>
-
+   <p class="font-bold text-sm">Study Schedule</p>
   </button>
 
-  <button class="quick-tile"
-  style="background:#fff0df;color:#d97706"
+  <button class="quick-tile" style="background:#fff0df;color:#d97706"
   onclick="goTo('configuration')">
-
    <i class="fa-solid fa-clipboard-list text-3xl mb-3"></i>
-
-   <p class="font-bold text-sm">
-    Exam Setup
-   </p>
-
+   <p class="font-bold text-sm">Exam Setup</p>
   </button>
 
-  <button class="quick-tile"
-  style="background:#f0e5ff;color:#7426e8"
+  <button class="quick-tile" style="background:#f0e5ff;color:#7426e8"
   onclick="goTo('weekly')">
-
    <i class="fa-solid fa-chart-simple text-3xl mb-3"></i>
-
-   <p class="font-bold text-sm">
-    Performance
-   </p>
-
+   <p class="font-bold text-sm">Performance</p>
   </button>
 
-  <button class="quick-tile"
-  style="background:#fff0f6;color:#c0266b"
+  <button class="quick-tile" style="background:#fff0f6;color:#c0266b"
   onclick="goTo('personalNotes')">
-
    <i class="fa-solid fa-note-sticky text-3xl mb-3"></i>
-
-   <p class="font-bold text-sm">
-    Personal Notes
-   </p>
-
+   <p class="font-bold text-sm">Personal Notes</p>
   </button>
 
  </div>
-
 </section>
-
-<!-- EXAM CONFIGURATION -->
 
 <section id="configuration" class="grid grid-cols-1 xl:grid-cols-3 gap-5 mb-7">
 
  <div class="card p-5 md:p-6">
 
   <div class="mb-5">
-
-   <h3 class="font-extrabold text-lg">
-    Exam Configuration
-   </h3>
-
-   <p class="text-xs text-gray-400 mt-1">
-    Set your exam and subjects
-   </p>
-
+   <h3 class="font-extrabold text-lg">Exam Configuration</h3>
+   <p class="text-xs text-gray-400 mt-1">Set your exam and subjects</p>
   </div>
 
-  <form id="schedulerForm"
-  onsubmit="generateSchedule(event)"
-  class="space-y-4">
+  <form id="schedulerForm" onsubmit="generateSchedule(event)" class="space-y-4">
 
    <div>
-    <label class="text-xs font-bold">
-     Exam Name
-    </label>
-
-    <input id="examName"
-    class="input mt-1"
-    required
-    placeholder="BCA Semester Exams">
+    <label class="text-xs font-bold">Exam Name</label>
+    <input id="examName" class="input mt-1" required placeholder="BCA Semester Exams">
    </div>
 
    <div>
-    <label class="text-xs font-bold">
-     Target Exam Date
-    </label>
-
-    <input type="date"
-    id="examDate"
-    class="input mt-1"
-    required>
+    <label class="text-xs font-bold">Target Exam Date</label>
+    <input type="date" id="examDate" class="input mt-1" required>
    </div>
 
    <div>
-    <label class="text-xs font-bold">
-     Daily Study Hours
-    </label>
-
-    <input type="number"
-    id="dailyHours"
-    min="1"
-    max="16"
-    value="5"
-    class="input mt-1"
-    required>
+    <label class="text-xs font-bold">Daily Study Hours</label>
+    <input type="number" id="dailyHours" min="1" max="16" value="5" class="input mt-1" required>
    </div>
 
    <div class="border-t pt-4">
-
     <div class="flex justify-between items-center mb-3">
-
-     <label class="text-xs font-extrabold">
-      Subjects & Chapters
-     </label>
-
-     <button type="button"
-     onclick="addSubjectRow()"
-     class="text-xs font-bold"
-     style="color:#702be9">
-
-      <i class="fa-solid fa-plus"></i>
-      Add Subject
-
+     <label class="text-xs font-extrabold">Subjects & Chapters</label>
+     <button type="button" onclick="addSubjectRow()"
+     class="text-xs font-bold" style="color:#702be9">
+      <i class="fa-solid fa-plus"></i> Add Subject
      </button>
-
     </div>
 
     <div id="subjectsContainer" class="space-y-3"></div>
-
    </div>
 
    <button type="submit" class="btn w-full">
-
     <i class="fa-solid fa-wand-magic-sparkles mr-2"></i>
-
     Generate Smart Schedule
-
    </button>
 
   </form>
-
  </div>
-
- <!-- ANALYTICS -->
 
  <div class="card p-5 md:p-6 xl:col-span-2">
 
   <div class="flex justify-between items-center mb-4">
-
    <div>
-    <h3 class="font-extrabold text-lg">
-     Study Analytics
-    </h3>
-
-    <p class="text-xs text-gray-400 mt-1">
-     Subject-wise chapter workload
-    </p>
+    <h3 class="font-extrabold text-lg">Study Analytics</h3>
+    <p class="text-xs text-gray-400 mt-1">Subject-wise chapter workload</p>
    </div>
-
    <span class="text-xs rounded-xl px-3 py-2 bg-purple-50 text-purple-700 font-bold">
     Overview
    </span>
-
   </div>
 
   <div class="grid md:grid-cols-2 gap-4 items-center">
-
    <div style="height:260px">
     <canvas id="prepChart"></canvas>
    </div>
-
    <div id="subjectSummary" class="space-y-4 text-sm text-gray-500">
     Generate your schedule to see analytics.
    </div>
-
   </div>
 
  </div>
-
 </section>
-
-<!-- DAILY STUDY SCHEDULE -->
 
 <section id="schedule" class="card p-5 md:p-6 mb-7">
 
  <div class="flex flex-wrap justify-between items-center gap-3 mb-5">
-
   <div>
-   <h3 id="scheduleTitle" class="font-extrabold text-lg">
-    Daily Study Schedule
-   </h3>
-
+   <h3 id="scheduleTitle" class="font-extrabold text-lg">Daily Study Schedule</h3>
    <p class="text-xs text-gray-400 mt-1">
     Every subject gets a daily time slot and its own completion checkbox.
    </p>
@@ -947,49 +873,36 @@ button,a {
   class="rounded-xl px-3 py-2 bg-purple-50 text-purple-700 text-xs font-bold">
    Study Target: --
   </span>
-
  </div>
 
  <div class="mb-5">
-
   <div class="flex justify-between text-xs mb-2">
    <b>Overall Progress</b>
    <b id="progressLabel" style="color:#702be9">0%</b>
   </div>
-
   <div class="progress">
    <div id="mainProgress" style="width:0%"></div>
   </div>
-
  </div>
 
- <div id="scheduleOutput"
- class="space-y-3 text-sm text-gray-400 text-center py-8">
+ <div id="scheduleOutput" class="space-y-3 text-sm text-gray-400 text-center py-8">
   Add subjects and generate your schedule.
  </div>
 
 </section>
 
-<!-- PERFORMANCE REPORT -->
-
 <section id="weekly" class="card p-5 md:p-6 mb-7">
 
  <div class="flex flex-wrap justify-between items-center gap-3 mb-4">
-
   <div>
-   <h3 class="font-extrabold text-lg">
-    Performance Report
-   </h3>
-
+   <h3 class="font-extrabold text-lg">Performance Report</h3>
    <p class="text-xs text-gray-400 mt-1">
     Completed study sessions by week.
    </p>
   </div>
-
   <button onclick="renderWeeklyReport()" class="btn-light no-print">
    Refresh Report
   </button>
-
  </div>
 
  <div id="weeklyOutput" class="text-sm text-gray-400">
@@ -998,112 +911,47 @@ button,a {
 
 </section>
 
-<!-- PERSONAL NOTES -->
-
 <section id="personalNotes" class="card p-5 md:p-6 mb-7">
-
  <div class="flex flex-wrap justify-between items-center gap-3 mb-4">
-
   <div>
-   <h3 class="font-extrabold text-lg">
-    Personal Notes
-   </h3>
-
-   <p class="text-xs text-gray-400 mt-1">
-    Save your own notes separately for each subject.
-    Notes are saved automatically on this device.
-   </p>
+   <h3 class="font-extrabold text-lg">Personal Notes</h3>
+   <p class="text-xs text-gray-400 mt-1">Save your own notes separately for each subject. Notes are saved automatically on this device.</p>
   </div>
-
-  <span class="text-xs rounded-xl px-3 py-2 font-bold"
-  style="background:#fff0f6;color:#c0266b">
-
-   <i class="fa-solid fa-cloud-arrow-down mr-1"></i>
-   Auto Save
-
+  <span class="text-xs rounded-xl px-3 py-2 font-bold" style="background:#fff0f6;color:#c0266b">
+   <i class="fa-solid fa-cloud-arrow-down mr-1"></i> Auto Save
   </span>
-
  </div>
-
  <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
-
   <div class="md:col-span-1">
-
-   <label for="notesSubject" class="block text-xs font-bold mb-2">
-    Choose Subject
-   </label>
-
-   <select id="notesSubject"
-   class="input"
-   onchange="loadPersonalNote()"
-   onfocus="refreshNotesSubjects()">
-   </select>
-
+   <label for="notesSubject" class="block text-xs font-bold mb-2">Choose Subject</label>
+   <select id="notesSubject" class="input" onchange="loadPersonalNote()" onfocus="refreshNotesSubjects()"></select>
   </div>
-
   <div class="md:col-span-2 flex items-end justify-between gap-3">
-
-   <p id="notesSaveStatus" class="text-xs text-gray-400 pb-3">
-    Your notes are saved automatically.
-   </p>
-
-   <button type="button"
-   class="btn-light no-print"
-   onclick="clearPersonalNote()">
-
-    <i class="fa-solid fa-trash mr-1"></i>
-    Clear Notes
-
-   </button>
-
+   <p id="notesSaveStatus" class="text-xs text-gray-400 pb-3">Your notes are saved automatically.</p>
+   <button type="button" class="btn-light no-print" onclick="clearPersonalNote()"><i class="fa-solid fa-trash mr-1"></i> Clear Notes</button>
   </div>
-
  </div>
-
- <textarea id="personalNoteText"
- class="input"
- rows="9"
- placeholder="Write your important points, formulas, definitions, doubts or revision notes here..."
- oninput="savePersonalNote()"
- style="resize:vertical;line-height:1.7"></textarea>
-
- <p class="text-xs text-gray-400 mt-2">
-  <i class="fa-solid fa-circle-info mr-1"></i>
-  Notes remain saved after refreshing the page, on the same browser and device.
- </p>
-
+ <textarea id="personalNoteText" class="input" rows="9" placeholder="Write your important points, formulas, definitions, doubts or revision notes here..." oninput="savePersonalNote()" style="resize:vertical;line-height:1.7"></textarea>
+ <p class="text-xs text-gray-400 mt-2"><i class="fa-solid fa-circle-info mr-1"></i>Notes remain saved after refreshing the page, on the same browser and device.</p>
 </section>
-
-<!-- STUDY REMINDER -->
 
 <section class="card p-5 md:p-6 mb-7 no-print">
 
  <div class="flex flex-wrap justify-between items-center gap-4">
-
   <div>
-   <h3 class="font-extrabold">
-    Study Reminder
-   </h3>
-
+   <h3 class="font-extrabold">Study Reminder</h3>
    <p class="text-xs text-gray-400 mt-1">
     Browser reminder works while this page stays open.
    </p>
   </div>
 
   <div class="flex flex-wrap gap-2 items-center">
-
-   <input id="reminderTime"
-   type="time"
-   value="19:00"
-   class="input"
-   style="width:130px">
-
+   <input id="reminderTime" type="time" value="19:00"
+   class="input" style="width:130px">
    <button onclick="enableReminder()" class="btn">
     Enable Reminder
    </button>
-
   </div>
-
  </div>
 
  <p id="reminderStatus" class="text-xs text-gray-400 mt-3">
@@ -1119,78 +967,72 @@ button,a {
 </main>
 </div>
 
-<!-- MAIN JAVASCRIPT -->
-
 <script>
 
-const STORAGE_KEY = 'campuspulse_v3';
+const STORAGE_KEY='campuspulse_v3';
 
-let chartInstance = null;
-let reminderTimer = null;
+let chartInstance=null;
+let reminderTimer=null;
 
-let app = {
- subjects: [],
- examName: '',
- examDate: '',
- dailyHours: 5,
- days: 0,
- checks: {},
- generatedAt: null
+let app={
+ subjects:[],
+ examName:'',
+ examDate:'',
+ dailyHours:5,
+ days:0,
+ checks:{},
+ generatedAt:null
 };
 
-function addSubjectRow(name='',chapters=5,difficulty='Medium') {
+function addSubjectRow(name='',chapters=5,difficulty='Medium'){
 
- const row = document.createElement('div');
- row.className = 'subject-row';
+ const row=document.createElement('div');
+ row.className='subject-row';
 
- const n = document.createElement('input');
- n.className = 'input subject-name';
- n.placeholder = 'Subject name';
- n.value = name;
- n.required = true;
+ const n=document.createElement('input');
+ n.className='input subject-name';
+ n.placeholder='Subject name';
+ n.value=name;
+ n.required=true;
 
- const c = document.createElement('input');
- c.className = 'input subject-chapters';
- c.type = 'number';
- c.min = '1';
- c.max = '100';
- c.value = chapters;
- c.required = true;
- c.title = 'Chapters';
+ const c=document.createElement('input');
+ c.className='input subject-chapters';
+ c.type='number';
+ c.min='1';
+ c.max='100';
+ c.value=chapters;
+ c.required=true;
+ c.title='Chapters';
 
- const d = document.createElement('select');
- d.className = 'input subject-diff';
+ const d=document.createElement('select');
+ d.className='input subject-diff';
 
- ['Easy','Medium','Hard'].forEach(x => {
-  let o = document.createElement('option');
-  o.value = x;
-  o.textContent = x;
-
-  if(x === difficulty) {
-   o.selected = true;
-  }
-
+ ['Easy','Medium','Hard'].forEach(x=>{
+  let o=document.createElement('option');
+  o.value=x;
+  o.textContent=x;
+  if(x===difficulty)o.selected=true;
   d.appendChild(o);
  });
 
- const del = document.createElement('button');
- del.type = 'button';
- del.className = 'text-red-500';
- del.innerHTML = '<i class="fa-solid fa-trash"></i>';
- del.title = 'Remove subject';
- del.onclick = () => row.remove();
+ const del=document.createElement('button');
+ del.type='button';
+ del.className='text-red-500';
+ del.innerHTML='<i class="fa-solid fa-trash"></i>';
+ del.title='Remove subject';
+ del.onclick=()=>row.remove();
 
  row.append(n,c,d,del);
 
  document.getElementById('subjectsContainer').append(row);
 }
 
-function toISO(d) {
+function toISO(d){
  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 }
 
-function escapeHTML(v) {
- return String(v).replace(/[&<>"']/g,c => ({
+function escapeHTML(v){
+ return String(v).replace(/[&<>"']/g,c=>({
   '&':'&amp;',
   '<':'&lt;',
   '>':'&gt;',
@@ -1199,17 +1041,17 @@ function escapeHTML(v) {
  }[c]));
 }
 
-function loadPresetData() {
+function loadPresetData(){
 
- document.getElementById('examName').value = 'BCA 4th Semester Exams';
+ document.getElementById('examName').value='BCA 4th Semester Exams';
 
- let dt = new Date();
+ let dt=new Date();
  dt.setDate(dt.getDate()+20);
 
- document.getElementById('examDate').value = toISO(dt);
- document.getElementById('dailyHours').value = 5;
+ document.getElementById('examDate').value=toISO(dt);
+ document.getElementById('dailyHours').value=5;
 
- document.getElementById('subjectsContainer').innerHTML = '';
+ document.getElementById('subjectsContainer').innerHTML='';
 
  addSubjectRow('Java Programming',8,'Hard');
  addSubjectRow('Computer Networks',6,'Medium');
@@ -1219,46 +1061,46 @@ function loadPresetData() {
  generateSchedule();
 }
 
-function generateSchedule(e) {
+function generateSchedule(e){
 
- if(e) e.preventDefault();
+ if(e)e.preventDefault();
 
- const examName = document.getElementById('examName').value.trim();
- const examDate = document.getElementById('examDate').value;
- const dailyHours = Number(document.getElementById('dailyHours').value);
+ const examName=document.getElementById('examName').value.trim();
+ const examDate=document.getElementById('examDate').value;
+ const dailyHours=Number(document.getElementById('dailyHours').value);
 
- const ns = [...document.querySelectorAll('.subject-name')];
- const cs = [...document.querySelectorAll('.subject-chapters')];
- const ds = [...document.querySelectorAll('.subject-diff')];
+ const ns=[...document.querySelectorAll('.subject-name')];
+ const cs=[...document.querySelectorAll('.subject-chapters')];
+ const ds=[...document.querySelectorAll('.subject-diff')];
 
- if(!examName || !examDate || dailyHours<1 || dailyHours>16 || !ns.length) {
+ if(!examName||!examDate||dailyHours<1||dailyHours>16||!ns.length){
   alert('Please enter exam details and at least one subject.');
   return;
  }
 
- const subjects = ns.map((n,i) => ({
+ const subjects=ns.map((n,i)=>({
   name:n.value.trim(),
   chapters:Number(cs[i].value),
   difficulty:ds[i].value
- })).filter(s => s.name && s.chapters>0);
+ })).filter(s=>s.name&&s.chapters>0);
 
- if(!subjects.length) {
+ if(!subjects.length){
   alert('Please add valid subjects and chapter counts.');
   return;
  }
 
- const today = new Date();
+ const today=new Date();
  today.setHours(0,0,0,0);
 
- const target = new Date(examDate+'T00:00:00');
- const days = Math.ceil((target-today)/86400000);
+ const target=new Date(examDate+'T00:00:00');
+ const days=Math.ceil((target-today)/86400000);
 
- if(days<1) {
+ if(days<1){
   alert('Exam date must be in the future.');
   return;
  }
 
- app = {
+ app={
   subjects,
   examName,
   examDate,
@@ -1268,16 +1110,15 @@ function generateSchedule(e) {
   generatedAt:Date.now()
  };
 
- document.getElementById('statDays').textContent = days;
- document.getElementById('statSubjects').textContent = subjects.length;
+ document.getElementById('statDays').textContent=days;
+ document.getElementById('statSubjects').textContent=subjects.length;
+ document.getElementById('statTopics').textContent=
+ subjects.reduce((a,s)=>a+s.chapters,0);
 
- document.getElementById('statTopics').textContent =
- subjects.reduce((a,s) => a+s.chapters,0);
-
- document.getElementById('scheduleTitle').textContent =
+ document.getElementById('scheduleTitle').textContent=
  examName+' — Daily Study Schedule';
 
- document.getElementById('totalHoursAllocated').textContent =
+ document.getElementById('totalHoursAllocated').textContent=
  (days*dailyHours)+' total study hours';
 
  renderChart();
@@ -1288,46 +1129,45 @@ function generateSchedule(e) {
  goTo('schedule');
 }
 
-function chapterForDay(subject,day,totalDays) {
+function chapterForDay(subject,day,totalDays){
 
- const idx = ((day-1)%subject.chapters)+1;
+ const idx=((day-1)%subject.chapters)+1;
 
  return 'Chapter '+idx+' focus';
 }
 
-function renderSchedule() {
+function renderSchedule(){
 
- let html = '';
- let count = Math.min(app.days,90);
- let per = app.dailyHours/app.subjects.length;
+ let html='';
+ let count=Math.min(app.days,90);
+ let per=app.dailyHours/app.subjects.length;
 
- for(let day=1;day<=count;day++) {
+ for(let day=1;day<=count;day++){
 
-  let date = new Date();
+  let date=new Date();
   date.setHours(0,0,0,0);
   date.setDate(date.getDate()+day);
 
-  let time = 8*60;
-  let rows = '';
+  let time=8*60;
+  let rows='';
 
-  app.subjects.forEach((s,i) => {
+  app.subjects.forEach((s,i)=>{
 
-   const start = time;
-   const end = time+per*60;
+   const start=time;
+   const end=time+per*60;
 
-   const fmt = m => {
-    let h = Math.floor(m/60)%24;
-    let mm = Math.round(m%60);
-    let ap = h>=12?'PM':'AM';
-
+   const fmt=m=>{
+    let h=Math.floor(m/60)%24;
+    let mm=Math.round(m%60);
+    let ap=h>=12?'PM':'AM';
     return `${h%12||12}:${String(mm).padStart(2,'0')} ${ap}`;
    };
 
-   const chapter = chapterForDay(s,day,app.days);
-   const key = `${day}_${i}`;
-   const checked = !!app.checks[key];
+   const chapter=chapterForDay(s,day,app.days);
+   const key=`${day}_${i}`;
+   const checked=!!app.checks[key];
 
-   rows += `
+   rows+=`
    <div class="flex flex-wrap justify-between items-center gap-3 border-t py-3"
    style="border-color:var(--line)">
 
@@ -1339,7 +1179,6 @@ function renderSchedule() {
 
      <div>
       <p class="font-bold text-sm">${escapeHTML(s.name)}</p>
-
       <p class="text-xs text-gray-400">
        ${chapter} · ${s.difficulty} · ${per.toFixed(1)} hours
       </p>
@@ -1348,28 +1187,23 @@ function renderSchedule() {
     </div>
 
     <label class="flex items-center gap-2 text-xs text-gray-500 cursor-pointer">
-
-     <input type="checkbox"
-     class="task-done"
+     <input type="checkbox" class="task-done"
      ${checked?'checked':''}
      onchange="setTask('${key}',this.checked)">
-
      Done
-
     </label>
 
    </div>`;
 
-   time = end+10;
+   time=end+10;
   });
 
-  html += `
+  html+=`
   <details class="day-card" ${day===1?'open':''}>
 
    <summary class="flex flex-wrap justify-between items-center gap-2">
 
     <div>
-
      <span class="text-xs font-extrabold" style="color:#702be9">
       DAY ${day}
      </span>
@@ -1386,12 +1220,10 @@ function renderSchedule() {
      <p class="text-xs text-gray-400 mt-1">
       ${app.subjects.length} subjects · ${app.dailyHours} study hours
      </p>
-
     </div>
 
     <span class="text-xs font-bold" style="color:#702be9">
-     View day
-     <i class="fa-solid fa-chevron-down ml-1"></i>
+     View day <i class="fa-solid fa-chevron-down ml-1"></i>
     </span>
 
    </summary>
@@ -1401,61 +1233,58 @@ function renderSchedule() {
   </details>`;
  }
 
- if(app.days>90) {
-  html += `
+ if(app.days>90){
+  html+=`
   <p class="text-center text-xs text-gray-400 py-3">
    First 90 days shown. Your exam period is ${app.days} days.
   </p>`;
  }
 
- document.getElementById('scheduleOutput').innerHTML = html;
+ document.getElementById('scheduleOutput').innerHTML=html;
 
  updateProgress();
 }
 
-function setTask(key,checked) {
+function setTask(key,checked){
 
- app.checks[key] = checked;
+ app.checks[key]=checked;
 
  saveApp();
  updateProgress();
  renderWeeklyReport();
 }
 
-function updateProgress() {
+function updateProgress(){
 
- const total = Math.min(app.days,90)*app.subjects.length;
+ const total=Math.min(app.days,90)*app.subjects.length;
 
- const done = Object.values(app.checks).filter(Boolean).length;
+ const done=Object.values(app.checks).filter(Boolean).length;
 
- const score = total ? Math.round(done/total*100) : 0;
+ const score=total?Math.round(done/total*100):0;
 
- document.getElementById('statScore').textContent = score+'%';
- document.getElementById('progressLabel').textContent = score+'%';
- document.getElementById('mainProgress').style.width = score+'%';
- document.getElementById('heroGoal').textContent = score+'%';
+ document.getElementById('statScore').textContent=score+'%';
+ document.getElementById('progressLabel').textContent=score+'%';
+ document.getElementById('mainProgress').style.width=score+'%';
+ document.getElementById('heroGoal').textContent=score+'%';
 
- document.getElementById('heroDays').textContent =
- done ? done+' sessions done' : 'Start your streak';
+ document.getElementById('heroDays').textContent=
+ done?done+' sessions done':'Start your streak';
 }
 
-function renderChart() {
+function renderChart(){
 
- const ctx = document.getElementById('prepChart').getContext('2d');
+ const ctx=document.getElementById('prepChart').getContext('2d');
 
- if(chartInstance) {
-  chartInstance.destroy();
- }
+ if(chartInstance)chartInstance.destroy();
 
- chartInstance = new Chart(ctx,{
+ chartInstance=new Chart(ctx,{
   type:'doughnut',
 
   data:{
-   labels:app.subjects.map(s => s.name),
+   labels:app.subjects.map(s=>s.name),
 
    datasets:[{
-    data:app.subjects.map(s => s.chapters),
-
+    data:app.subjects.map(s=>s.chapters),
     backgroundColor:[
      '#6425df',
      '#3d83e8',
@@ -1464,7 +1293,6 @@ function renderChart() {
      '#ec6a9b',
      '#8b75e8'
     ],
-
     borderWidth:3,
     borderColor:'#fff'
    }]
@@ -1478,7 +1306,6 @@ function renderChart() {
    plugins:{
     legend:{
      position:'bottom',
-
      labels:{
       usePointStyle:true,
       boxWidth:8,
@@ -1489,18 +1316,15 @@ function renderChart() {
   }
  });
 
- const max = Math.max(...app.subjects.map(s => s.chapters));
+ const max=Math.max(...app.subjects.map(s=>s.chapters));
 
- document.getElementById('subjectSummary').innerHTML =
- app.subjects.map(s => `
+ document.getElementById('subjectSummary').innerHTML=
+ app.subjects.map(s=>`
   <div>
 
    <div class="flex justify-between mb-2 gap-2">
     <span class="font-semibold">${escapeHTML(s.name)}</span>
-
-    <b style="color:#702be9">
-     ${s.chapters} chapters
-    </b>
+    <b style="color:#702be9">${s.chapters} chapters</b>
    </div>
 
    <div class="progress">
@@ -1511,41 +1335,39 @@ function renderChart() {
  `).join('');
 }
 
-function renderWeeklyReport() {
+function renderWeeklyReport(){
 
- if(!app.subjects.length) {
+ if(!app.subjects.length){
 
-  document.getElementById('weeklyOutput').textContent =
+  document.getElementById('weeklyOutput').textContent=
   'Generate your schedule to view the report.';
 
   return;
  }
 
- let total = 0;
- let done = 0;
- let perWeek = [];
+ let total=0;
+ let done=0;
+ let perWeek=[];
 
- for(let w=0;w<Math.ceil(Math.min(app.days,90)/7);w++) {
+ for(let w=0;w<Math.ceil(Math.min(app.days,90)/7);w++){
 
-  let start = w*7+1;
-  let end = Math.min((w+1)*7,app.days,90);
+  let start=w*7+1;
+  let end=Math.min((w+1)*7,app.days,90);
 
-  let wDone = 0;
-  let wTotal = (end-start+1)*app.subjects.length;
+  let wDone=0;
+  let wTotal=(end-start+1)*app.subjects.length;
 
-  for(let d=start;d<=end;d++) {
+  for(let d=start;d<=end;d++){
 
-   app.subjects.forEach((s,i) => {
+   app.subjects.forEach((s,i)=>{
 
-    if(app.checks[`${d}_${i}`]) {
-     wDone++;
-    }
+    if(app.checks[`${d}_${i}`])wDone++;
 
    });
   }
 
-  total += wTotal;
-  done += wDone;
+  total+=wTotal;
+  done+=wDone;
 
   perWeek.push({
    w:w+1,
@@ -1554,7 +1376,7 @@ function renderWeeklyReport() {
   });
  }
 
- document.getElementById('weeklyOutput').innerHTML = `
+ document.getElementById('weeklyOutput').innerHTML=`
 
  <div class="grid grid-cols-2 gap-3 mb-4">
 
@@ -1565,7 +1387,6 @@ function renderWeeklyReport() {
 
   <div class="rounded-2xl p-4 bg-green-50 text-green-800">
    <p class="text-xs">Overall completion</p>
-
    <p class="text-2xl font-extrabold">
     ${total?Math.round(done/total*100):0}%
    </p>
@@ -1575,7 +1396,7 @@ function renderWeeklyReport() {
 
  <div class="space-y-3">
 
- ${perWeek.map(x => `
+ ${perWeek.map(x=>`
 
   <div>
 
@@ -1595,64 +1416,58 @@ function renderWeeklyReport() {
  </div>`;
 }
 
-function saveApp() {
+function saveApp(){
 
- try {
+ try{
   localStorage.setItem(STORAGE_KEY,JSON.stringify(app));
- } catch(e) {
+ }catch(e){
   console.warn(e);
  }
 }
 
-function restoreApp() {
+function restoreApp(){
 
- try {
+ try{
 
-  const raw = localStorage.getItem(STORAGE_KEY);
+  const raw=localStorage.getItem(STORAGE_KEY);
 
-  if(!raw) {
-   return false;
-  }
+  if(!raw)return false;
 
-  const saved = JSON.parse(raw);
+  const saved=JSON.parse(raw);
 
-  if(!saved.subjects?.length) {
-   return false;
-  }
+  if(!saved.subjects?.length)return false;
 
-  app = saved;
+  app=saved;
 
-  document.getElementById('examName').value = app.examName;
-  document.getElementById('examDate').value = app.examDate;
-  document.getElementById('dailyHours').value = app.dailyHours;
+  document.getElementById('examName').value=app.examName;
+  document.getElementById('examDate').value=app.examDate;
+  document.getElementById('dailyHours').value=app.dailyHours;
 
-  document.getElementById('subjectsContainer').innerHTML = '';
+  document.getElementById('subjectsContainer').innerHTML='';
 
-  app.subjects.forEach(s => {
+  app.subjects.forEach(s=>{
    addSubjectRow(s.name,s.chapters,s.difficulty);
   });
 
-  const today = new Date();
+  const today=new Date();
   today.setHours(0,0,0,0);
 
-  const remaining = Math.ceil(
+  const remaining=Math.ceil(
    (new Date(app.examDate+'T00:00:00')-today)/86400000
   );
 
-  if(remaining>0) {
-   app.days = remaining;
-  }
+  if(remaining>0)app.days=remaining;
 
-  document.getElementById('statDays').textContent = app.days;
-  document.getElementById('statSubjects').textContent = app.subjects.length;
+  document.getElementById('statDays').textContent=app.days;
+  document.getElementById('statSubjects').textContent=app.subjects.length;
 
-  document.getElementById('statTopics').textContent =
-  app.subjects.reduce((a,s) => a+s.chapters,0);
+  document.getElementById('statTopics').textContent=
+  app.subjects.reduce((a,s)=>a+s.chapters,0);
 
-  document.getElementById('scheduleTitle').textContent =
+  document.getElementById('scheduleTitle').textContent=
   app.examName+' — Daily Study Schedule';
 
-  document.getElementById('totalHoursAllocated').textContent =
+  document.getElementById('totalHoursAllocated').textContent=
   (app.days*app.dailyHours)+' total study hours';
 
   renderChart();
@@ -1661,27 +1476,29 @@ function restoreApp() {
 
   return true;
 
- } catch(e) {
+ }catch(e){
   console.warn(e);
   return false;
  }
 }
 
-function toggleTheme() {
+function toggleTheme(){
 
  document.body.classList.toggle('dark');
 
- const dark = document.body.classList.contains('dark');
+ const dark=document.body.classList.contains('dark');
 
  localStorage.setItem('campuspulse_dark',dark?'1':'0');
 
- document.getElementById('themeIcon').className =
- dark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+ document.getElementById('themeIcon').className=
+ dark?'fa-solid fa-sun':'fa-solid fa-moon';
 }
 
-function setActive(id) {
+/* ACTIVE ICON NAVIGATION */
 
- document.querySelectorAll('.nav-item').forEach(a => {
+function setActive(id){
+
+ document.querySelectorAll('.nav-item').forEach(a=>{
 
   a.classList.toggle(
    'active',
@@ -1690,17 +1507,17 @@ function setActive(id) {
 
  });
 
- const link = document.querySelector(`.nav-item[href="#${id}"]`);
+ const link=document.querySelector(`.nav-item[href="#${id}"]`);
 
- document.getElementById('crumb').textContent =
- link ? link.textContent.trim() : 'Dashboard';
+ document.getElementById('crumb').textContent=
+ link?link.textContent.trim():'Dashboard';
 }
 
-function goTo(id) {
+function goTo(id){
 
- const el = document.getElementById(id);
+ const el=document.getElementById(id);
 
- if(el) {
+ if(el){
 
   el.scrollIntoView({
    behavior:'smooth',
@@ -1713,16 +1530,16 @@ function goTo(id) {
  }
 }
 
-function toggleMenu() {
+function toggleMenu(){
 
  document.getElementById('sidebar').classList.toggle('open');
 }
 
-document.querySelectorAll('.nav-item').forEach(a => {
+document.querySelectorAll('.nav-item').forEach(a=>{
 
- a.addEventListener('click',() => {
+ a.addEventListener('click',()=>{
 
-  const id = a.getAttribute('href').slice(1);
+  const id=a.getAttribute('href').slice(1);
 
   setActive(id);
 
@@ -1732,7 +1549,7 @@ document.querySelectorAll('.nav-item').forEach(a => {
 
 });
 
-const sections = [
+const sections=[
  'dashboard',
  'configuration',
  'schedule',
@@ -1740,62 +1557,60 @@ const sections = [
  'personalNotes'
 ];
 
-let scrollTick = false;
+let scrollTick=false;
 
-window.addEventListener('scroll',() => {
+window.addEventListener('scroll',()=>{
 
- if(scrollTick) {
-  return;
- }
+ if(scrollTick)return;
 
- scrollTick = true;
+ scrollTick=true;
 
- requestAnimationFrame(() => {
+ requestAnimationFrame(()=>{
 
-  let current = 'dashboard';
+  let current='dashboard';
 
-  for(const id of sections) {
+  for(const id of sections){
 
-   const el = document.getElementById(id);
+   const el=document.getElementById(id);
 
-   if(el && el.getBoundingClientRect().top<180) {
-    current = id;
+   if(el&&el.getBoundingClientRect().top<180){
+    current=id;
    }
   }
 
   setActive(current);
 
-  scrollTick = false;
+  scrollTick=false;
 
  });
 
 });
 
-function enableReminder() {
+function enableReminder(){
 
- if(!('Notification' in window)) {
+ if(!('Notification'in window)){
 
-  document.getElementById('reminderStatus').textContent =
+  document.getElementById('reminderStatus').textContent=
   'This browser does not support notifications.';
 
   return;
  }
 
- Notification.requestPermission().then(p => {
+ Notification.requestPermission().then(p=>{
 
-  if(p!=='granted') {
+  if(p!=='granted'){
 
-   document.getElementById('reminderStatus').textContent =
+   document.getElementById('reminderStatus').textContent=
    'Please allow notifications in browser settings.';
 
    return;
   }
 
-  const t = document.getElementById('reminderTime').value;
+  const t=document.getElementById('reminderTime').value;
 
   localStorage.setItem('campuspulse_reminder',t);
 
-  document.getElementById('reminderStatus').textContent =
+  document.getElementById('reminderStatus').textContent=
   `Daily reminder set for ${t}. Keep this page open.`;
 
   scheduleReminder(t);
@@ -1803,23 +1618,21 @@ function enableReminder() {
  });
 }
 
-function scheduleReminder(t) {
+function scheduleReminder(t){
 
- if(reminderTimer) {
-  clearInterval(reminderTimer);
- }
+ if(reminderTimer)clearInterval(reminderTimer);
 
- reminderTimer = setInterval(() => {
+ reminderTimer=setInterval(()=>{
 
-  const n = new Date();
+  const n=new Date();
 
-  const hh = String(n.getHours()).padStart(2,'0');
-  const mm = String(n.getMinutes()).padStart(2,'0');
+  const hh=String(n.getHours()).padStart(2,'0');
+  const mm=String(n.getMinutes()).padStart(2,'0');
 
-  const key = toISO(n)+'_'+t;
+  const key=toISO(n)+'_'+t;
 
-  if(`${hh}:${mm}`===t &&
-  localStorage.getItem('campuspulse_last_notice')!==key) {
+  if(`${hh}:${mm}`===t&&
+  localStorage.getItem('campuspulse_last_notice')!==key){
 
    new Notification('CampusPulse Study Reminder',{
     body:'It is time for your planned study session. Keep going!'
@@ -1831,30 +1644,30 @@ function scheduleReminder(t) {
  },15000);
 }
 
-window.addEventListener('load',() => {
+window.addEventListener('load',()=>{
 
- if(localStorage.getItem('campuspulse_dark')==='1') {
+ if(localStorage.getItem('campuspulse_dark')==='1'){
 
   document.body.classList.add('dark');
 
-  document.getElementById('themeIcon').className =
+  document.getElementById('themeIcon').className=
   'fa-solid fa-sun';
  }
 
- if(!restoreApp()) {
+ if(!restoreApp()){
   loadPresetData();
  }
 
- const r = localStorage.getItem('campuspulse_reminder');
+ const r=localStorage.getItem('campuspulse_reminder');
 
- if(r) {
+ if(r){
 
-  document.getElementById('reminderTime').value = r;
+  document.getElementById('reminderTime').value=r;
 
-  document.getElementById('reminderStatus').textContent =
+  document.getElementById('reminderStatus').textContent=
   `Daily reminder set for ${r}.`;
 
-  if('Notification' in window && Notification.permission==='granted') {
+  if('Notification'in window&&Notification.permission==='granted'){
    scheduleReminder(r);
   }
  }
@@ -1863,171 +1676,127 @@ window.addEventListener('load',() => {
 
 </script>
 
-<!-- PERSONAL NOTES SCRIPT -->
-
 <script>
+/* PERSONAL NOTES: separate subject-wise autosave */
 
 const PERSONAL_NOTES_KEY = 'campuspulse_personal_notes_v1';
 
-function getPersonalNotes() {
-
- try {
+function getPersonalNotes(){
+ try{
   return JSON.parse(localStorage.getItem(PERSONAL_NOTES_KEY)||'{}');
- } catch(e) {
+ }catch(e){
   return {};
  }
 }
 
-function refreshNotesSubjects() {
+function refreshNotesSubjects(){
 
- const select = document.getElementById('notesSubject');
+ const select=document.getElementById('notesSubject');
+ if(!select)return;
 
- if(!select) {
-  return;
- }
+ const current=select.value;
+ let names=[];
 
- const current = select.value;
-
- let names = [];
-
- try {
-  names = (app.subjects||[])
-   .map(x => typeof x==='string' ? x : x.name)
+ try{
+  names=(app.subjects||[])
+   .map(x=>typeof x==='string'?x:x.name)
    .filter(Boolean);
- } catch(e) {}
+ }catch(e){}
 
- document.querySelectorAll('.subject-name').forEach(input => {
-
-  if(input.value.trim()) {
-   names.push(input.value.trim());
-  }
-
+ document.querySelectorAll('.subject-name').forEach(input=>{
+  if(input.value.trim())names.push(input.value.trim());
  });
 
- names = [...new Set(names)];
+ names=[...new Set(names)];
 
- if(!names.length) {
-  names = ['General Notes'];
- }
+ if(!names.length)names=['General Notes'];
 
- select.innerHTML = '';
+ select.innerHTML='';
 
- names.forEach(name => {
-
-  const option = document.createElement('option');
-
-  option.value = name;
-  option.textContent = name;
-
+ names.forEach(name=>{
+  const option=document.createElement('option');
+  option.value=name;
+  option.textContent=name;
   select.appendChild(option);
-
  });
 
- if(names.includes(current)) {
-  select.value = current;
- }
+ if(names.includes(current))select.value=current;
 }
 
-function loadPersonalNote() {
+function loadPersonalNote(){
 
- const select = document.getElementById('notesSubject');
- const textarea = document.getElementById('personalNoteText');
+ const select=document.getElementById('notesSubject');
+ const textarea=document.getElementById('personalNoteText');
 
- if(!select || !textarea) {
-  return;
- }
+ if(!select||!textarea)return;
 
- const notes = getPersonalNotes();
+ const notes=getPersonalNotes();
 
- textarea.value = notes[select.value]||'';
+ textarea.value=notes[select.value]||'';
 
- const status = document.getElementById('notesSaveStatus');
+ const status=document.getElementById('notesSaveStatus');
 
- if(status) {
-  status.textContent = 'Notes for '+select.value;
- }
+ if(status)status.textContent='Notes for '+select.value;
 }
 
-function savePersonalNote() {
+function savePersonalNote(){
 
- const select = document.getElementById('notesSubject');
- const textarea = document.getElementById('personalNoteText');
+ const select=document.getElementById('notesSubject');
+ const textarea=document.getElementById('personalNoteText');
 
- if(!select || !textarea) {
-  return;
- }
+ if(!select||!textarea)return;
 
- const notes = getPersonalNotes();
+ const notes=getPersonalNotes();
 
- notes[select.value] = textarea.value;
+ notes[select.value]=textarea.value;
 
- localStorage.setItem(
-  PERSONAL_NOTES_KEY,
-  JSON.stringify(notes)
- );
+ localStorage.setItem(PERSONAL_NOTES_KEY,JSON.stringify(notes));
 
- const status = document.getElementById('notesSaveStatus');
+ const status=document.getElementById('notesSaveStatus');
 
- if(status) {
-  status.textContent = '✓ Saved automatically';
- }
+ if(status)status.textContent='✓ Saved automatically';
 }
 
-function clearPersonalNote() {
+function clearPersonalNote(){
 
- if(!confirm('Are you sure you want to clear notes for this subject?')) {
-  return;
- }
+ if(!confirm('Are you sure you want to clear notes for this subject?'))return;
 
- const select = document.getElementById('notesSubject');
-
- const notes = getPersonalNotes();
+ const select=document.getElementById('notesSubject');
+ const notes=getPersonalNotes();
 
  delete notes[select.value];
 
- localStorage.setItem(
-  PERSONAL_NOTES_KEY,
-  JSON.stringify(notes)
- );
+ localStorage.setItem(PERSONAL_NOTES_KEY,JSON.stringify(notes));
 
- document.getElementById('personalNoteText').value = '';
-
- document.getElementById('notesSaveStatus').textContent =
- 'Notes cleared';
+ document.getElementById('personalNoteText').value='';
+ document.getElementById('notesSaveStatus').textContent='Notes cleared';
 }
 
-window.addEventListener('DOMContentLoaded',() => {
+window.addEventListener('DOMContentLoaded',()=>{
 
  refreshNotesSubjects();
  loadPersonalNote();
 
- const subjectBox = document.getElementById('subjectsContainer');
+ const subjectBox=document.getElementById('subjectsContainer');
 
- if(subjectBox) {
-
-  new MutationObserver(() => refreshNotesSubjects())
+ if(subjectBox){
+  new MutationObserver(()=>refreshNotesSubjects())
    .observe(subjectBox,{
     childList:true,
     subtree:true,
     characterData:true,
     attributes:true
    });
-
  }
 
- document.addEventListener('input',event => {
-
-  if(event.target.classList &&
-  event.target.classList.contains('subject-name')) {
-
+ document.addEventListener('input',event=>{
+  if(event.target.classList&&event.target.classList.contains('subject-name')){
    refreshNotesSubjects();
   }
-
  });
 
 });
 
 </script>
-
 </body>
 </html>
