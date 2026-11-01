@@ -11,431 +11,95 @@
 
 <style>
 :root {
-    --purple: #6425df;
-    --purple2: #8b45f2;
-    --bg: #f7f6ff;
-    --ink: #17172f;
-    --line: #ecebfa;
+    --purple:#6425df;
+    --purple2:#8b45f2;
+    --bg:#f7f6ff;
+    --ink:#17172f;
+    --line:#ecebfa;
 }
+*{box-sizing:border-box;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;transition:.25s}
+button{cursor:pointer}
+.sidebar{position:fixed;inset:0 auto 0 0;width:260px;background:white;border-right:1px solid var(--line);padding:24px 18px;z-index:30;display:flex;flex-direction:column}
+.brand-icon{width:48px;height:48px;border-radius:16px;background:linear-gradient(135deg,#7426e8,#a855f7);color:white;display:grid;place-items:center}
+.nav-label{font-size:10px;font-weight:800;letter-spacing:1.5px;color:#a3a0b8;margin:28px 0 10px;padding:0 12px}
+.nav-item{display:flex;align-items:center;gap:13px;padding:11px 13px;margin:4px 0;border-radius:14px;color:#68677e;text-decoration:none;font-size:13px;font-weight:650;transition:.2s}
+.nav-item:hover,.nav-item.active{background:#f0e5ff;color:var(--purple)}
+.nav-icon{width:35px;height:35px;border-radius:11px;display:grid;place-items:center;background:#f6f5fb}
+.nav-item.active .nav-icon{background:linear-gradient(135deg,#6c25e5,#a34cf2);color:white}
+.encourage{margin-top:auto;padding:16px;border-radius:17px;background:#f0e5ff;color:#4e1aa9}
+.main{margin-left:260px;min-height:100vh}
+.topbar{min-height:75px;background:white;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:15px;padding:15px 30px;position:sticky;top:0;z-index:20}
+.page{max-width:1400px;margin:auto;padding:30px}
+.card{background:white;border:1px solid var(--line);border-radius:21px;box-shadow:0 7px 25px #29205b08}
+.btn{border:0;background:linear-gradient(100deg,#6425df,#9145ed);color:white;padding:12px 17px;border-radius:12px;font-size:13px;font-weight:750}
+.btn-light{border:1px solid #e8e5f3;background:white;color:#55516e;padding:10px 13px;border-radius:11px;font-size:12px;font-weight:700}
+.input{width:100%;padding:12px;border:1px solid #e7e5f1;border-radius:11px;background:white;color:#27243e;font-size:13px;outline:none}
+.input:focus{border-color:#8b45f2;box-shadow:0 0 0 3px #8b45f21a}
+.stat-card{padding:19px;display:flex;align-items:center;gap:13px}
+.stat-icon{width:45px;height:45px;border-radius:14px;display:grid;place-items:center;font-size:18px}
+.progress{height:9px;background:#efedf6;border-radius:30px;overflow:hidden}
+.progress>div{height:100%;background:linear-gradient(90deg,#6425df,#a855f7);border-radius:30px;transition:width .3s}
+.subject-row{display:grid;grid-template-columns:1fr 75px 95px 25px;gap:8px;align-items:center}
+.day-card{border:1px solid #eeecf5;border-radius:15px;padding:15px}
+.quick-tile{border-radius:18px;padding:20px 12px;text-align:center;transition:.2s}
+.quick-tile:hover{transform:translateY(-4px);box-shadow:0 10px 20px #25204412}
+.task-done{width:17px;height:17px;accent-color:#6425df}
+.mobile-menu{display:none}
 
-* {
-    box-sizing: border-box;
-    scroll-behavior: smooth;
-}
-
-body {
-    margin: 0;
-    background: var(--bg);
-    color: var(--ink);
-    font-family: Inter, system-ui, sans-serif;
-    transition: .25s;
-}
-
-button { cursor: pointer; }
-
-.sidebar {
-    position: fixed;
-    inset: 0 auto 0 0;
-    width: 260px;
-    background: white;
-    border-right: 1px solid var(--line);
-    padding: 24px 18px;
-    z-index: 30;
-    display: flex;
-    flex-direction: column;
-}
-
-.brand-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 16px;
-    background: linear-gradient(135deg,#7426e8,#a855f7);
-    color: white;
-    display: grid;
-    place-items: center;
-}
-
-.nav-label {
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 1.5px;
-    color: #a3a0b8;
-    margin: 28px 0 10px;
-    padding: 0 12px;
-}
-
-.nav-item {
-    display: flex;
-    align-items: center;
-    gap: 13px;
-    padding: 11px 13px;
-    margin: 4px 0;
-    border-radius: 14px;
-    color: #68677e;
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 650;
-    transition: .2s;
-}
-
-.nav-item:hover,
-.nav-item.active {
-    background: #f0e5ff;
-    color: var(--purple);
-}
-
-.nav-icon {
-    width: 35px;
-    height: 35px;
-    border-radius: 11px;
-    display: grid;
-    place-items: center;
-    background: #f6f5fb;
-}
-
-.nav-item.active .nav-icon {
-    background: linear-gradient(135deg,#6c25e5,#a34cf2);
-    color: white;
-}
-
-.encourage {
-    margin-top: auto;
-    padding: 16px;
-    border-radius: 17px;
-    background: #f0e5ff;
-    color: #4e1aa9;
-}
-
-.main {
-    margin-left: 260px;
-    min-height: 100vh;
-}
-
-.topbar {
-    min-height: 75px;
-    background: white;
-    border-bottom: 1px solid var(--line);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-    padding: 15px 30px;
-    position: sticky;
-    top: 0;
-    z-index: 20;
-}
-
-.page {
-    max-width: 1400px;
-    margin: auto;
-    padding: 30px;
-}
-
-.card {
-    background: white;
-    border: 1px solid var(--line);
-    border-radius: 21px;
-    box-shadow: 0 7px 25px #29205b08;
-}
-
-.btn {
-    border: 0;
-    background: linear-gradient(100deg,#6425df,#9145ed);
-    color: white;
-    padding: 12px 17px;
-    border-radius: 12px;
-    font-size: 13px;
-    font-weight: 750;
-}
-
-.btn-light {
-    border: 1px solid #e8e5f3;
-    background: white;
-    color: #55516e;
-    padding: 10px 13px;
-    border-radius: 11px;
-    font-size: 12px;
-    font-weight: 700;
-}
-
-.input {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #e7e5f1;
-    border-radius: 11px;
-    background: white;
-    color: #27243e;
-    font-size: 13px;
-    outline: none;
-}
-
-.input:focus {
-    border-color: #8b45f2;
-    box-shadow: 0 0 0 3px #8b45f21a;
-}
-
-.stat-card {
-    padding: 19px;
-    display: flex;
-    align-items: center;
-    gap: 13px;
-}
-
-.stat-icon {
-    width: 45px;
-    height: 45px;
-    border-radius: 14px;
-    display: grid;
-    place-items: center;
-    font-size: 18px;
-}
-
-.progress {
-    height: 9px;
-    background: #efedf6;
-    border-radius: 30px;
-    overflow: hidden;
-}
-
-.progress > div {
-    height: 100%;
-    background: linear-gradient(90deg,#6425df,#a855f7);
-    border-radius: 30px;
-    transition: width .3s;
-}
-
-.subject-row {
-    display: grid;
-    grid-template-columns: 1fr 75px 95px 25px;
-    gap: 8px;
-    align-items: center;
-}
-
-.day-card {
-    border: 1px solid #eeecf5;
-    border-radius: 15px;
-    padding: 15px;
-}
-
-.quick-tile {
-    border-radius: 18px;
-    padding: 20px 12px;
-    text-align: center;
-    transition: .2s;
-}
-
-.quick-tile:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 20px #25204412;
-}
-
-.task-done {
-    width: 17px;
-    height: 17px;
-    accent-color: #6425df;
-}
-
-.mobile-menu { display: none; }
+/* CUSTOM TIMING */
+.timing-panel{background:linear-gradient(135deg,#faf7ff,#f3edff);border:1px solid #e8ddff;border-radius:17px;padding:17px;margin-bottom:20px}
+.timing-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.timing-field label{display:block;font-size:11px;font-weight:800;color:#625779;margin-bottom:7px}
+.timing-hint{font-size:11px;color:#817995;margin-top:5px}
+.timing-status{font-size:12px;font-weight:700;color:#6b35c5;margin-top:12px}
+.schedule-time{white-space:nowrap}
 
 /* FOCUS MODE */
+.focus-overlay{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;padding:20px;overflow-y:auto;background:radial-gradient(circle at top left,#9d68ff55,transparent 35%),radial-gradient(circle at bottom right,#311080,transparent 40%),linear-gradient(135deg,#170b3d,#6425df,#8738e8);color:white}
+.focus-overlay.show{display:flex}
+.focus-box{width:100%;max-width:540px;text-align:center;position:relative;padding:25px 10px}
+.focus-close{position:fixed;top:22px;right:25px;width:44px;height:44px;border-radius:50%;border:1px solid #ffffff55;background:#ffffff18;color:white;font-size:20px}
+.focus-clock{font-size:clamp(65px,15vw,105px);font-weight:800;letter-spacing:-5px;margin:12px 0;font-variant-numeric:tabular-nums;line-height:1.1}
+.focus-circle{width:285px;height:285px;max-width:80vw;max-height:80vw;border:8px solid #ffffff35;border-radius:50%;margin:25px auto;display:flex;flex-direction:column;justify-content:center;align-items:center;box-shadow:0 0 50px #ffffff18;background:#ffffff0b}
+.focus-presets{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin:22px 0}
+.focus-presets button{padding:10px 18px;border:1px solid #ffffff55;border-radius:12px;background:#ffffff15;color:white;transition:.2s}
+.focus-presets button:hover{background:#ffffff30}
+.focus-presets button.selected{background:white;color:#6425df;font-weight:800}
+.focus-btn{padding:13px 24px;border-radius:12px;border:0;font-weight:800;margin:5px;transition:.2s}
+.focus-btn:hover{transform:translateY(-2px)}
+.focus-session-count{display:inline-flex;align-items:center;gap:9px;padding:12px 20px;border-radius:30px;background:#ffffff18;border:1px solid #ffffff30}
 
-.focus-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 1000;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    overflow-y: auto;
-    background:
-        radial-gradient(circle at top left,#9d68ff55,transparent 35%),
-        radial-gradient(circle at bottom right,#311080,transparent 40%),
-        linear-gradient(135deg,#170b3d,#6425df,#8738e8);
-    color: white;
+.dark{--bg:#111827;--ink:#f2efff;--line:#343149}
+.dark .sidebar,.dark .topbar,.dark .card,.dark .btn-light{background:#1e1b2d;border-color:#343149;color:#f2efff}
+.dark .nav-item{color:#c7c1dc}
+.dark .nav-item.active{background:#38265c;color:#e5d4ff}
+.dark .input{background:#242036;color:white;border-color:#45405b}
+.dark .day-card{border-color:#39344f}
+.dark .progress{background:#38334b}
+.dark .text-gray-400,.dark .text-gray-500,.dark .text-gray-600{color:#b9b4ce!important}
+.dark .timing-panel{background:#242036;border-color:#45405b}
+.dark .timing-field label{color:#ded6f2}
+.dark .timing-hint{color:#b9b4ce}
+
+@media(max-width:900px){.sidebar{width:230px}.main{margin-left:230px}.page{padding:22px}}
+@media(max-width:720px){
+.sidebar{transform:translateX(-105%);transition:.25s;width:260px}
+.sidebar.open{transform:translateX(0)}
+.main{margin-left:0}
+.mobile-menu{display:inline-grid;place-items:center}
+.topbar{padding:13px 15px}
+.page{padding:18px 13px 40px}
+.developer-credit{display:none}
 }
-
-.focus-overlay.show { display: flex; }
-
-.focus-box {
-    width: 100%;
-    max-width: 540px;
-    text-align: center;
-    position: relative;
-    padding: 25px 10px;
+@media(max-width:550px){
+.subject-row{grid-template-columns:1fr 55px 80px 22px}
+.timing-grid{grid-template-columns:1fr}
+.focus-circle{width:250px;height:250px}
 }
-
-.focus-close {
-    position: fixed;
-    top: 22px;
-    right: 25px;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    border: 1px solid #ffffff55;
-    background: #ffffff18;
-    color: white;
-    font-size: 20px;
-}
-
-.focus-clock {
-    font-size: clamp(65px,15vw,105px);
-    font-weight: 800;
-    letter-spacing: -5px;
-    margin: 12px 0;
-    font-variant-numeric: tabular-nums;
-    line-height: 1.1;
-}
-
-.focus-circle {
-    width: 285px;
-    height: 285px;
-    max-width: 80vw;
-    max-height: 80vw;
-    border: 8px solid #ffffff35;
-    border-radius: 50%;
-    margin: 25px auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 0 50px #ffffff18;
-    background: #ffffff0b;
-}
-
-.focus-presets {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin: 22px 0;
-}
-
-.focus-presets button {
-    padding: 10px 18px;
-    border: 1px solid #ffffff55;
-    border-radius: 12px;
-    background: #ffffff15;
-    color: white;
-    transition: .2s;
-}
-
-.focus-presets button:hover {
-    background: #ffffff30;
-}
-
-.focus-presets button.selected {
-    background: white;
-    color: #6425df;
-    font-weight: 800;
-}
-
-.focus-btn {
-    padding: 13px 24px;
-    border-radius: 12px;
-    border: 0;
-    font-weight: 800;
-    margin: 5px;
-    transition: .2s;
-}
-
-.focus-btn:hover { transform: translateY(-2px); }
-
-.focus-session-count {
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-    padding: 12px 20px;
-    border-radius: 30px;
-    background: #ffffff18;
-    border: 1px solid #ffffff30;
-}
-
-.dark {
-    --bg: #111827;
-    --ink: #f2efff;
-    --line: #343149;
-}
-
-.dark .sidebar,
-.dark .topbar,
-.dark .card,
-.dark .btn-light {
-    background: #1e1b2d;
-    border-color: #343149;
-    color: #f2efff;
-}
-
-.dark .nav-item { color: #c7c1dc; }
-
-.dark .nav-item.active {
-    background: #38265c;
-    color: #e5d4ff;
-}
-
-.dark .input {
-    background: #242036;
-    color: white;
-    border-color: #45405b;
-}
-
-.dark .day-card { border-color: #39344f; }
-
-.dark .progress { background: #38334b; }
-
-.dark .text-gray-400,
-.dark .text-gray-500,
-.dark .text-gray-600 {
-    color: #b9b4ce !important;
-}
-
-@media(max-width:900px) {
-    .sidebar { width: 230px; }
-    .main { margin-left: 230px; }
-    .page { padding: 22px; }
-}
-
-@media(max-width:720px) {
-    .sidebar {
-        transform: translateX(-105%);
-        transition: .25s;
-        width: 260px;
-    }
-
-    .sidebar.open { transform: translateX(0); }
-    .main { margin-left: 0; }
-
-    .mobile-menu {
-        display: inline-grid;
-        place-items: center;
-    }
-
-    .topbar { padding: 13px 15px; }
-    .page { padding: 18px 13px 40px; }
-    .developer-credit { display: none; }
-}
-
-@media(max-width:500px) {
-    .subject-row {
-        grid-template-columns: 1fr 55px 80px 22px;
-    }
-
-    .focus-circle {
-        width: 250px;
-        height: 250px;
-    }
-}
-
-@media print {
-    .sidebar,
-    .topbar,
-    .no-print,
-    .focus-overlay {
-        display: none !important;
-    }
-
-    .main { margin: 0; }
-    .page { padding: 0; }
+@media print{
+.sidebar,.topbar,.no-print,.focus-overlay,.timing-panel{display:none!important}
+.main{margin:0}.page{padding:0}
 }
 </style>
 </head>
@@ -443,1743 +107,1043 @@ button { cursor: pointer; }
 <body>
 
 <aside class="sidebar no-print" id="sidebar">
-
     <div class="flex items-center gap-3 px-2">
-        <div class="brand-icon">
-            <i class="fa-solid fa-graduation-cap text-2xl"></i>
-        </div>
-
+        <div class="brand-icon"><i class="fa-solid fa-graduation-cap text-2xl"></i></div>
         <div>
-            <div class="font-extrabold text-xl">
-                Campus<span style="color:#7426e8">Pulse</span>
-            </div>
+            <div class="font-extrabold text-xl">Campus<span style="color:#7426e8">Pulse</span></div>
             <p class="text-xs text-gray-400">Learn · Plan · Achieve</p>
         </div>
     </div>
 
     <div class="nav-label">YOUR WORKSPACE</div>
-
     <nav>
-        <a href="#dashboard" class="nav-item active">
-            <span class="nav-icon"><i class="fa-solid fa-house"></i></span>
-            Dashboard
-        </a>
-
-        <a href="#configuration" class="nav-item">
-            <span class="nav-icon"><i class="fa-solid fa-sliders"></i></span>
-            Exam Configuration
-        </a>
-
-        <a href="#schedule" class="nav-item">
-            <span class="nav-icon"><i class="fa-solid fa-calendar-check"></i></span>
-            Study Schedule
-        </a>
-
-        <a href="#weekly" class="nav-item">
-            <span class="nav-icon"><i class="fa-solid fa-chart-column"></i></span>
-            Performance
-        </a>
-
-        <a href="#notes" class="nav-item">
-            <span class="nav-icon"><i class="fa-solid fa-note-sticky"></i></span>
-            Personal Notes
-        </a>
+        <a href="#dashboard" class="nav-item active"><span class="nav-icon"><i class="fa-solid fa-house"></i></span>Dashboard</a>
+        <a href="#configuration" class="nav-item"><span class="nav-icon"><i class="fa-solid fa-sliders"></i></span>Exam Configuration</a>
+        <a href="#schedule" class="nav-item"><span class="nav-icon"><i class="fa-solid fa-calendar-check"></i></span>Study Schedule</a>
+        <a href="#weekly" class="nav-item"><span class="nav-icon"><i class="fa-solid fa-chart-column"></i></span>Performance</a>
+        <a href="#notes" class="nav-item"><span class="nav-icon"><i class="fa-solid fa-note-sticky"></i></span>Personal Notes</a>
     </nav>
 
     <div class="encourage">
-        <div class="flex items-center gap-2 mb-2">
-            <i class="fa-solid fa-trophy text-xl"></i>
-            <b class="text-sm">Keep Going!</b>
-        </div>
-
-        <p class="text-xs leading-5">
-            Small steps every day create big results.
-            You’ve got this!
-        </p>
+        <div class="flex items-center gap-2 mb-2"><i class="fa-solid fa-trophy text-xl"></i><b class="text-sm">Keep Going!</b></div>
+        <p class="text-xs leading-5">Small steps every day create big results. You’ve got this!</p>
     </div>
-
 </aside>
 
 <div class="main">
-
 <header class="topbar no-print">
-
     <div class="flex items-center gap-3">
-        <button class="mobile-menu btn-light" onclick="toggleMenu()">
-            <i class="fa-solid fa-bars"></i>
-        </button>
-
+        <button class="mobile-menu btn-light" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
         <div>
-            <p class="text-xs text-gray-400">
-                Workspace / <span id="crumb">Dashboard</span>
-            </p>
+            <p class="text-xs text-gray-400">Workspace / <span id="crumb">Dashboard</span></p>
             <h2 class="font-bold">Study Dashboard</h2>
         </div>
     </div>
 
     <div class="flex items-center gap-2 top-actions">
-
         <div class="developer-credit text-xs font-bold">
             <span class="text-gray-400">Developed by</span>
             <span style="color:#6425df">Aaditya Pundeer</span>
             <span class="text-gray-400">&amp;</span>
             <span style="color:#2563eb">Akshat Jha</span>
         </div>
-
-        <button class="btn-light" onclick="loadPresetData()">
-            BCA Demo
-        </button>
-
-        <button class="btn-light" onclick="toggleTheme()">
-            <i id="themeIcon" class="fa-solid fa-moon"></i>
-        </button>
-
-        <button class="btn-light" onclick="window.print()">
-            <i class="fa-solid fa-file-pdf"></i>
-        </button>
-
+        <button class="btn-light" onclick="loadPresetData()">BCA Demo</button>
+        <button class="btn-light" onclick="toggleTheme()"><i id="themeIcon" class="fa-solid fa-moon"></i></button>
+        <button class="btn-light" onclick="window.print()"><i class="fa-solid fa-file-pdf"></i></button>
     </div>
 </header>
 
 <main class="page">
 
-<!-- DASHBOARD -->
-
 <section id="dashboard" class="mb-8">
-
     <div class="mb-6">
-        <p class="text-xs font-bold tracking-widest uppercase mb-2"
-           style="color:#8b45f2">
-            YOUR PERSONAL STUDY SPACE
-        </p>
-
-        <h1 class="text-3xl font-extrabold">
-            Welcome back,
-            <span style="color:#702be9">Student!</span> 👋
-        </h1>
-
-        <p class="text-sm text-gray-500 mt-2">
-            Let’s make today productive. One chapter at a time.
-        </p>
+        <p class="text-xs font-bold tracking-widest uppercase mb-2" style="color:#8b45f2">YOUR PERSONAL STUDY SPACE</p>
+        <h1 class="text-3xl font-extrabold">Welcome back, <span style="color:#702be9">Student!</span> 👋</h1>
+        <p class="text-sm text-gray-500 mt-2">Let’s make today productive. One chapter at a time.</p>
     </div>
 
-    <div class="rounded-3xl p-6 mb-6 text-white flex flex-wrap justify-between items-center gap-5"
-         style="background:linear-gradient(110deg,#5315c9,#923ff0)">
-
+    <div class="rounded-3xl p-6 mb-6 text-white flex flex-wrap justify-between items-center gap-5" style="background:linear-gradient(110deg,#5315c9,#923ff0)">
         <div class="flex items-center gap-4">
             <i class="fa-solid fa-bullseye text-4xl"></i>
-            <div>
-                <p class="text-sm text-purple-100">Your preparation goal</p>
-                <p class="text-3xl font-extrabold" id="heroGoal">0%</p>
-            </div>
+            <div><p class="text-sm text-purple-100">Your preparation goal</p><p class="text-3xl font-extrabold" id="heroGoal">0%</p></div>
         </div>
-
         <div class="flex items-center gap-4">
             <i class="fa-solid fa-fire text-4xl text-orange-300"></i>
-            <div>
-                <p class="text-sm text-purple-100">Keep your momentum</p>
-                <p class="text-2xl font-extrabold" id="heroDays">
-                    Let’s begin!
-                </p>
-            </div>
+            <div><p class="text-sm text-purple-100">Keep your momentum</p><p class="text-2xl font-extrabold" id="heroDays">Let’s begin!</p></div>
         </div>
-
         <i class="fa-solid fa-chart-line text-5xl text-white/40"></i>
     </div>
 
     <div class="grid grid-cols-2 xl:grid-cols-4 gap-3 mb-7">
-
-        <div class="card stat-card">
-            <div class="stat-icon bg-purple-100 text-purple-700">
-                <i class="fa-regular fa-calendar"></i>
-            </div>
-            <div>
-                <p class="text-xs text-gray-500">Days Remaining</p>
-                <b id="statDays" class="text-2xl">0</b>
-            </div>
-        </div>
-
-        <div class="card stat-card">
-            <div class="stat-icon bg-blue-100 text-blue-700">
-                <i class="fa-solid fa-book"></i>
-            </div>
-            <div>
-                <p class="text-xs text-gray-500">Total Subjects</p>
-                <b id="statSubjects" class="text-2xl">0</b>
-            </div>
-        </div>
-
-        <div class="card stat-card">
-            <div class="stat-icon bg-orange-100 text-orange-700">
-                <i class="fa-solid fa-layer-group"></i>
-            </div>
-            <div>
-                <p class="text-xs text-gray-500">Total Chapters</p>
-                <b id="statTopics" class="text-2xl">0</b>
-            </div>
-        </div>
-
-        <div class="card stat-card">
-            <div class="stat-icon bg-green-100 text-green-700">
-                <i class="fa-solid fa-chart-pie"></i>
-            </div>
-            <div>
-                <p class="text-xs text-gray-500">Readiness Score</p>
-                <b id="statScore" class="text-2xl">0%</b>
-            </div>
-        </div>
-
+        <div class="card stat-card"><div class="stat-icon bg-purple-100 text-purple-700"><i class="fa-regular fa-calendar"></i></div><div><p class="text-xs text-gray-500">Days Remaining</p><b id="statDays" class="text-2xl">0</b></div></div>
+        <div class="card stat-card"><div class="stat-icon bg-blue-100 text-blue-700"><i class="fa-solid fa-book"></i></div><div><p class="text-xs text-gray-500">Total Subjects</p><b id="statSubjects" class="text-2xl">0</b></div></div>
+        <div class="card stat-card"><div class="stat-icon bg-orange-100 text-orange-700"><i class="fa-solid fa-layer-group"></i></div><div><p class="text-xs text-gray-500">Total Chapters</p><b id="statTopics" class="text-2xl">0</b></div></div>
+        <div class="card stat-card"><div class="stat-icon bg-green-100 text-green-700"><i class="fa-solid fa-chart-pie"></i></div><div><p class="text-xs text-gray-500">Readiness Score</p><b id="statScore" class="text-2xl">0%</b></div></div>
     </div>
 
     <div class="flex items-center justify-between mb-3">
         <h3 class="font-extrabold text-lg">Quick Access</h3>
-        <span class="text-xs font-semibold" style="color:#702be9">
-            Choose a section →
-        </span>
+        <span class="text-xs font-semibold" style="color:#702be9">Choose a section →</span>
     </div>
 
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-
-        <button class="quick-tile"
-                style="background:#e8efff;color:#315ed4"
-                onclick="goTo('schedule')">
-            <i class="fa-solid fa-book-open text-3xl mb-3"></i>
-            <p class="font-bold text-sm">Study Schedule</p>
-        </button>
-
-        <button class="quick-tile"
-                style="background:#e1faef;color:#16834d"
-                onclick="openFocusMode()">
-            <i class="fa-solid fa-stopwatch text-3xl mb-3"></i>
-            <p class="font-bold text-sm">Focus Mode</p>
-        </button>
-
-        <button class="quick-tile"
-                style="background:#fff0df;color:#d97706"
-                onclick="goTo('configuration')">
-            <i class="fa-solid fa-clipboard-list text-3xl mb-3"></i>
-            <p class="font-bold text-sm">Exam Setup</p>
-        </button>
-
-        <button class="quick-tile"
-                style="background:#f0e5ff;color:#7426e8"
-                onclick="goTo('weekly')">
-            <i class="fa-solid fa-chart-simple text-3xl mb-3"></i>
-            <p class="font-bold text-sm">Performance</p>
-        </button>
-
+        <button class="quick-tile" style="background:#e8efff;color:#315ed4" onclick="goTo('schedule')"><i class="fa-solid fa-book-open text-3xl mb-3"></i><p class="font-bold text-sm">Study Schedule</p></button>
+        <button class="quick-tile" style="background:#e1faef;color:#16834d" onclick="openFocusMode()"><i class="fa-solid fa-stopwatch text-3xl mb-3"></i><p class="font-bold text-sm">Focus Mode</p></button>
+        <button class="quick-tile" style="background:#fff0df;color:#d97706" onclick="goTo('configuration')"><i class="fa-solid fa-clipboard-list text-3xl mb-3"></i><p class="font-bold text-sm">Exam Setup</p></button>
+        <button class="quick-tile" style="background:#f0e5ff;color:#7426e8" onclick="goTo('weekly')"><i class="fa-solid fa-chart-simple text-3xl mb-3"></i><p class="font-bold text-sm">Performance</p></button>
     </div>
-
 </section>
 
-<!-- EXAM CONFIGURATION -->
-
-<section id="configuration"
-         class="grid grid-cols-1 xl:grid-cols-3 gap-5 mb-7">
-
+<section id="configuration" class="grid grid-cols-1 xl:grid-cols-3 gap-5 mb-7">
     <div class="card p-5 md:p-6">
+        <div class="mb-5"><h3 class="font-extrabold text-lg">Exam Configuration</h3><p class="text-xs text-gray-400 mt-1">Set your exam and subjects</p></div>
 
-        <div class="mb-5">
-            <h3 class="font-extrabold text-lg">Exam Configuration</h3>
-            <p class="text-xs text-gray-400 mt-1">
-                Set your exam and subjects
-            </p>
-        </div>
-
-        <form id="schedulerForm"
-              onsubmit="generateSchedule(event)"
-              class="space-y-4">
-
-            <div>
-                <label class="text-xs font-bold">Exam Name</label>
-                <input id="examName"
-                       class="input mt-1"
-                       required
-                       placeholder="BCA Semester Exams">
-            </div>
-
-            <div>
-                <label class="text-xs font-bold">Target Exam Date</label>
-                <input type="date"
-                       id="examDate"
-                       class="input mt-1"
-                       required>
-            </div>
-
-            <div>
-                <label class="text-xs font-bold">Daily Study Hours</label>
-                <input type="number"
-                       id="dailyHours"
-                       min="1"
-                       max="16"
-                       value="5"
-                       class="input mt-1"
-                       required>
-            </div>
+        <form id="schedulerForm" onsubmit="generateSchedule(event)" class="space-y-4">
+            <div><label class="text-xs font-bold">Exam Name</label><input id="examName" class="input mt-1" required placeholder="BCA Semester Exams"></div>
+            <div><label class="text-xs font-bold">Target Exam Date</label><input type="date" id="examDate" class="input mt-1" required></div>
+            <div><label class="text-xs font-bold">Daily Study Hours</label><input type="number" id="dailyHours" min="1" max="16" value="5" class="input mt-1" required></div>
 
             <div class="border-t pt-4">
                 <div class="flex justify-between items-center mb-3">
-                    <label class="text-xs font-extrabold">
-                        Subjects & Chapters
-                    </label>
-
-                    <button type="button"
-                            onclick="addSubjectRow()"
-                            class="text-xs font-bold"
-                            style="color:#702be9">
-                        <i class="fa-solid fa-plus"></i>
-                        Add Subject
-                    </button>
+                    <label class="text-xs font-extrabold">Subjects & Chapters</label>
+                    <button type="button" onclick="addSubjectRow()" class="text-xs font-bold" style="color:#702be9"><i class="fa-solid fa-plus"></i> Add Subject</button>
                 </div>
-
                 <div id="subjectsContainer" class="space-y-3"></div>
             </div>
 
-            <button type="submit" class="btn w-full">
-                <i class="fa-solid fa-wand-magic-sparkles mr-2"></i>
-                Generate Smart Schedule
-            </button>
-
+            <button type="submit" class="btn w-full"><i class="fa-solid fa-wand-magic-sparkles mr-2"></i>Generate Smart Schedule</button>
         </form>
     </div>
 
     <div class="card p-5 md:p-6 xl:col-span-2">
-
-        <div class="mb-4">
-            <h3 class="font-extrabold text-lg">Study Analytics</h3>
-            <p class="text-xs text-gray-400 mt-1">
-                Subject-wise chapter workload
-            </p>
-        </div>
-
+        <div class="mb-4"><h3 class="font-extrabold text-lg">Study Analytics</h3><p class="text-xs text-gray-400 mt-1">Subject-wise chapter workload</p></div>
         <div class="grid md:grid-cols-2 gap-4 items-center">
-            <div style="height:260px">
-                <canvas id="prepChart"></canvas>
-                <p id="chartFallback" class="text-xs text-gray-400 text-center mt-3 hidden">
-                    Chart library is unavailable. Please refresh the page.
-                </p>
-            </div>
-
-            <div id="subjectSummary"
-                 class="space-y-4 text-sm text-gray-500">
-                Generate your schedule to see analytics.
-            </div>
+            <div style="height:260px"><canvas id="prepChart"></canvas><p id="chartFallback" class="text-xs text-gray-400 text-center mt-3 hidden">Chart library is unavailable. Please refresh the page.</p></div>
+            <div id="subjectSummary" class="space-y-4 text-sm text-gray-500">Generate your schedule to see analytics.</div>
         </div>
-
     </div>
-
 </section>
-
-<!-- STUDY SCHEDULE -->
 
 <section id="schedule" class="card p-5 md:p-6 mb-7">
-
     <div class="flex flex-wrap justify-between items-center gap-3 mb-5">
         <div>
-            <h3 id="scheduleTitle" class="font-extrabold text-lg">
-                Daily Study Schedule
-            </h3>
+            <h3 id="scheduleTitle" class="font-extrabold text-lg">Daily Study Schedule</h3>
+            <p class="text-xs text-gray-400 mt-1">Customize your study start time and breaks.</p>
+        </div>
+        <span id="totalHoursAllocated" class="rounded-xl px-3 py-2 bg-purple-50 text-purple-700 text-xs font-bold">Study Target: --</span>
+    </div>
 
-            <p class="text-xs text-gray-400 mt-1">
-                Every subject gets a daily time slot and its own checkbox.
-            </p>
+    <!-- CUSTOM STUDY TIMING CONTROLS -->
+    <div class="timing-panel no-print">
+        <div class="flex flex-wrap justify-between items-center gap-2 mb-4">
+            <div>
+                <h4 class="font-extrabold text-sm"><i class="fa-solid fa-clock mr-2" style="color:#702be9"></i>Customize Study Timing</h4>
+                <p class="text-xs text-gray-500 mt-1">Change your daily start time and break duration.</p>
+            </div>
+            <span class="text-xs font-bold text-purple-700">Personal Schedule Settings</span>
         </div>
 
-        <span id="totalHoursAllocated"
-              class="rounded-xl px-3 py-2 bg-purple-50 text-purple-700 text-xs font-bold">
-            Study Target: --
-        </span>
+        <div class="timing-grid">
+            <div class="timing-field">
+                <label for="scheduleStartTime">DAILY START TIME</label>
+                <input type="time" id="scheduleStartTime" class="input" value="08:00">
+                <p class="timing-hint">Example: 08:00 AM</p>
+            </div>
+            <div class="timing-field">
+                <label for="breakMinutes">BREAK BETWEEN SUBJECTS</label>
+                <input type="number" id="breakMinutes" class="input" min="0" max="120" value="10">
+                <p class="timing-hint">Minutes between study sessions</p>
+            </div>
+            <div class="timing-field">
+                <label>STUDY TIME PER SUBJECT</label>
+                <div class="input bg-purple-50 font-bold" id="perSubjectPreview">--</div>
+                <p class="timing-hint">Calculated from your daily study hours</p>
+            </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3 mt-4">
+            <button type="button" class="btn" onclick="updateScheduleSettings()"><i class="fa-solid fa-rotate mr-2"></i>Update Timings</button>
+            <button type="button" class="btn-light" onclick="resetScheduleSettings()">Reset to Default</button>
+        </div>
+        <p id="timingStatus" class="timing-status">Your timing preferences are saved automatically when updated.</p>
     </div>
 
     <div class="mb-5">
-        <div class="flex justify-between text-xs mb-2">
-            <b>Overall Progress</b>
-            <b id="progressLabel" style="color:#702be9">0%</b>
-        </div>
-
-        <div class="progress">
-            <div id="mainProgress" style="width:0%"></div>
-        </div>
+        <div class="flex justify-between text-xs mb-2"><b>Overall Progress</b><b id="progressLabel" style="color:#702be9">0%</b></div>
+        <div class="progress"><div id="mainProgress" style="width:0%"></div></div>
     </div>
 
-    <div id="scheduleOutput"
-         class="space-y-3 text-sm text-gray-400 text-center py-8">
-        Add subjects and generate your schedule.
-    </div>
-
+    <div id="scheduleOutput" class="space-y-3 text-sm text-gray-400 text-center py-8">Add subjects and generate your schedule.</div>
 </section>
-
-<!-- PERFORMANCE -->
 
 <section id="weekly" class="card p-5 md:p-6 mb-7">
-
     <div class="flex flex-wrap justify-between items-center gap-3 mb-4">
-        <div>
-            <h3 class="font-extrabold text-lg">Performance Report</h3>
-            <p class="text-xs text-gray-400 mt-1">
-                Completed study sessions by week.
-            </p>
-        </div>
-
-        <button onclick="renderWeeklyReport()" class="btn-light no-print">
-            Refresh Report
-        </button>
+        <div><h3 class="font-extrabold text-lg">Performance Report</h3><p class="text-xs text-gray-400 mt-1">Completed study sessions by week.</p></div>
+        <button onclick="renderWeeklyReport()" class="btn-light no-print">Refresh Report</button>
     </div>
-
-    <div id="weeklyOutput" class="text-sm text-gray-400">
-        Complete study tasks to see your report.
-    </div>
-
+    <div id="weeklyOutput" class="text-sm text-gray-400">Complete study tasks to see your report.</div>
 </section>
-
-<!-- PERSONAL NOTES -->
 
 <section id="notes" class="card p-5 md:p-6 mb-7">
-
-    <div class="mb-5">
-        <h3 class="font-extrabold text-lg">Personal Notes</h3>
-        <p class="text-xs text-gray-400 mt-1">
-            Save your important subject notes automatically.
-        </p>
-    </div>
-
+    <div class="mb-5"><h3 class="font-extrabold text-lg">Personal Notes</h3><p class="text-xs text-gray-400 mt-1">Save your important subject notes automatically.</p></div>
     <div class="mb-4">
         <label class="text-xs font-bold">Select Subject</label>
-        <select id="notesSubject"
-                class="input mt-1"
-                onchange="loadPersonalNote()">
-            <option value="">Select a subject</option>
-        </select>
+        <select id="notesSubject" class="input mt-1" onchange="loadPersonalNote()"><option value="">Select a subject</option></select>
     </div>
-
-    <textarea id="personalNote"
-              class="input"
-              rows="9"
-              placeholder="Write your notes here..."
-              oninput="savePersonalNote()"></textarea>
-
+    <textarea id="personalNote" class="input" rows="9" placeholder="Write your notes here..." oninput="savePersonalNote()"></textarea>
     <div class="flex flex-wrap justify-between items-center gap-3 mt-3">
-        <p id="notesStatus" class="text-xs text-gray-400">
-            Notes are saved automatically.
-        </p>
-
-        <button onclick="clearPersonalNote()"
-                class="btn-light">
-            <i class="fa-solid fa-trash mr-1"></i>
-            Clear Notes
-        </button>
+        <p id="notesStatus" class="text-xs text-gray-400">Notes are saved automatically.</p>
+        <button onclick="clearPersonalNote()" class="btn-light"><i class="fa-solid fa-trash mr-1"></i>Clear Notes</button>
     </div>
-
 </section>
-
-<!-- STUDY REMINDER -->
 
 <section class="card p-5 md:p-6 mb-7 no-print">
-
     <div class="flex flex-wrap justify-between items-center gap-4">
-
-        <div>
-            <h3 class="font-extrabold">Study Reminder</h3>
-            <p class="text-xs text-gray-400 mt-1">
-                Browser reminder works while this page stays open.
-            </p>
-        </div>
-
+        <div><h3 class="font-extrabold">Study Reminder</h3><p class="text-xs text-gray-400 mt-1">Browser reminder works while this page stays open.</p></div>
         <div class="flex flex-wrap gap-2 items-center">
-            <input id="reminderTime"
-                   type="time"
-                   value="19:00"
-                   class="input"
-                   style="width:130px">
-
-            <button onclick="enableReminder()" class="btn">
-                Enable Reminder
-            </button>
+            <input id="reminderTime" type="time" value="19:00" class="input" style="width:130px">
+            <button onclick="enableReminder()" class="btn">Enable Reminder</button>
         </div>
-
     </div>
-
-    <p id="reminderStatus" class="text-xs text-gray-400 mt-3">
-        Reminder is not enabled.
-    </p>
-
+    <p id="reminderStatus" class="text-xs text-gray-400 mt-3">Reminder is not enabled.</p>
 </section>
 
-<footer class="text-center text-xs text-gray-400 py-5">
-    CampusPulse © 2026 · Smart Exam Prep & Study Planner
-</footer>
-
+<footer class="text-center text-xs text-gray-400 py-5">CampusPulse © 2026 · Smart Exam Prep & Study Planner</footer>
 </main>
 </div>
 
 <!-- FOCUS MODE -->
-
 <div class="focus-overlay" id="focusOverlay">
-
-    <button onclick="closeFocusMode()" class="focus-close" aria-label="Close Focus Mode">
-        <i class="fa-solid fa-xmark"></i>
-    </button>
-
+    <button onclick="closeFocusMode()" class="focus-close" aria-label="Close Focus Mode"><i class="fa-solid fa-xmark"></i></button>
     <div class="focus-box">
-
-        <div class="mb-4">
-            <i class="fa-solid fa-bullseye text-5xl"></i>
-        </div>
-
-        <h1 class="text-3xl font-extrabold">
-            Focus Mode
-        </h1>
-
-        <p class="text-white/70 mt-2">
-            Stay focused. One session at a time.
-        </p>
-
+        <div class="mb-4"><i class="fa-solid fa-bullseye text-5xl"></i></div>
+        <h1 class="text-3xl font-extrabold">Focus Mode</h1>
+        <p class="text-white/70 mt-2">Stay focused. One session at a time.</p>
         <div class="focus-circle">
-
-            <p class="text-sm text-white/70" id="focusStatus">
-                Ready to focus?
-            </p>
-
-            <div class="focus-clock" id="focusClock">
-                25:00
-            </div>
-
-            <p class="text-sm text-white/70">
-                Minutes : Seconds
-            </p>
-
+            <p class="text-sm text-white/70" id="focusStatus">Ready to focus?</p>
+            <div class="focus-clock" id="focusClock">25:00</div>
+            <p class="text-sm text-white/70">Minutes : Seconds</p>
         </div>
-
         <div class="focus-presets">
-            <button onclick="setFocusTime(25)" class="selected" id="preset25">
-                25 Minutes
-            </button>
-
-            <button onclick="setFocusTime(50)" id="preset50">
-                50 Minutes
-            </button>
-
-            <button onclick="setFocusTime(90)" id="preset90">
-                90 Minutes
-            </button>
+            <button onclick="setFocusTime(25)" class="selected" id="preset25">25 Minutes</button>
+            <button onclick="setFocusTime(50)" id="preset50">50 Minutes</button>
+            <button onclick="setFocusTime(90)" id="preset90">90 Minutes</button>
         </div>
-
         <div class="flex justify-center flex-wrap gap-2">
-            <button class="focus-btn text-purple-700 bg-white"
-                    onclick="startFocus()">
-                <i class="fa-solid fa-play mr-2"></i>
-                Start
-            </button>
-
-            <button class="focus-btn bg-white/20 text-white"
-                    onclick="pauseFocus()">
-                <i class="fa-solid fa-pause mr-2"></i>
-                Pause
-            </button>
-
-            <button class="focus-btn bg-white/20 text-white"
-                    onclick="resetFocus()">
-                <i class="fa-solid fa-rotate-left mr-2"></i>
-                Reset
-            </button>
+            <button class="focus-btn text-purple-700 bg-white" onclick="startFocus()"><i class="fa-solid fa-play mr-2"></i>Start</button>
+            <button class="focus-btn bg-white/20 text-white" onclick="pauseFocus()"><i class="fa-solid fa-pause mr-2"></i>Pause</button>
+            <button class="focus-btn bg-white/20 text-white" onclick="resetFocus()"><i class="fa-solid fa-rotate-left mr-2"></i>Reset</button>
         </div>
-
-        <div class="mt-7">
-            <div class="focus-session-count">
-                <i class="fa-solid fa-trophy text-yellow-300"></i>
-                <span>Completed Sessions:</span>
-                <b id="focusCompleted">0</b>
-            </div>
-        </div>
-
+        <div class="mt-7"><div class="focus-session-count"><i class="fa-solid fa-trophy text-yellow-300"></i><span>Completed Sessions:</span><b id="focusCompleted">0</b></div></div>
     </div>
-
 </div>
 
 <script>
+const STORAGE_KEY="campuspulse_v3";
+const PERSONAL_NOTES_KEY="campuspulse_personal_notes_v1";
 
-/* =========================================
-   MAIN APPLICATION DATA
-========================================= */
+let chartInstance=null;
+let reminderTimer=null;
 
-const STORAGE_KEY = "campuspulse_v3";
-const PERSONAL_NOTES_KEY = "campuspulse_personal_notes_v1";
-
-let chartInstance = null;
-let reminderTimer = null;
-
-let app = {
-    subjects: [],
-    examName: "",
-    examDate: "",
-    dailyHours: 5,
-    days: 0,
-    checks: {},
-    generatedAt: null
+let app={
+    subjects:[],
+    examName:"",
+    examDate:"",
+    dailyHours:5,
+    days:0,
+    checks:{},
+    generatedAt:null,
+    startTime:"08:00",
+    breakMinutes:10
 };
 
-/* =========================================
-   SUBJECT MANAGEMENT
-========================================= */
+/* SUBJECT MANAGEMENT */
+function addSubjectRow(name="",chapters=5,difficulty="Medium"){
+    const row=document.createElement("div");
+    row.className="subject-row";
 
-function addSubjectRow(name = "", chapters = 5, difficulty = "Medium") {
+    const inputName=document.createElement("input");
+    inputName.className="input subject-name";
+    inputName.placeholder="Subject name";
+    inputName.value=name;
+    inputName.required=true;
 
-    const row = document.createElement("div");
-    row.className = "subject-row";
+    const inputChapters=document.createElement("input");
+    inputChapters.className="input subject-chapters";
+    inputChapters.type="number";
+    inputChapters.min="1";
+    inputChapters.max="100";
+    inputChapters.value=chapters;
+    inputChapters.required=true;
 
-    const inputName = document.createElement("input");
-    inputName.className = "input subject-name";
-    inputName.placeholder = "Subject name";
-    inputName.value = name;
-    inputName.required = true;
+    const selectDifficulty=document.createElement("select");
+    selectDifficulty.className="input subject-diff";
 
-    const inputChapters = document.createElement("input");
-    inputChapters.className = "input subject-chapters";
-    inputChapters.type = "number";
-    inputChapters.min = "1";
-    inputChapters.max = "100";
-    inputChapters.value = chapters;
-    inputChapters.required = true;
-
-    const selectDifficulty = document.createElement("select");
-    selectDifficulty.className = "input subject-diff";
-
-    ["Easy", "Medium", "Hard"].forEach(level => {
-
-        const option = document.createElement("option");
-        option.value = level;
-        option.textContent = level;
-
-        if (level === difficulty) {
-            option.selected = true;
-        }
-
+    ["Easy","Medium","Hard"].forEach(level=>{
+        const option=document.createElement("option");
+        option.value=level;
+        option.textContent=level;
+        if(level===difficulty)option.selected=true;
         selectDifficulty.appendChild(option);
     });
 
-    const removeButton = document.createElement("button");
-    removeButton.type = "button";
-    removeButton.className = "text-red-500";
-    removeButton.innerHTML = '<i class="fa-solid fa-trash"></i>';
-    removeButton.title = "Remove subject";
-    removeButton.onclick = () => row.remove();
+    const removeButton=document.createElement("button");
+    removeButton.type="button";
+    removeButton.className="text-red-500";
+    removeButton.innerHTML='<i class="fa-solid fa-trash"></i>';
+    removeButton.title="Remove subject";
+    removeButton.onclick=()=>row.remove();
 
-    row.append(
-        inputName,
-        inputChapters,
-        selectDifficulty,
-        removeButton
-    );
-
+    row.append(inputName,inputChapters,selectDifficulty,removeButton);
     document.getElementById("subjectsContainer").appendChild(row);
 }
 
-/* =========================================
-   DATE AND HTML HELPERS
-========================================= */
-
-function toISO(date) {
-
-    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+/* HELPERS */
+function toISO(date){
+    return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}-${String(date.getDate()).padStart(2,"0")}`;
 }
 
-function escapeHTML(value) {
-
-    return String(value).replace(/[&<>"']/g, char => ({
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#39;"
+function escapeHTML(value){
+    return String(value).replace(/[&<>"']/g,char=>({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
     }[char]));
 }
 
-/* =========================================
-   BCA DEMO PRESET
-========================================= */
+function formatTime(totalMinutes){
+    const minutes=((Math.round(totalMinutes)%1440)+1440)%1440;
+    const hours=Math.floor(minutes/60);
+    const mins=minutes%60;
+    const period=hours>=12?"PM":"AM";
+    return `${hours%12||12}:${String(mins).padStart(2,"0")} ${period}`;
+}
 
-function loadPresetData() {
+function getStartMinutes(){
+    const value=app.startTime||"08:00";
+    const parts=value.split(":").map(Number);
+    return (parts[0]||0)*60+(parts[1]||0);
+}
 
-    document.getElementById("examName").value =
-        "BCA 4th Semester Exams";
+function getPerSubjectMinutes(){
+    if(!app.subjects.length)return 0;
+    return app.dailyHours*60/app.subjects.length;
+}
 
-    const date = new Date();
-    date.setDate(date.getDate() + 20);
+function updateTimingPreview(){
+    const preview=document.getElementById("perSubjectPreview");
+    if(!preview)return;
+    const minutes=getPerSubjectMinutes();
+    if(!minutes){
+        preview.textContent="--";
+        return;
+    }
+    const hours=Math.floor(minutes/60);
+    const mins=Math.round(minutes%60);
+    preview.textContent=hours?`${hours} hr ${mins} min`:`${mins} minutes`;
+}
 
-    document.getElementById("examDate").value = toISO(date);
-    document.getElementById("dailyHours").value = 5;
+/* BCA DEMO */
+function loadPresetData(){
+    document.getElementById("examName").value="BCA 4th Semester Exams";
 
-    document.getElementById("subjectsContainer").innerHTML = "";
+    const date=new Date();
+    date.setDate(date.getDate()+20);
+    document.getElementById("examDate").value=toISO(date);
+    document.getElementById("dailyHours").value=5;
+    document.getElementById("scheduleStartTime").value="08:00";
+    document.getElementById("breakMinutes").value=10;
 
-    addSubjectRow("Java Programming", 8, "Hard");
-    addSubjectRow("Computer Networks", 6, "Medium");
-    addSubjectRow("Data Structures", 7, "Hard");
-    addSubjectRow("Software Engineering", 5, "Easy");
+    document.getElementById("subjectsContainer").innerHTML="";
+    addSubjectRow("Java Programming",8,"Hard");
+    addSubjectRow("Computer Networks",6,"Medium");
+    addSubjectRow("Data Structures",7,"Hard");
+    addSubjectRow("Software Engineering",5,"Easy");
 
     generateSchedule();
 }
 
-/* =========================================
-   GENERATE STUDY SCHEDULE
-========================================= */
+/* GENERATE SCHEDULE */
+function generateSchedule(event){
+    if(event)event.preventDefault();
 
-function generateSchedule(event) {
+    const examName=document.getElementById("examName").value.trim();
+    const examDate=document.getElementById("examDate").value;
+    const dailyHours=Number(document.getElementById("dailyHours").value);
+    const startTime=document.getElementById("scheduleStartTime").value||"08:00";
+    const breakMinutes=Number(document.getElementById("breakMinutes").value);
 
-    if (event) event.preventDefault();
+    const names=[...document.querySelectorAll(".subject-name")];
+    const chapters=[...document.querySelectorAll(".subject-chapters")];
+    const difficulties=[...document.querySelectorAll(".subject-diff")];
 
-    const examName = document.getElementById("examName").value.trim();
-    const examDate = document.getElementById("examDate").value;
-    const dailyHours = Number(document.getElementById("dailyHours").value);
-
-    const names = [...document.querySelectorAll(".subject-name")];
-    const chapters = [...document.querySelectorAll(".subject-chapters")];
-    const difficulties = [...document.querySelectorAll(".subject-diff")];
-
-    if (!examName || !examDate || dailyHours < 1 || dailyHours > 16 || !names.length) {
+    if(!examName||!examDate||dailyHours<1||dailyHours>16||!names.length){
         alert("Please enter exam details and at least one subject.");
         return;
     }
 
-    const subjects = names.map((input, index) => ({
-        name: input.value.trim(),
-        chapters: Number(chapters[index].value),
-        difficulty: difficulties[index].value
-    })).filter(subject =>
-        subject.name &&
-        Number.isFinite(subject.chapters) &&
-        subject.chapters > 0
-    );
+    if(!Number.isFinite(breakMinutes)||breakMinutes<0||breakMinutes>120){
+        alert("Break duration must be between 0 and 120 minutes.");
+        return;
+    }
 
-    if (!subjects.length) {
+    const subjects=names.map((input,index)=>({
+        name:input.value.trim(),
+        chapters:Number(chapters[index].value),
+        difficulty:difficulties[index].value
+    })).filter(subject=>subject.name&&Number.isFinite(subject.chapters)&&subject.chapters>0);
+
+    if(!subjects.length){
         alert("Please add valid subjects and chapter counts.");
         return;
     }
 
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    const today=new Date();
+    today.setHours(0,0,0,0);
+    const target=new Date(examDate+"T00:00:00");
+    const days=Math.ceil((target-today)/86400000);
 
-    const target = new Date(examDate + "T00:00:00");
-    const days = Math.ceil((target - today) / 86400000);
-
-    if (days < 1) {
+    if(days<1){
         alert("Exam date must be in the future.");
         return;
     }
 
-    app = {
+    app={
         subjects,
         examName,
         examDate,
         dailyHours,
         days,
-        checks: {},
-        generatedAt: Date.now()
+        checks:{},
+        generatedAt:Date.now(),
+        startTime,
+        breakMinutes
     };
 
     updateDashboardStats();
+    document.getElementById("scheduleTitle").textContent=examName+" — Daily Study Schedule";
+    document.getElementById("totalHoursAllocated").textContent=(days*dailyHours)+" total study hours";
 
-    document.getElementById("scheduleTitle").textContent =
-        examName + " — Daily Study Schedule";
-
-    document.getElementById("totalHoursAllocated").textContent =
-        (days * dailyHours) + " total study hours";
-
+    updateTimingPreview();
     renderChart();
     renderSchedule();
     renderWeeklyReport();
     saveApp();
     refreshNotesSubjects();
-
     goTo("schedule");
 }
 
-/* =========================================
-   DASHBOARD STATS
-========================================= */
-
-function updateDashboardStats() {
-
-    document.getElementById("statDays").textContent =
-        app.days || 0;
-
-    document.getElementById("statSubjects").textContent =
-        app.subjects.length;
-
-    document.getElementById("statTopics").textContent =
-        app.subjects.reduce(
-            (total, subject) => total + Number(subject.chapters || 0),
-            0
-        );
-
-    updateProgress();
-}
-
-/* =========================================
-   CHAPTER PLANNING
-========================================= */
-
-function chapterForDay(subject, day) {
-
-    const index = ((day - 1) % subject.chapters) + 1;
-
-    return "Chapter " + index + " focus";
-}
-
-/* =========================================
-   RENDER SCHEDULE
-========================================= */
-
-function renderSchedule() {
-
-    if (!app.subjects.length || !app.days) {
-
-        document.getElementById("scheduleOutput").textContent =
-            "Add subjects and generate your schedule.";
-
+/* CUSTOM TIMING SETTINGS */
+function updateScheduleSettings(){
+    if(!app.subjects.length){
+        alert("Please generate your study schedule first.");
         return;
     }
 
-    let html = "";
+    const startTime=document.getElementById("scheduleStartTime").value;
+    const breakMinutes=Number(document.getElementById("breakMinutes").value);
 
-    const count = Math.min(app.days, 90);
-    const perSubject = app.dailyHours / app.subjects.length;
+    if(!startTime){
+        alert("Please select a start time.");
+        return;
+    }
 
-    for (let day = 1; day <= count; day++) {
+    if(!Number.isInteger(breakMinutes)||breakMinutes<0||breakMinutes>120){
+        alert("Break duration must be a whole number between 0 and 120 minutes.");
+        return;
+    }
 
-        const date = new Date();
-        date.setHours(0, 0, 0, 0);
-        date.setDate(date.getDate() + day);
+    app.startTime=startTime;
+    app.breakMinutes=breakMinutes;
 
-        let time = 8 * 60;
-        let rows = "";
+    saveApp();
+    renderSchedule();
+    updateTimingPreview();
 
-        app.subjects.forEach((subject, index) => {
+    document.getElementById("timingStatus").textContent=
+        `Updated successfully ✓ Starts at ${formatTime(getStartMinutes())} with ${breakMinutes} minute breaks.`;
+}
 
-            const start = time;
-            const end = time + perSubject * 60;
+function resetScheduleSettings(){
+    document.getElementById("scheduleStartTime").value="08:00";
+    document.getElementById("breakMinutes").value=10;
+    updateScheduleSettings();
+}
 
-            const formatTime = minutes => {
+/* CHAPTER PLANNING */
+function chapterForDay(subject,day){
+    const index=((day-1)%subject.chapters)+1;
+    return "Chapter "+index+" focus";
+}
 
-                const hours = Math.floor(minutes / 60) % 24;
-                const mins = Math.round(minutes % 60);
-                const period = hours >= 12 ? "PM" : "AM";
+/* DASHBOARD STATS */
+function updateDashboardStats(){
+    document.getElementById("statDays").textContent=app.days||0;
+    document.getElementById("statSubjects").textContent=app.subjects.length;
+    document.getElementById("statTopics").textContent=app.subjects.reduce((total,subject)=>total+Number(subject.chapters||0),0);
+    updateProgress();
+}
 
-                return `${hours % 12 || 12}:${String(mins).padStart(2, "0")} ${period}`;
-            };
+/* RENDER SCHEDULE */
+function renderSchedule(){
+    if(!app.subjects.length||!app.days){
+        document.getElementById("scheduleOutput").textContent="Add subjects and generate your schedule.";
+        return;
+    }
 
-            const chapter = chapterForDay(subject, day);
-            const key = `${day}_${index}`;
-            const checked = !!app.checks[key];
+    let html="";
+    const count=Math.min(app.days,90);
+    const perSubject=getPerSubjectMinutes();
+    const breakMinutes=Number(app.breakMinutes)||0;
 
-            rows += `
-                <div class="flex flex-wrap justify-between items-center gap-3 border-t py-3"
-                     style="border-color:var(--line)">
+    for(let day=1;day<=count;day++){
+        const date=new Date();
+        date.setHours(0,0,0,0);
+        date.setDate(date.getDate()+day);
 
+        let time=getStartMinutes();
+        let rows="";
+
+        app.subjects.forEach((subject,index)=>{
+            const start=time;
+            const end=start+perSubject;
+            const chapter=chapterForDay(subject,day);
+            const key=`${day}_${index}`;
+            const checked=!!app.checks[key];
+
+            const durationHours=(perSubject/60).toFixed(1);
+
+            rows+=`
+                <div class="flex flex-wrap justify-between items-center gap-3 border-t py-3" style="border-color:var(--line)">
                     <div class="flex items-center gap-3">
-
-                        <span class="rounded-xl px-3 py-2 text-xs font-bold whitespace-nowrap bg-purple-50 text-purple-700">
+                        <span class="rounded-xl px-3 py-2 text-xs font-bold schedule-time bg-purple-50 text-purple-700">
                             ${formatTime(start)} – ${formatTime(end)}
                         </span>
-
                         <div>
-                            <p class="font-bold text-sm">
-                                ${escapeHTML(subject.name)}
-                            </p>
-
+                            <p class="font-bold text-sm">${escapeHTML(subject.name)}</p>
                             <p class="text-xs text-gray-400">
-                                ${chapter} · ${escapeHTML(subject.difficulty)} · ${perSubject.toFixed(1)} hours
+                                ${chapter} · ${escapeHTML(subject.difficulty)} · ${durationHours} hours
                             </p>
                         </div>
-
                     </div>
-
                     <label class="flex items-center gap-2 text-xs text-gray-500">
-                        <input type="checkbox"
-                               class="task-done"
-                               ${checked ? "checked" : ""}
-                               onchange="setTask('${key}', this.checked)">
+                        <input type="checkbox" class="task-done" ${checked?"checked":""} onchange="setTask('${key}',this.checked)">
                         Done
                     </label>
-
                 </div>
             `;
 
-            time = end + 10;
+            time=end;
+            if(index<app.subjects.length-1)time+=breakMinutes;
         });
 
-        html += `
-            <details class="day-card" ${day === 1 ? "open" : ""}>
-
+        html+=`
+            <details class="day-card" ${day===1?"open":""}>
                 <summary class="flex flex-wrap justify-between items-center gap-2">
-
                     <div>
-                        <span class="text-xs font-extrabold"
-                              style="color:#702be9">
-                            DAY ${day}
-                        </span>
-
+                        <span class="text-xs font-extrabold" style="color:#702be9">DAY ${day}</span>
                         <h4 class="font-bold text-sm mt-1">
-                            ${date.toLocaleDateString("en-IN", {
-                                weekday: "long",
-                                day: "2-digit",
-                                month: "short",
-                                year: "numeric"
-                            })}
+                            ${date.toLocaleDateString("en-IN",{weekday:"long",day:"2-digit",month:"short",year:"numeric"})}
                         </h4>
-
                         <p class="text-xs text-gray-400 mt-1">
-                            ${app.subjects.length} subjects · ${app.dailyHours} study hours
+                            ${app.subjects.length} subjects · ${app.dailyHours} study hours · Starts ${formatTime(getStartMinutes())}
                         </p>
                     </div>
-
-                    <span class="text-xs font-bold" style="color:#702be9">
-                        View day
-                        <i class="fa-solid fa-chevron-down ml-1"></i>
-                    </span>
-
+                    <span class="text-xs font-bold" style="color:#702be9">View day <i class="fa-solid fa-chevron-down ml-1"></i></span>
                 </summary>
-
                 <div>${rows}</div>
-
             </details>
         `;
     }
 
-    if (app.days > 90) {
-
-        html += `
-            <p class="text-center text-xs text-gray-400 py-3">
-                First 90 days shown. Your exam period is ${app.days} days.
-            </p>
-        `;
+    if(app.days>90){
+        html+=`<p class="text-center text-xs text-gray-400 py-3">First 90 days shown. Your exam period is ${app.days} days.</p>`;
     }
 
-    document.getElementById("scheduleOutput").innerHTML = html;
-
+    document.getElementById("scheduleOutput").innerHTML=html;
     updateProgress();
+    updateTimingPreview();
 }
 
-/* =========================================
-   TASK COMPLETION
-========================================= */
-
-function setTask(key, checked) {
-
-    app.checks[key] = checked;
-
+/* TASK COMPLETION */
+function setTask(key,checked){
+    app.checks[key]=checked;
     saveApp();
     updateProgress();
     renderWeeklyReport();
 }
 
-function updateProgress() {
+function updateProgress(){
+    const total=app.subjects.length?Math.min(app.days,90)*app.subjects.length:0;
+    const done=Object.values(app.checks||{}).filter(Boolean).length;
+    const score=total?Math.min(100,Math.round(done/total*100)):0;
 
-    const total = app.subjects.length
-        ? Math.min(app.days, 90) * app.subjects.length
-        : 0;
-
-    const done = Object.values(app.checks || {}).filter(Boolean).length;
-
-    const score = total
-        ? Math.min(100, Math.round(done / total * 100))
-        : 0;
-
-    document.getElementById("statScore").textContent = score + "%";
-    document.getElementById("progressLabel").textContent = score + "%";
-    document.getElementById("mainProgress").style.width = score + "%";
-    document.getElementById("heroGoal").textContent = score + "%";
-
-    document.getElementById("heroDays").textContent =
-        done ? done + " sessions done" : "Start your streak";
+    document.getElementById("statScore").textContent=score+"%";
+    document.getElementById("progressLabel").textContent=score+"%";
+    document.getElementById("mainProgress").style.width=score+"%";
+    document.getElementById("heroGoal").textContent=score+"%";
+    document.getElementById("heroDays").textContent=done?done+" sessions done":"Start your streak";
 }
 
-/* =========================================
-   STUDY ANALYTICS
-========================================= */
+/* STUDY ANALYTICS */
+function renderChart(){
+    const canvas=document.getElementById("prepChart");
+    const fallback=document.getElementById("chartFallback");
+    if(!canvas||!app.subjects.length)return;
 
-function renderChart() {
-
-    const canvas = document.getElementById("prepChart");
-    const fallback = document.getElementById("chartFallback");
-
-    if (!canvas || !app.subjects.length) return;
-
-    if (typeof Chart === "undefined") {
-
+    if(typeof Chart==="undefined"){
         fallback.classList.remove("hidden");
-
-        document.getElementById("subjectSummary").textContent =
-            "Chart library is unavailable. Your study schedule is still available.";
-
+        document.getElementById("subjectSummary").textContent="Chart library is unavailable. Your study schedule is still available.";
         return;
     }
 
     fallback.classList.add("hidden");
+    if(chartInstance)chartInstance.destroy();
 
-    const ctx = canvas.getContext("2d");
-
-    if (chartInstance) {
-        chartInstance.destroy();
-    }
-
-    chartInstance = new Chart(ctx, {
-        type: "doughnut",
-
-        data: {
-            labels: app.subjects.map(subject => subject.name),
-
-            datasets: [{
-                data: app.subjects.map(subject => subject.chapters),
-
-                backgroundColor: [
-                    "#6425df",
-                    "#3d83e8",
-                    "#22b982",
-                    "#f5a642",
-                    "#ec6a9b",
-                    "#8b75e8"
-                ],
-
-                borderWidth: 3,
-                borderColor: "#fff"
+    chartInstance=new Chart(canvas.getContext("2d"),{
+        type:"doughnut",
+        data:{
+            labels:app.subjects.map(subject=>subject.name),
+            datasets:[{
+                data:app.subjects.map(subject=>subject.chapters),
+                backgroundColor:["#6425df","#3d83e8","#22b982","#f5a642","#ec6a9b","#8b75e8"],
+                borderWidth:3,
+                borderColor:"#fff"
             }]
         },
-
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            cutout: "68%",
-
-            plugins: {
-                legend: {
-                    position: "bottom",
-                    labels: {
-                        usePointStyle: true,
-                        boxWidth: 8,
-                        padding: 14
-                    }
-                }
-            }
+        options:{
+            responsive:true,
+            maintainAspectRatio:false,
+            cutout:"68%",
+            plugins:{legend:{position:"bottom",labels:{usePointStyle:true,boxWidth:8,padding:14}}}
         }
     });
 
-    const max = Math.max(...app.subjects.map(subject => subject.chapters));
-
-    document.getElementById("subjectSummary").innerHTML =
-        app.subjects.map(subject => `
-            <div>
-
-                <div class="flex justify-between mb-2 gap-2">
-                    <span class="font-semibold">
-                        ${escapeHTML(subject.name)}
-                    </span>
-
-                    <b style="color:#702be9">
-                        ${subject.chapters} chapters
-                    </b>
-                </div>
-
-                <div class="progress">
-                    <div style="width:${subject.chapters / max * 100}%"></div>
-                </div>
-
+    const max=Math.max(...app.subjects.map(subject=>subject.chapters));
+    document.getElementById("subjectSummary").innerHTML=app.subjects.map(subject=>`
+        <div>
+            <div class="flex justify-between mb-2 gap-2">
+                <span class="font-semibold">${escapeHTML(subject.name)}</span>
+                <b style="color:#702be9">${subject.chapters} chapters</b>
             </div>
-        `).join("");
+            <div class="progress"><div style="width:${subject.chapters/max*100}%"></div></div>
+        </div>
+    `).join("");
 }
 
-/* =========================================
-   PERFORMANCE REPORT
-========================================= */
-
-function renderWeeklyReport() {
-
-    if (!app.subjects.length) {
-
-        document.getElementById("weeklyOutput").textContent =
-            "Generate your schedule to view the report.";
-
+/* PERFORMANCE REPORT */
+function renderWeeklyReport(){
+    if(!app.subjects.length){
+        document.getElementById("weeklyOutput").textContent="Generate your schedule to view the report.";
         return;
     }
 
-    let total = 0;
-    let done = 0;
-    const weeks = [];
+    let total=0,done=0;
+    const weeks=[];
 
-    for (let week = 0; week < Math.ceil(Math.min(app.days, 90) / 7); week++) {
+    for(let week=0;week<Math.ceil(Math.min(app.days,90)/7);week++){
+        const start=week*7+1;
+        const end=Math.min((week+1)*7,app.days,90);
+        let weekDone=0;
+        const weekTotal=(end-start+1)*app.subjects.length;
 
-        const start = week * 7 + 1;
-        const end = Math.min((week + 1) * 7, app.days, 90);
-
-        let weekDone = 0;
-        const weekTotal = (end - start + 1) * app.subjects.length;
-
-        for (let day = start; day <= end; day++) {
-
-            app.subjects.forEach((subject, index) => {
-
-                if (app.checks[`${day}_${index}`]) {
-                    weekDone++;
-                }
+        for(let day=start;day<=end;day++){
+            app.subjects.forEach((subject,index)=>{
+                if(app.checks[`${day}_${index}`])weekDone++;
             });
         }
 
-        total += weekTotal;
-        done += weekDone;
-
-        weeks.push({
-            week: week + 1,
-            done: weekDone,
-            total: weekTotal
-        });
+        total+=weekTotal;
+        done+=weekDone;
+        weeks.push({week:week+1,done:weekDone,total:weekTotal});
     }
 
-    document.getElementById("weeklyOutput").innerHTML = `
-
+    document.getElementById("weeklyOutput").innerHTML=`
         <div class="grid grid-cols-2 gap-3 mb-4">
-
             <div class="rounded-2xl p-4 bg-purple-50 text-purple-800">
                 <p class="text-xs">Completed study sessions</p>
                 <p class="text-2xl font-extrabold">${done}</p>
             </div>
-
             <div class="rounded-2xl p-4 bg-green-50 text-green-800">
                 <p class="text-xs">Overall completion</p>
-                <p class="text-2xl font-extrabold">
-                    ${total ? Math.round(done / total * 100) : 0}%
-                </p>
+                <p class="text-2xl font-extrabold">${total?Math.round(done/total*100):0}%</p>
             </div>
-
         </div>
-
         <div class="space-y-3">
-
-            ${weeks.map(week => `
-
+            ${weeks.map(week=>`
                 <div>
-
                     <div class="flex justify-between text-xs mb-1">
-                        <b>Week ${week.week}</b>
-                        <span>${week.done}/${week.total} sessions</span>
+                        <b>Week ${week.week}</b><span>${week.done}/${week.total} sessions</span>
                     </div>
-
-                    <div class="progress">
-                        <div style="width:${week.total ? week.done / week.total * 100 : 0}%"></div>
-                    </div>
-
+                    <div class="progress"><div style="width:${week.total?week.done/week.total*100:0}%"></div></div>
                 </div>
-
             `).join("")}
-
         </div>
     `;
 }
 
-/* =========================================
-   LOCAL STORAGE
-========================================= */
-
-function saveApp() {
-
-    try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(app));
-    } catch (error) {
-        console.warn("Could not save app data:", error);
+/* LOCAL STORAGE */
+function saveApp(){
+    try{
+        localStorage.setItem(STORAGE_KEY,JSON.stringify(app));
+    }catch(error){
+        console.warn("Could not save app data:",error);
     }
 }
 
-function restoreApp() {
+function restoreApp(){
+    try{
+        const raw=localStorage.getItem(STORAGE_KEY);
+        if(!raw)return false;
 
-    try {
+        const saved=JSON.parse(raw);
+        if(!saved||!Array.isArray(saved.subjects)||!saved.subjects.length)return false;
+        if(!saved.examDate||!saved.examName)return false;
 
-        const raw = localStorage.getItem(STORAGE_KEY);
-
-        if (!raw) return false;
-
-        const saved = JSON.parse(raw);
-
-        if (!saved || !Array.isArray(saved.subjects) || !saved.subjects.length) {
-            return false;
-        }
-
-        if (!saved.examDate || !saved.examName) {
-            return false;
-        }
-
-        app = {
-            subjects: saved.subjects,
-            examName: saved.examName,
-            examDate: saved.examDate,
-            dailyHours: Number(saved.dailyHours) || 5,
-            days: Number(saved.days) || 0,
-            checks: saved.checks || {},
-            generatedAt: saved.generatedAt || Date.now()
+        app={
+            subjects:saved.subjects,
+            examName:saved.examName,
+            examDate:saved.examDate,
+            dailyHours:Number(saved.dailyHours)||5,
+            days:Number(saved.days)||0,
+            checks:saved.checks||{},
+            generatedAt:saved.generatedAt||Date.now(),
+            startTime:saved.startTime||"08:00",
+            breakMinutes:Number.isFinite(Number(saved.breakMinutes))?Number(saved.breakMinutes):10
         };
 
-        document.getElementById("examName").value = app.examName;
-        document.getElementById("examDate").value = app.examDate;
-        document.getElementById("dailyHours").value = app.dailyHours;
+        document.getElementById("examName").value=app.examName;
+        document.getElementById("examDate").value=app.examDate;
+        document.getElementById("dailyHours").value=app.dailyHours;
+        document.getElementById("scheduleStartTime").value=app.startTime;
+        document.getElementById("breakMinutes").value=app.breakMinutes;
 
-        document.getElementById("subjectsContainer").innerHTML = "";
+        document.getElementById("subjectsContainer").innerHTML="";
+        app.subjects.forEach(subject=>addSubjectRow(subject.name,subject.chapters,subject.difficulty));
 
-        app.subjects.forEach(subject => {
-
-            addSubjectRow(
-                subject.name,
-                subject.chapters,
-                subject.difficulty
-            );
-        });
-
-        const today = new Date();
-        today.setHours(0, 0, 0, 0);
-
-        const remaining = Math.ceil(
-            (new Date(app.examDate + "T00:00:00") - today) / 86400000
-        );
-
-        if (remaining > 0) {
-            app.days = remaining;
-        }
+        const today=new Date();
+        today.setHours(0,0,0,0);
+        const remaining=Math.ceil((new Date(app.examDate+"T00:00:00")-today)/86400000);
+        if(remaining>0)app.days=remaining;
 
         updateDashboardStats();
-
-        document.getElementById("scheduleTitle").textContent =
-            app.examName + " — Daily Study Schedule";
-
-        document.getElementById("totalHoursAllocated").textContent =
-            (app.days * app.dailyHours) + " total study hours";
+        document.getElementById("scheduleTitle").textContent=app.examName+" — Daily Study Schedule";
+        document.getElementById("totalHoursAllocated").textContent=(app.days*app.dailyHours)+" total study hours";
 
         renderChart();
         renderSchedule();
         renderWeeklyReport();
         refreshNotesSubjects();
+        updateTimingPreview();
+
+        document.getElementById("timingStatus").textContent=
+            `Saved settings loaded ✓ Start ${formatTime(getStartMinutes())} · ${app.breakMinutes} min break`;
 
         return true;
-
-    } catch (error) {
-
-        console.warn("Could not restore saved app data:", error);
-
+    }catch(error){
+        console.warn("Could not restore saved app data:",error);
         return false;
     }
 }
 
-/* =========================================
-   DARK MODE
-========================================= */
-
-function toggleTheme() {
-
+/* DARK MODE */
+function toggleTheme(){
     document.body.classList.toggle("dark");
-
-    const dark = document.body.classList.contains("dark");
-
-    localStorage.setItem("campuspulse_dark", dark ? "1" : "0");
-
-    document.getElementById("themeIcon").className =
-        dark ? "fa-solid fa-sun" : "fa-solid fa-moon";
+    const dark=document.body.classList.contains("dark");
+    localStorage.setItem("campuspulse_dark",dark?"1":"0");
+    document.getElementById("themeIcon").className=dark?"fa-solid fa-sun":"fa-solid fa-moon";
 }
 
-/* =========================================
-   NAVIGATION
-========================================= */
-
-function setActive(id) {
-
-    document.querySelectorAll(".nav-item").forEach(link => {
-
-        link.classList.toggle(
-            "active",
-            link.getAttribute("href") === "#" + id
-        );
+/* NAVIGATION */
+function setActive(id){
+    document.querySelectorAll(".nav-item").forEach(link=>{
+        link.classList.toggle("active",link.getAttribute("href")==="#"+id);
     });
-
-    const link = document.querySelector(`.nav-item[href="#${id}"]`);
-
-    document.getElementById("crumb").textContent =
-        link ? link.textContent.trim() : "Dashboard";
+    const link=document.querySelector(`.nav-item[href="#${id}"]`);
+    document.getElementById("crumb").textContent=link?link.textContent.trim():"Dashboard";
 }
 
-function goTo(id) {
-
-    const element = document.getElementById(id);
-
-    if (element) {
-
-        element.scrollIntoView({
-            behavior: "smooth",
-            block: "start"
-        });
-
+function goTo(id){
+    const element=document.getElementById(id);
+    if(element){
+        element.scrollIntoView({behavior:"smooth",block:"start"});
         setActive(id);
-
         document.getElementById("sidebar").classList.remove("open");
     }
 }
 
-function toggleMenu() {
-
+function toggleMenu(){
     document.getElementById("sidebar").classList.toggle("open");
 }
 
-document.querySelectorAll(".nav-item").forEach(link => {
-
-    link.addEventListener("click", () => {
-
-        const id = link.getAttribute("href").slice(1);
-
+document.querySelectorAll(".nav-item").forEach(link=>{
+    link.addEventListener("click",()=>{
+        const id=link.getAttribute("href").slice(1);
         setActive(id);
-
         document.getElementById("sidebar").classList.remove("open");
     });
 });
 
-const sections = [
-    "dashboard",
-    "configuration",
-    "schedule",
-    "weekly",
-    "notes"
-];
+const sections=["dashboard","configuration","schedule","weekly","notes"];
+let scrollTick=false;
 
-let scrollTick = false;
-
-window.addEventListener("scroll", () => {
-
-    if (scrollTick) return;
-
-    scrollTick = true;
-
-    requestAnimationFrame(() => {
-
-        let current = "dashboard";
-
-        for (const id of sections) {
-
-            const element = document.getElementById(id);
-
-            if (element && element.getBoundingClientRect().top < 180) {
-                current = id;
-            }
+window.addEventListener("scroll",()=>{
+    if(scrollTick)return;
+    scrollTick=true;
+    requestAnimationFrame(()=>{
+        let current="dashboard";
+        for(const id of sections){
+            const element=document.getElementById(id);
+            if(element&&element.getBoundingClientRect().top<180)current=id;
         }
-
         setActive(current);
-
-        scrollTick = false;
+        scrollTick=false;
     });
 });
 
-/* =========================================
-   PERSONAL NOTES
-========================================= */
-
-function getPersonalNotes() {
-
-    try {
-        return JSON.parse(localStorage.getItem(PERSONAL_NOTES_KEY)) || {};
-    } catch (error) {
-        return {};
-    }
+/* PERSONAL NOTES */
+function getPersonalNotes(){
+    try{return JSON.parse(localStorage.getItem(PERSONAL_NOTES_KEY))||{};}
+    catch(error){return {};}
 }
 
-function refreshNotesSubjects() {
+function refreshNotesSubjects(){
+    const select=document.getElementById("notesSubject");
+    const previous=select.value;
+    select.innerHTML='<option value="">Select a subject</option>';
 
-    const select = document.getElementById("notesSubject");
-    const previous = select.value;
-
-    select.innerHTML = '<option value="">Select a subject</option>';
-
-    app.subjects.forEach(subject => {
-
-        const option = document.createElement("option");
-        option.value = subject.name;
-        option.textContent = subject.name;
-
+    app.subjects.forEach(subject=>{
+        const option=document.createElement("option");
+        option.value=subject.name;
+        option.textContent=subject.name;
         select.appendChild(option);
     });
 
-    if (app.subjects.some(subject => subject.name === previous)) {
-        select.value = previous;
-    }
-
+    if(app.subjects.some(subject=>subject.name===previous))select.value=previous;
     loadPersonalNote();
 }
 
-function loadPersonalNote() {
-
-    const subject = document.getElementById("notesSubject").value;
-    const notes = getPersonalNotes();
-
-    document.getElementById("personalNote").value =
-        subject ? (notes[subject] || "") : "";
-
-    document.getElementById("notesStatus").textContent =
-        subject ? "Your notes are saved automatically." : "Select a subject first.";
+function loadPersonalNote(){
+    const subject=document.getElementById("notesSubject").value;
+    const notes=getPersonalNotes();
+    document.getElementById("personalNote").value=subject?(notes[subject]||""):"";
+    document.getElementById("notesStatus").textContent=subject?"Your notes are saved automatically.":"Select a subject first.";
 }
 
-function savePersonalNote() {
+function savePersonalNote(){
+    const subject=document.getElementById("notesSubject").value;
+    if(!subject)return;
+    const notes=getPersonalNotes();
+    notes[subject]=document.getElementById("personalNote").value;
 
-    const subject = document.getElementById("notesSubject").value;
-
-    if (!subject) return;
-
-    const notes = getPersonalNotes();
-
-    notes[subject] = document.getElementById("personalNote").value;
-
-    try {
-
-        localStorage.setItem(PERSONAL_NOTES_KEY, JSON.stringify(notes));
-
-        document.getElementById("notesStatus").textContent =
-            "Saved automatically ✓";
-
-    } catch (error) {
-
-        document.getElementById("notesStatus").textContent =
-            "Unable to save notes. Browser storage may be full.";
+    try{
+        localStorage.setItem(PERSONAL_NOTES_KEY,JSON.stringify(notes));
+        document.getElementById("notesStatus").textContent="Saved automatically ✓";
+    }catch(error){
+        document.getElementById("notesStatus").textContent="Unable to save notes. Browser storage may be full.";
     }
 }
 
-function clearPersonalNote() {
+function clearPersonalNote(){
+    const subject=document.getElementById("notesSubject").value;
+    if(!subject){alert("Please select a subject first.");return;}
+    if(!confirm("Are you sure you want to clear these notes?"))return;
 
-    const subject = document.getElementById("notesSubject").value;
-
-    if (!subject) {
-        alert("Please select a subject first.");
-        return;
-    }
-
-    if (!confirm("Are you sure you want to clear these notes?")) {
-        return;
-    }
-
-    const notes = getPersonalNotes();
-
+    const notes=getPersonalNotes();
     delete notes[subject];
-
-    localStorage.setItem(PERSONAL_NOTES_KEY, JSON.stringify(notes));
-
-    document.getElementById("personalNote").value = "";
-
-    document.getElementById("notesStatus").textContent =
-        "Notes cleared.";
+    localStorage.setItem(PERSONAL_NOTES_KEY,JSON.stringify(notes));
+    document.getElementById("personalNote").value="";
+    document.getElementById("notesStatus").textContent="Notes cleared.";
 }
 
-/* =========================================
-   STUDY REMINDER
-========================================= */
-
-function enableReminder() {
-
-    if (!("Notification" in window)) {
-
-        document.getElementById("reminderStatus").textContent =
-            "This browser does not support notifications.";
-
+/* STUDY REMINDER */
+function enableReminder(){
+    if(!("Notification" in window)){
+        document.getElementById("reminderStatus").textContent="This browser does not support notifications.";
         return;
     }
 
-    Notification.requestPermission().then(permission => {
-
-        if (permission !== "granted") {
-
-            document.getElementById("reminderStatus").textContent =
-                "Please allow notifications in browser settings.";
-
+    Notification.requestPermission().then(permission=>{
+        if(permission!=="granted"){
+            document.getElementById("reminderStatus").textContent="Please allow notifications in browser settings.";
             return;
         }
 
-        const time = document.getElementById("reminderTime").value;
+        const time=document.getElementById("reminderTime").value;
+        if(!time){alert("Please select a reminder time.");return;}
 
-        if (!time) {
-            alert("Please select a reminder time.");
-            return;
-        }
-
-        localStorage.setItem("campuspulse_reminder", time);
-
-        document.getElementById("reminderStatus").textContent =
-            `Daily reminder set for ${time}. Keep this page open.`;
-
+        localStorage.setItem("campuspulse_reminder",time);
+        document.getElementById("reminderStatus").textContent=`Daily reminder set for ${time}. Keep this page open.`;
         scheduleReminder(time);
     });
 }
 
-function scheduleReminder(time) {
+function scheduleReminder(time){
+    if(reminderTimer)clearInterval(reminderTimer);
 
-    if (reminderTimer) {
-        clearInterval(reminderTimer);
-    }
+    reminderTimer=setInterval(()=>{
+        const now=new Date();
+        const hours=String(now.getHours()).padStart(2,"0");
+        const minutes=String(now.getMinutes()).padStart(2,"0");
+        const key=toISO(now)+"_"+time;
 
-    reminderTimer = setInterval(() => {
-
-        const now = new Date();
-
-        const hours = String(now.getHours()).padStart(2, "0");
-        const minutes = String(now.getMinutes()).padStart(2, "0");
-
-        const key = toISO(now) + "_" + time;
-
-        if (
-            `${hours}:${minutes}` === time &&
-            localStorage.getItem("campuspulse_last_notice") !== key
-        ) {
-
-            new Notification("CampusPulse Study Reminder", {
-                body: "It is time for your planned study session. Keep going!"
+        if(`${hours}:${minutes}`===time&&localStorage.getItem("campuspulse_last_notice")!==key){
+            new Notification("CampusPulse Study Reminder",{
+                body:"It is time for your planned study session. Keep going!"
             });
-
-            localStorage.setItem("campuspulse_last_notice", key);
+            localStorage.setItem("campuspulse_last_notice",key);
         }
-
-    }, 15000);
+    },15000);
 }
 
-/* =========================================
-   FOCUS MODE TIMER
-========================================= */
+/* FOCUS MODE TIMER */
+let focusDuration=25*60;
+let focusRemaining=25*60;
+let focusInterval=null;
+let focusRunning=false;
+let focusEndTime=null;
 
-let focusDuration = 25 * 60;
-let focusRemaining = 25 * 60;
-let focusInterval = null;
-let focusRunning = false;
-let focusEndTime = null;
+let completedFocusSessions=Number(localStorage.getItem("campuspulse_focus_completed")||0);
 
-let completedFocusSessions = Number(
-    localStorage.getItem("campuspulse_focus_completed") || 0
-);
-
-function openFocusMode() {
-
+function openFocusMode(){
     document.getElementById("focusOverlay").classList.add("show");
-
-    document.body.style.overflow = "hidden";
-
+    document.body.style.overflow="hidden";
     updateFocusClock();
-
-    document.getElementById("focusCompleted").textContent =
-        completedFocusSessions;
+    document.getElementById("focusCompleted").textContent=completedFocusSessions;
 }
 
-function closeFocusMode() {
-
+function closeFocusMode(){
     pauseFocus();
-
     document.getElementById("focusOverlay").classList.remove("show");
-
-    document.body.style.overflow = "";
+    document.body.style.overflow="";
 }
 
-function setFocusTime(minutes) {
+function setFocusTime(minutes){
+    if(focusRunning)pauseFocus();
+    focusDuration=minutes*60;
+    focusRemaining=focusDuration;
 
-    if (focusRunning) {
-        pauseFocus();
-    }
-
-    focusDuration = minutes * 60;
-    focusRemaining = focusDuration;
-
-    document.querySelectorAll(".focus-presets button").forEach(button => {
-        button.classList.remove("selected");
-    });
-
-    document.getElementById("preset" + minutes).classList.add("selected");
-
-    document.getElementById("focusStatus").textContent =
-        "Ready to focus?";
-
+    document.querySelectorAll(".focus-presets button").forEach(button=>button.classList.remove("selected"));
+    document.getElementById("preset"+minutes).classList.add("selected");
+    document.getElementById("focusStatus").textContent="Ready to focus?";
     updateFocusClock();
 }
 
-function updateFocusClock() {
-
-    const minutes = Math.floor(focusRemaining / 60);
-    const seconds = focusRemaining % 60;
-
-    document.getElementById("focusClock").textContent =
-        String(minutes).padStart(2, "0") + ":" +
-        String(seconds).padStart(2, "0");
+function updateFocusClock(){
+    const minutes=Math.floor(focusRemaining/60);
+    const seconds=focusRemaining%60;
+    document.getElementById("focusClock").textContent=String(minutes).padStart(2,"0")+":"+String(seconds).padStart(2,"0");
 }
 
-function startFocus() {
+function startFocus(){
+    if(focusRunning)return;
+    if(focusRemaining<=0)resetFocus();
 
-    if (focusRunning) return;
+    focusRunning=true;
+    focusEndTime=Date.now()+focusRemaining*1000;
+    document.getElementById("focusStatus").textContent="Stay focused. You are doing great!";
 
-    if (focusRemaining <= 0) {
-        resetFocus();
-    }
-
-    focusRunning = true;
-
-    focusEndTime = Date.now() + focusRemaining * 1000;
-
-    document.getElementById("focusStatus").textContent =
-        "Stay focused. You are doing great!";
-
-    focusInterval = setInterval(() => {
-
-        focusRemaining = Math.max(
-            0,
-            Math.ceil((focusEndTime - Date.now()) / 1000)
-        );
-
+    focusInterval=setInterval(()=>{
+        focusRemaining=Math.max(0,Math.ceil((focusEndTime-Date.now())/1000));
         updateFocusClock();
-
-        if (focusRemaining <= 0) {
-            completeFocus();
-        }
-
-    }, 250);
+        if(focusRemaining<=0)completeFocus();
+    },250);
 }
 
-function pauseFocus() {
-
-    if (focusRunning && focusEndTime) {
-
-        focusRemaining = Math.max(
-            0,
-            Math.ceil((focusEndTime - Date.now()) / 1000)
-        );
+function pauseFocus(){
+    if(focusRunning&&focusEndTime){
+        focusRemaining=Math.max(0,Math.ceil((focusEndTime-Date.now())/1000));
     }
 
     clearInterval(focusInterval);
-
-    focusInterval = null;
-    focusRunning = false;
-    focusEndTime = null;
-
+    focusInterval=null;
+    focusRunning=false;
+    focusEndTime=null;
     updateFocusClock();
-
-    document.getElementById("focusStatus").textContent =
-        "Timer paused";
+    document.getElementById("focusStatus").textContent="Timer paused";
 }
 
-function resetFocus() {
-
+function resetFocus(){
     clearInterval(focusInterval);
-
-    focusInterval = null;
-    focusRunning = false;
-    focusEndTime = null;
-
-    focusRemaining = focusDuration;
-
-    document.getElementById("focusStatus").textContent =
-        "Ready to focus?";
-
+    focusInterval=null;
+    focusRunning=false;
+    focusEndTime=null;
+    focusRemaining=focusDuration;
+    document.getElementById("focusStatus").textContent="Ready to focus?";
     updateFocusClock();
 }
 
-function completeFocus() {
-
+function completeFocus(){
     clearInterval(focusInterval);
-
-    focusInterval = null;
-    focusRunning = false;
-    focusEndTime = null;
-
-    focusRemaining = 0;
-
+    focusInterval=null;
+    focusRunning=false;
+    focusEndTime=null;
+    focusRemaining=0;
     updateFocusClock();
 
     completedFocusSessions++;
+    localStorage.setItem("campuspulse_focus_completed",completedFocusSessions);
+    document.getElementById("focusCompleted").textContent=completedFocusSessions;
+    document.getElementById("focusStatus").textContent="Session completed! Great work! 🎉";
 
-    localStorage.setItem(
-        "campuspulse_focus_completed",
-        completedFocusSessions
-    );
-
-    document.getElementById("focusCompleted").textContent =
-        completedFocusSessions;
-
-    document.getElementById("focusStatus").textContent =
-        "Session completed! Great work! 🎉";
-
-    if ("Notification" in window && Notification.permission === "granted") {
-
-        new Notification("Focus Session Completed!", {
-            body: "Great work! You completed your focus session."
-        });
+    if("Notification" in window&&Notification.permission==="granted"){
+        new Notification("Focus Session Completed!",{body:"Great work! You completed your focus session."});
     }
-
     alert("Congratulations! Your focus session is complete.");
 }
 
-/* =========================================
-   ESCAPE KEY
-========================================= */
-
-document.addEventListener("keydown", event => {
-
-    if (event.key === "Escape") {
-
-        const overlay = document.getElementById("focusOverlay");
-
-        if (overlay.classList.contains("show")) {
-            closeFocusMode();
-        }
+/* ESCAPE KEY */
+document.addEventListener("keydown",event=>{
+    if(event.key==="Escape"){
+        const overlay=document.getElementById("focusOverlay");
+        if(overlay.classList.contains("show"))closeFocusMode();
     }
 });
 
-/* =========================================
-   APPLICATION STARTUP
-========================================= */
+/* LIVE TIMING PREVIEW */
+document.getElementById("scheduleStartTime").addEventListener("change",()=>{
+    document.getElementById("timingStatus").textContent="You have changed the start time. Click Update Timings to apply it.";
+});
 
-window.addEventListener("load", () => {
+document.getElementById("breakMinutes").addEventListener("input",()=>{
+    document.getElementById("timingStatus").textContent="You have changed the break duration. Click Update Timings to apply it.";
+});
 
-    try {
+document.getElementById("dailyHours").addEventListener("input",updateTimingPreview);
 
-        if (localStorage.getItem("campuspulse_dark") === "1") {
-
+/* APPLICATION STARTUP */
+window.addEventListener("load",()=>{
+    try{
+        if(localStorage.getItem("campuspulse_dark")==="1"){
             document.body.classList.add("dark");
-
-            document.getElementById("themeIcon").className =
-                "fa-solid fa-sun";
+            document.getElementById("themeIcon").className="fa-solid fa-sun";
         }
 
-        const restored = restoreApp();
+        const restored=restoreApp();
 
-        if (!restored) {
-
+        if(!restored){
             loadPresetData();
-
-        } else {
-
+        }else{
             updateDashboardStats();
         }
 
         refreshNotesSubjects();
+        document.getElementById("focusCompleted").textContent=completedFocusSessions;
 
-        document.getElementById("focusCompleted").textContent =
-            completedFocusSessions;
+        const reminder=localStorage.getItem("campuspulse_reminder");
+        if(reminder){
+            document.getElementById("reminderTime").value=reminder;
+            document.getElementById("reminderStatus").textContent=`Daily reminder set for ${reminder}.`;
 
-        const reminder = localStorage.getItem("campuspulse_reminder");
-
-        if (reminder) {
-
-            document.getElementById("reminderTime").value = reminder;
-
-            document.getElementById("reminderStatus").textContent =
-                `Daily reminder set for ${reminder}.`;
-
-            if (
-                "Notification" in window &&
-                Notification.permission === "granted"
-            ) {
+            if("Notification" in window&&Notification.permission==="granted"){
                 scheduleReminder(reminder);
             }
         }
 
-    } catch (error) {
-
-        console.error("CampusPulse startup error:", error);
-
-        document.getElementById("scheduleOutput").textContent =
-            "Something went wrong while loading your planner. Please refresh the page.";
+        updateTimingPreview();
+    }catch(error){
+        console.error("CampusPulse startup error:",error);
+        document.getElementById("scheduleOutput").textContent="Something went wrong while loading your planner. Please refresh the page.";
     }
 });
-
 </script>
 
 </body>
