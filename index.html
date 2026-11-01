@@ -1,347 +1,543 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CampusPulse - Smart Time Table & Exam Prep Scheduler</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#6366f1',
-                        darkBg: '#0f172a',
-                        cardBg: '#1e293b'
-                    }
-                }
-            }
-        }
-    </script>
-    <!-- Chart.js CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        @media print {
-            .no-print { display: none !important; }
-            body { background: white !important; color: black !important; }
-            .print-border { border: 1px solid #cbd5e1 !important; }
-        }
-    </style>
-</head>
-<body class="bg-slate-950 text-slate-100 min-h-screen font-sans antialiased selection:bg-indigo-500 selection:text-white">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CampusPulse | Smart Study Planner</title>
 
-    <!-- Header Navigation -->
-    <header class="border-b border-slate-800 bg-slate-900/50 backdrop-blur sticky top-0 z-50 no-print">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <div class="flex items-center space-x-3">
-                <div class="bg-indigo-600 text-white p-2 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/30">
-                    <i class="fa-solid fa-graduation-cap text-xl"></i>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+*{box-sizing:border-box}
+body{font-family:Inter,system-ui,sans-serif;background:#f5f7fb;color:#172033}
+.card{background:white;border:1px solid #e8edf5;border-radius:16px;box-shadow:0 4px 18px rgba(20,35,70,.04)}
+.input{width:100%;padding:11px 12px;border:1px solid #e1e7f0;border-radius:9px;background:#fff;outline:none;font-size:13px}
+.input:focus{border-color:#6558e8;box-shadow:0 0 0 3px #6558e81c}
+.btn{background:#6256e8;color:white;padding:11px 16px;border-radius:9px;font-size:13px;font-weight:600}
+.btn:hover{background:#5145d0}
+.subject-row{display:grid;grid-template-columns:1fr 75px 95px 28px;gap:7px;align-items:center}
+.sidebar{width:245px;position:fixed;top:0;bottom:0;left:0;background:#fff;border-right:1px solid #e8edf5;padding:25px 17px}
+.main{margin-left:245px}
+.nav-item{display:flex;gap:12px;align-items:center;padding:12px;border-radius:9px;color:#68758a;font-size:13px;margin:5px 0}
+.nav-item.active{background:#f0efff;color:#6256e8;font-weight:600}
+.progress{height:8px;background:#edf0f6;border-radius:20px;overflow:hidden}
+.progress>div{height:100%;background:#6256e8;border-radius:20px}
+
+.developer-credit{
+    display:flex;
+    align-items:center;
+    gap:4px;
+    font-size:12px;
+    font-weight:700;
+    white-space:nowrap;
+}
+.developer-credit .label{
+    color:#64748b;
+    font-weight:500;
+}
+.developer-credit .aaditya{
+    background:linear-gradient(90deg,#6256e8,#9333ea);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+}
+.developer-credit .ampersand{
+    color:#94a3b8;
+}
+.developer-credit .akshat{
+    background:linear-gradient(90deg,#2563eb,#06b6d4);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+}
+
+@media(max-width:850px){
+.sidebar{display:none}
+.main{margin-left:0}
+}
+@media(max-width:600px){
+.subject-row{grid-template-columns:1fr 65px 80px 25px}
+.developer-credit{font-size:10px;gap:3px}
+}
+@media(max-width:380px){
+.developer-credit{font-size:9px}
+}
+@media print{
+.no-print{display:none!important}
+.main{margin:0}
+body{background:white}
+.card{box-shadow:none}
+}
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar no-print">
+    <div class="flex items-center gap-3 mb-10">
+        <div class="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center">
+            <i class="fa-solid fa-graduation-cap text-lg"></i>
+        </div>
+        <div>
+            <h1 class="font-bold text-lg">CampusPulse</h1>
+            <p class="text-xs text-gray-400">Smart Study Planner</p>
+        </div>
+    </div>
+
+    <p class="text-xs text-gray-400 uppercase font-semibold px-3 mb-3">Workspace</p>
+
+    <a href="#dashboard" class="nav-item active">
+        <i class="fa-solid fa-chart-pie"></i> Dashboard
+    </a>
+    <a href="#configuration" class="nav-item">
+        <i class="fa-solid fa-sliders"></i> Exam Configuration
+    </a>
+    <a href="#schedule" class="nav-item">
+        <i class="fa-solid fa-calendar-days"></i> Study Schedule
+    </a>
+
+    <div class="absolute bottom-6 left-5 right-5 card p-4">
+        <div class="flex items-center gap-2 text-indigo-600 mb-2">
+            <i class="fa-solid fa-lightbulb"></i>
+            <span class="text-sm font-semibold">Study Smart</span>
+        </div>
+        <p class="text-xs text-gray-500 leading-5">
+            Plan your subjects, manage your time and prepare confidently for exams.
+        </p>
+    </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+
+<!-- TOPBAR -->
+<header class="bg-white border-b border-gray-100 px-5 md:px-8 py-4 flex flex-wrap justify-between items-center gap-3 no-print">
+    <div>
+        <p class="text-xs text-gray-400">Workspace / Dashboard</p>
+        <h2 class="font-bold text-lg">Study Dashboard</h2>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-3">
+
+        <!-- COLORFUL DEVELOPER NAMES -->
+        <div class="developer-credit">
+            <span class="label">Developed by</span>
+            <span class="aaditya">Aaditya Pundeer</span>
+            <span class="ampersand">&</span>
+            <span class="akshat">Akshat Jha</span>
+        </div>
+
+        <button onclick="loadPresetData()" class="border border-indigo-200 text-indigo-600 px-3 py-2 rounded-lg text-xs font-semibold">
+            <i class="fa-solid fa-wand-magic-sparkles mr-1"></i> BCA Demo
+        </button>
+
+        <button onclick="window.print()" class="border border-gray-200 px-3 py-2 rounded-lg text-gray-600">
+            <i class="fa-solid fa-print"></i>
+        </button>
+    </div>
+</header>
+
+<main class="p-5 md:p-8 max-w-7xl mx-auto" id="dashboard">
+
+    <!-- WELCOME -->
+    <div class="mb-7">
+        <h1 class="text-2xl font-bold">Welcome to CampusPulse 👋</h1>
+        <p class="text-sm text-gray-500 mt-1">Manage your exam preparation with a smart study plan.</p>
+    </div>
+
+    <!-- STATS -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-7">
+
+        <div class="card p-5">
+            <div class="flex justify-between items-center">
+                <p class="text-xs text-gray-500">Days Remaining</p>
+                <i class="fa-regular fa-calendar text-indigo-500"></i>
+            </div>
+            <h2 id="statDays" class="text-3xl font-bold mt-3">--</h2>
+            <p class="text-xs text-gray-400 mt-1">Until your exam</p>
+        </div>
+
+        <div class="card p-5">
+            <div class="flex justify-between items-center">
+                <p class="text-xs text-gray-500">Total Subjects</p>
+                <i class="fa-solid fa-book text-blue-500"></i>
+            </div>
+            <h2 id="statSubjects" class="text-3xl font-bold mt-3">--</h2>
+            <p class="text-xs text-gray-400 mt-1">Added subjects</p>
+        </div>
+
+        <div class="card p-5">
+            <div class="flex justify-between items-center">
+                <p class="text-xs text-gray-500">Total Chapters</p>
+                <i class="fa-solid fa-layer-group text-emerald-500"></i>
+            </div>
+            <h2 id="statTopics" class="text-3xl font-bold mt-3">--</h2>
+            <p class="text-xs text-gray-400 mt-1">Topics to prepare</p>
+        </div>
+
+        <div class="card p-5">
+            <div class="flex justify-between items-center">
+                <p class="text-xs text-gray-500">Readiness Score</p>
+                <i class="fa-solid fa-chart-line text-amber-500"></i>
+            </div>
+            <h2 id="statScore" class="text-3xl font-bold mt-3">0%</h2>
+            <p class="text-xs text-gray-400 mt-1">Schedule completion</p>
+        </div>
+
+    </div>
+
+    <!-- CONFIGURATION -->
+    <section id="configuration" class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-7">
+
+        <div class="card p-6 lg:col-span-1">
+            <div class="flex items-center gap-3 mb-5">
+                <div class="w-9 h-9 bg-indigo-50 text-indigo-600 rounded-lg flex items-center justify-center">
+                    <i class="fa-solid fa-sliders"></i>
                 </div>
                 <div>
-                    <h1 class="font-bold text-lg tracking-tight bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">CampusPulse</h1>
-                    <p class="text-xs text-slate-400">Smart Exam Prep & Scheduler</p>
+                    <h3 class="font-bold">Exam Configuration</h3>
+                    <p class="text-xs text-gray-400">Set your study preferences</p>
                 </div>
             </div>
-            <div class="flex items-center space-x-3">
-                <button onclick="loadPresetData()" class="px-3 py-1.5 bg-indigo-600/20 border border-indigo-500/30 hover:bg-indigo-600/30 text-indigo-300 text-xs font-medium rounded-lg transition flex items-center space-x-1.5">
-                    <i class="fa-solid fa-wand-magic-sparkles"></i>
-                    <span>Load BCA Demo</span>
-                </button>
-                <button onclick="window.print()" class="p-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg transition" title="Print / Export Schedule">
-                    <i class="fa-solid fa-print"></i>
-                </button>
-            </div>
-        </div>
-    </header>
 
-    <!-- Main Container -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        
-        <!-- Grid Layout: Form vs Dashboard -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            
-            <!-- Left Column: Setup Form -->
-            <div class="lg:col-span-1 space-y-6 no-print">
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
-                    <div class="flex items-center justify-between mb-4">
-                        <h2 class="font-semibold text-lg flex items-center space-x-2">
-                            <i class="fa-solid fa-sliders text-indigo-400"></i>
-                            <span>Exam Configuration</span>
-                        </h2>
-                    </div>
+            <form id="schedulerForm" onsubmit="generateSchedule(event)" class="space-y-4">
 
-                    <form id="schedulerForm" onsubmit="generateSchedule(event)" class="space-y-4">
-                        <div>
-                            <label class="block text-xs font-medium text-slate-400 mb-1">Target Exam Name</label>
-                            <input type="text" id="examName" required placeholder="e.g., BCA Semester Exams" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-indigo-500 text-slate-200">
-                        </div>
+                <div>
+                    <label class="text-xs font-semibold text-gray-500">Exam Name</label>
+                    <input id="examName" class="input mt-1" required placeholder="BCA Semester Exams">
+                </div>
 
-                        <div class="grid grid-cols-2 gap-3">
-                            <div>
-                                <label class="block text-xs font-medium text-slate-400 mb-1">Target Date</label>
-                                <input type="date" id="examDate" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-indigo-500 text-slate-200">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-medium text-slate-400 mb-1">Daily Study Hours</label>
-                                <input type="number" id="dailyHours" min="1" max="16" value="5" required class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-indigo-500 text-slate-200">
-                            </div>
-                        </div>
+                <div>
+                    <label class="text-xs font-semibold text-gray-500">Target Exam Date</label>
+                    <input type="date" id="examDate" class="input mt-1" required>
+                </div>
 
-                        <div class="border-t border-slate-800 pt-4">
-                            <div class="flex items-center justify-between mb-2">
-                                <label class="text-xs font-medium text-slate-400">Subjects & Chapters</label>
-                                <button type="button" onclick="addSubjectRow()" class="text-indigo-400 hover:text-indigo-300 text-xs font-medium flex items-center space-x-1">
-                                    <i class="fa-solid fa-plus"></i> <span>Add Subject</span>
-                                </button>
-                            </div>
-                            
-                            <div id="subjectsContainer" class="space-y-3 max-h-64 overflow-y-auto pr-1">
-                                <!-- Dynamic Rows injected here -->
-                            </div>
-                        </div>
+                <div>
+                    <label class="text-xs font-semibold text-gray-500">Daily Study Hours</label>
+                    <input type="number" id="dailyHours" min="1" max="16" value="5" class="input mt-1" required>
+                </div>
 
-                        <button type="submit" class="w-full py-3 bg-gradient-to-r from-indigo-600 to-cyan-600 hover:from-indigo-500 hover:to-cyan-500 text-white font-semibold rounded-xl shadow-lg shadow-indigo-600/30 transition duration-200 flex items-center justify-center space-x-2">
-                            <i class="fa-solid fa-bolt"></i>
-                            <span>Generate Smart Schedule</span>
+                <div class="border-t pt-4">
+                    <div class="flex justify-between items-center mb-3">
+                        <label class="text-xs font-bold text-gray-600">Subjects & Chapters</label>
+                        <button type="button" onclick="addSubjectRow()" class="text-xs text-indigo-600 font-semibold">
+                            <i class="fa-solid fa-plus"></i> Add Subject
                         </button>
-                    </form>
-                </div>
-            </div>
+                    </div>
 
-            <!-- Right Column: Results & Analytics -->
-            <div class="lg:col-span-2 space-y-6">
-                
-                <!-- Overview Stats Cards -->
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                    <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl">
-                        <p class="text-xs text-slate-400">Days Remaining</p>
-                        <h3 id="statDays" class="text-2xl font-bold text-indigo-400 mt-1">--</h3>
-                    </div>
-                    <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl">
-                        <p class="text-xs text-slate-400">Total Subjects</p>
-                        <h3 id="statSubjects" class="text-2xl font-bold text-cyan-400 mt-1">--</h3>
-                    </div>
-                    <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl">
-                        <p class="text-xs text-slate-400">Total Topics</p>
-                        <h3 id="statTopics" class="text-2xl font-bold text-emerald-400 mt-1">--</h3>
-                    </div>
-                    <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl">
-                        <p class="text-xs text-slate-400">Readiness Score</p>
-                        <h3 id="statScore" class="text-2xl font-bold text-amber-400 mt-1">0%</h3>
-                    </div>
+                    <div id="subjectsContainer" class="space-y-3"></div>
                 </div>
 
-                <!-- Visual Chart Section -->
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl no-print">
-                    <h3 class="font-semibold text-sm text-slate-300 mb-4 flex items-center space-x-2">
-                        <i class="fa-solid fa-chart-pie text-cyan-400"></i>
-                        <span>Time Allocation per Subject (Hours)</span>
-                    </h3>
-                    <div class="relative h-64 w-full flex items-center justify-center">
-                        <canvas id="prepChart"></canvas>
-                    </div>
-                </div>
-
-                <!-- Daily Breakdown Schedule View -->
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="font-semibold text-base flex items-center space-x-2">
-                            <i class="fa-solid fa-calendar-days text-indigo-400"></i>
-                            <span id="scheduleTitle">Generated Study Routine</span>
-                        </h3>
-                        <span id="totalHoursAllocated" class="text-xs bg-slate-800 text-slate-300 px-2.5 py-1 rounded-lg">Total Hours: 0h</span>
-                    </div>
-
-                    <div id="scheduleOutput" class="space-y-4">
-                        <div class="text-center py-12 text-slate-500 border border-dashed border-slate-800 rounded-xl">
-                            <i class="fa-solid fa-clipboard-list text-3xl mb-2"></i>
-                            <p class="text-sm">Configure subjects and click <b class="text-slate-400">"Generate Smart Schedule"</b></p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
+                <button type="submit" class="btn w-full">
+                    <i class="fa-solid fa-bolt mr-2"></i>Generate Smart Schedule
+                </button>
+            </form>
         </div>
-    </main>
 
-    <!-- Script Logic -->
-    <script>
-        let chartInstance = null;
+        <!-- CHART -->
+        <div class="card p-6 lg:col-span-2">
+            <div class="flex justify-between items-center mb-5">
+                <div>
+                    <h3 class="font-bold">Study Analytics</h3>
+                    <p class="text-xs text-gray-400 mt-1">Subject-wise time allocation</p>
+                </div>
+                <span class="text-xs bg-indigo-50 text-indigo-600 px-3 py-2 rounded-lg">Overview</span>
+            </div>
 
-        function addSubjectRow(name = '', chapters = 5, difficulty = 'Medium') {
-            const container = document.getElementById('subjectsContainer');
-            const row = document.createElement('div');
-            row.className = 'flex items-center space-x-2 bg-slate-950 p-2.5 border border-slate-800 rounded-xl';
-            row.innerHTML = `
-                <input type="text" placeholder="Subject Name" value="${name}" required class="subject-name w-1/2 bg-transparent border-none text-sm focus:outline-none text-slate-200">
-                <input type="number" placeholder="Chapters" min="1" value="${chapters}" required class="subject-chapters w-16 bg-slate-900 border border-slate-800 rounded-lg px-2 py-1 text-xs text-center text-slate-200" title="Total Chapters">
-                <select class="subject-diff w-24 bg-slate-900 border border-slate-800 rounded-lg px-2 py-1 text-xs text-slate-200">
-                    <option value="Easy" ${difficulty === 'Easy' ? 'selected' : ''}>Easy</option>
-                    <option value="Medium" ${difficulty === 'Medium' ? 'selected' : ''}>Medium</option>
-                    <option value="Hard" ${difficulty === 'Hard' ? 'selected' : ''}>Hard</option>
-                </select>
-                <button type="button" onclick="this.parentElement.remove()" class="text-slate-500 hover:text-red-400 p-1 transition"><i class="fa-solid fa-trash text-xs"></i></button>
-            `;
-            container.appendChild(row);
-        }
-
-        function loadPresetData() {
-            document.getElementById('examName').value = "BCA 4th Semester Final Exams";
-            const targetDate = new Date();
-            targetDate.setDate(targetDate.getDate() + 20);
-            document.getElementById('examDate').value = targetDate.toISOString().split('T')[0];
-            document.getElementById('dailyHours').value = '5';
-
-            const container = document.getElementById('subjectsContainer');
-            container.innerHTML = '';
-            
-            addSubjectRow('Java Programming', 8, 'Hard');
-            addSubjectRow('Computer Networks', 6, 'Medium');
-            addSubjectRow('Data Structures', 7, 'Hard');
-            addSubjectRow('Software Engineering', 5, 'Easy');
-
-            document.getElementById('schedulerForm').dispatchEvent(new Event('submit'));
-        }
-
-        function generateSchedule(e) {
-            e.preventDefault();
-
-            const examName = document.getElementById('examName').value;
-            const examDateVal = document.getElementById('examDate').value;
-            const dailyHours = parseFloat(document.getElementById('dailyHours').value) || 4;
-
-            const nameInputs = document.querySelectorAll('.subject-name');
-            const chapterInputs = document.querySelectorAll('.subject-chapters');
-            const diffInputs = document.querySelectorAll('.subject-diff');
-
-            if (nameInputs.length === 0) {
-                alert('Please add at least one subject!');
-                return;
-            }
-
-            let subjects = [];
-            let totalChapters = 0;
-
-            for (let i = 0; i < nameInputs.length; i++) {
-                const sName = nameInputs[i].value;
-                const sChap = parseInt(chapterInputs[i].value) || 1;
-                const sDiff = diffInputs[i].value;
-                
-                let weight = 1.0;
-                if (sDiff === 'Medium') weight = 1.3;
-                if (sDiff === 'Hard') weight = 1.7;
-
-                subjects.push({ name: sName, chapters: sChap, difficulty: sDiff, weight: weight });
-                totalChapters += sChap;
-            }
-
-            const today = new Date();
-            const target = new Date(examDateVal);
-            const diffTime = target - today;
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-            if (diffDays <= 0) {
-                alert('Exam date must be in the future!');
-                return;
-            }
-
-            document.getElementById('statDays').innerText = diffDays;
-            document.getElementById('statSubjects').innerText = subjects.length;
-            document.getElementById('statTopics').innerText = totalChapters;
-            document.getElementById('scheduleTitle').innerText = `${examName} - Day-by-Day Schedule`;
-
-            const totalWeight = subjects.reduce((sum, s) => sum + (s.chapters * s.weight), 0);
-            
-            let totalAllocatedHours = 0;
-            let subjectHours = subjects.map(s => {
-                const hrs = ((s.chapters * s.weight) / totalWeight) * (diffDays * dailyHours);
-                totalAllocatedHours += hrs;
-                return { name: s.name, hours: Math.round(hrs * 10) / 10 };
-            });
-
-            document.getElementById('totalHoursAllocated').innerText = `Total Study Target: ${Math.round(totalAllocatedHours)} hrs`;
-
-            let outputHTML = '';
-            let currentSubjectIndex = 0;
-            let chaptersDoneInSub = 0;
-
-            for (let day = 1; day <= Math.min(diffDays, 30); day++) {
-                let currentSub = subjects[currentSubjectIndex];
-
-                outputHTML += `
-                    <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl flex items-center justify-between">
-                        <div class="flex items-center space-x-3">
-                            <span class="bg-indigo-600/20 text-indigo-400 font-bold text-xs px-2.5 py-1.5 rounded-lg border border-indigo-500/30">Day ${day}</span>
-                            <div>
-                                <h4 class="font-semibold text-sm text-slate-200">${currentSub.name}</h4>
-                                <p class="text-xs text-slate-400">Target: Focus on core concepts & problem solving (${dailyHours} hrs)</p>
-                            </div>
-                        </div>
-                        <label class="flex items-center space-x-2 cursor-pointer">
-                            <input type="checkbox" onchange="updateProgress()" class="task-check w-4 h-4 rounded bg-slate-900 border-slate-700 text-indigo-600 focus:ring-indigo-500">
-                            <span class="text-xs text-slate-400">Done</span>
-                        </label>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 items-center">
+                <div class="h-64">
+                    <canvas id="prepChart"></canvas>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-sm mb-4">Preparation Summary</h4>
+                    <div id="subjectSummary" class="space-y-4 text-sm text-gray-500">
+                        Generate your schedule to see subject analytics.
                     </div>
-                `;
+                </div>
+            </div>
+        </div>
 
-                chaptersDoneInSub++;
-                if (chaptersDoneInSub >= Math.ceil(currentSub.chapters / 2) && currentSubjectIndex < subjects.length - 1) {
-                    currentSubjectIndex++;
-                    chaptersDoneInSub = 0;
+    </section>
+
+    <!-- SCHEDULE -->
+    <section id="schedule" class="card p-6">
+
+        <div class="flex flex-wrap justify-between items-center gap-3 mb-5">
+            <div>
+                <h3 id="scheduleTitle" class="font-bold text-lg">Study Schedule</h3>
+                <p class="text-xs text-gray-400 mt-1">Your day-by-day preparation plan</p>
+            </div>
+            <span id="totalHoursAllocated" class="bg-indigo-50 text-indigo-600 px-3 py-2 rounded-lg text-xs font-semibold">
+                Total Hours: 0h
+            </span>
+        </div>
+
+        <div class="mb-5">
+            <div class="flex justify-between text-xs mb-2">
+                <span class="font-semibold text-gray-600">Overall Progress</span>
+                <span id="progressLabel" class="text-indigo-600 font-bold">0%</span>
+            </div>
+            <div class="progress">
+                <div id="mainProgress" style="width:0%"></div>
+            </div>
+        </div>
+
+        <div id="scheduleOutput" class="space-y-3">
+            <div class="text-center py-12 text-gray-400">
+                <i class="fa-solid fa-calendar-check text-4xl mb-3"></i>
+                <p class="text-sm">Your study schedule will appear here.</p>
+                <p class="text-xs mt-2">Add subjects and generate your schedule.</p>
+            </div>
+        </div>
+
+    </section>
+
+    <footer class="text-center text-xs text-gray-400 py-7">
+        CampusPulse © 2026 | Smart Exam Prep & Study Scheduler
+    </footer>
+
+</main>
+</div>
+
+<script>
+let chartInstance = null;
+
+function addSubjectRow(name="",chapters=5,difficulty="Medium"){
+    const row=document.createElement("div");
+    row.className="subject-row";
+
+    const nameInput=document.createElement("input");
+    nameInput.className="input subject-name";
+    nameInput.placeholder="Subject";
+    nameInput.value=name;
+    nameInput.required=true;
+
+    const chapterInput=document.createElement("input");
+    chapterInput.className="input subject-chapters";
+    chapterInput.type="number";
+    chapterInput.min="1";
+    chapterInput.value=chapters;
+    chapterInput.required=true;
+
+    const select=document.createElement("select");
+    select.className="input subject-diff";
+
+    ["Easy","Medium","Hard"].forEach(level=>{
+        const option=document.createElement("option");
+        option.value=level;
+        option.textContent=level;
+        if(level===difficulty) option.selected=true;
+        select.appendChild(option);
+    });
+
+    const remove=document.createElement("button");
+    remove.type="button";
+    remove.className="text-red-400 hover:text-red-600";
+    remove.innerHTML='<i class="fa-solid fa-trash"></i>';
+    remove.onclick=()=>row.remove();
+
+    row.append(nameInput,chapterInput,select,remove);
+    document.getElementById("subjectsContainer").appendChild(row);
+}
+
+function loadPresetData(){
+    document.getElementById("examName").value="BCA 4th Semester Final Exams";
+
+    const date=new Date();
+    date.setDate(date.getDate()+20);
+    document.getElementById("examDate").value=
+        `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}-${String(date.getDate()).padStart(2,"0")}`;
+
+    document.getElementById("dailyHours").value=5;
+
+    const container=document.getElementById("subjectsContainer");
+    container.innerHTML="";
+
+    addSubjectRow("Java Programming",8,"Hard");
+    addSubjectRow("Computer Networks",6,"Medium");
+    addSubjectRow("Data Structures",7,"Hard");
+    addSubjectRow("Software Engineering",5,"Easy");
+
+    generateSchedule(new Event("submit",{cancelable:true}));
+}
+
+function generateSchedule(e){
+    if(e) e.preventDefault();
+
+    const examName=document.getElementById("examName").value.trim();
+    const examDateVal=document.getElementById("examDate").value;
+    const dailyHours=Number(document.getElementById("dailyHours").value);
+
+    const names=[...document.querySelectorAll(".subject-name")];
+    const chapters=[...document.querySelectorAll(".subject-chapters")];
+    const difficulties=[...document.querySelectorAll(".subject-diff")];
+
+    if(names.length===0){
+        alert("Please add at least one subject!");
+        return;
+    }
+
+    if(!examName || !examDateVal || dailyHours<1 || dailyHours>16){
+        alert("Please enter valid exam details.");
+        return;
+    }
+
+    const subjects=names.map((input,i)=>{
+        const chapterCount=Number(chapters[i].value);
+        if(!input.value.trim() || chapterCount<1) return null;
+
+        const difficulty=difficulties[i].value;
+        const weight=difficulty==="Hard"?1.7:difficulty==="Medium"?1.3:1;
+
+        return {
+            name:input.value.trim(),
+            chapters:chapterCount,
+            difficulty,
+            weight
+        };
+    }).filter(Boolean);
+
+    if(subjects.length===0){
+        alert("Please enter valid subjects and chapters.");
+        return;
+    }
+
+    const today=new Date();
+    today.setHours(0,0,0,0);
+
+    const target=new Date(examDateVal+"T00:00:00");
+    const diffDays=Math.ceil((target-today)/86400000);
+
+    if(diffDays<=0){
+        alert("Exam date must be in the future!");
+        return;
+    }
+
+    const totalChapters=subjects.reduce((sum,s)=>sum+s.chapters,0);
+    const totalWeight=subjects.reduce((sum,s)=>sum+s.chapters*s.weight,0);
+    const totalHours=diffDays*dailyHours;
+
+    document.getElementById("statDays").textContent=diffDays;
+    document.getElementById("statSubjects").textContent=subjects.length;
+    document.getElementById("statTopics").textContent=totalChapters;
+    document.getElementById("scheduleTitle").textContent=examName+" - Study Schedule";
+    document.getElementById("totalHoursAllocated").textContent="Study Target: "+totalHours+" hrs";
+
+    const allocations=subjects.map(s=>({
+        ...s,
+        hours:Math.round((s.chapters*s.weight/totalWeight)*totalHours*10)/10
+    }));
+
+    renderChart(allocations);
+    renderSummary(allocations);
+
+    let output="";
+    const daysToShow=Math.min(diffDays,30);
+
+    for(let day=1;day<=daysToShow;day++){
+        const subject=subjects[(day-1)%subjects.length];
+        const date=new Date(today);
+        date.setDate(date.getDate()+day);
+
+        const dateText=date.toLocaleDateString("en-IN",{
+            day:"2-digit",month:"short",year:"numeric"
+        });
+
+        output+=`
+        <div class="border border-gray-100 rounded-xl p-4 flex flex-wrap justify-between items-center gap-3 hover:border-indigo-200 transition">
+            <div class="flex items-center gap-3">
+                <div class="bg-indigo-50 text-indigo-600 rounded-lg px-3 py-2 text-center min-w-16">
+                    <p class="text-xs font-bold">DAY ${day}</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold text-sm">${escapeHTML(subject.name)}</h4>
+                    <p class="text-xs text-gray-400 mt-1">${dateText} · ${dailyHours} study hours</p>
+                    <p class="text-xs text-gray-500 mt-1">Focus: ${subject.difficulty} subject · Revision and practice</p>
+                </div>
+            </div>
+            <label class="flex items-center gap-2 text-xs text-gray-500 cursor-pointer">
+                <input type="checkbox" class="task-check w-4 h-4 accent-indigo-600" onchange="updateProgress()">
+                Mark as Done
+            </label>
+        </div>`;
+    }
+
+    if(diffDays>30){
+        output+=`<p class="text-center text-xs text-gray-400 py-3">Showing first 30 days of your ${diffDays}-day preparation period.</p>`;
+    }
+
+    document.getElementById("scheduleOutput").innerHTML=output;
+    updateProgress();
+}
+
+function escapeHTML(value){
+    return value.replace(/[&<>"']/g,char=>({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+    })[char]);
+}
+
+function renderChart(data){
+    const ctx=document.getElementById("prepChart").getContext("2d");
+
+    if(chartInstance) chartInstance.destroy();
+
+    chartInstance=new Chart(ctx,{
+        type:"doughnut",
+        data:{
+            labels:data.map(s=>s.name),
+            datasets:[{
+                data:data.map(s=>s.hours),
+                backgroundColor:["#6256e8","#20b8d5","#24b47e","#f5ad42","#ec6a9b","#8b75e8"],
+                borderWidth:3,
+                borderColor:"#fff"
+            }]
+        },
+        options:{
+            responsive:true,
+            maintainAspectRatio:false,
+            cutout:"68%",
+            plugins:{
+                legend:{
+                    position:"bottom",
+                    labels:{usePointStyle:true,boxWidth:8,padding:16}
                 }
             }
-
-            document.getElementById('scheduleOutput').innerHTML = outputHTML;
-            renderChart(subjectHours);
-            updateProgress();
         }
+    });
+}
 
-        function renderChart(data) {
-            const ctx = document.getElementById('prepChart').getContext('2d');
-            if (chartInstance) chartInstance.destroy();
+function renderSummary(data){
+    const container=document.getElementById("subjectSummary");
 
-            chartInstance = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: data.map(d => d.name),
-                    datasets: [{
-                        data: data.map(d => d.hours),
-                        backgroundColor: ['#6366f1', '#06b6d4', '#10b981', '#f59e0b', '#ec4899', '#8b5cf6'],
-                        borderWidth: 0
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: { color: '#94a3b8', boxWidth: 12, font: { size: 11 } }
-                        }
-                    }
-                }
-            });
-        }
+    container.innerHTML=data.map(s=>`
+        <div>
+            <div class="flex justify-between mb-2">
+                <span class="text-gray-700 font-medium">${escapeHTML(s.name)}</span>
+                <span class="font-semibold text-indigo-600">${s.hours}h</span>
+            </div>
+            <div class="progress">
+                <div style="width:${Math.min(100,s.hours/data.reduce((a,b)=>a+b.hours,0)*100)}%"></div>
+            </div>
+        </div>
+    `).join("");
+}
 
-        function updateProgress() {
-            const checkboxes = document.querySelectorAll('.task-check');
-            if (checkboxes.length === 0) return;
+function updateProgress(){
+    const checkboxes=[...document.querySelectorAll(".task-check")];
+    const total=checkboxes.length;
+    const done=checkboxes.filter(cb=>cb.checked).length;
+    const score=total?Math.round(done/total*100):0;
 
-            let checkedCount = 0;
-            checkboxes.forEach(cb => { if (cb.checked) checkedCount++; });
+    document.getElementById("statScore").textContent=score+"%";
+    document.getElementById("progressLabel").textContent=score+"%";
+    document.getElementById("mainProgress").style.width=score+"%";
+}
 
-            const score = Math.round((checkedCount / checkboxes.length) * 100);
-            document.getElementById('statScore').innerText = score + '%';
-        }
+window.onload=loadPresetData;
+</script>
 
-        window.onload = function() {
-            loadPresetData();
-        };
-    </script>
 </body>
 </html>
