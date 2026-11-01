@@ -417,11 +417,6 @@ button,a{-webkit-tap-highlight-color:transparent}
    Study Schedule
   </a>
 
-  <a href="#revision" class="nav-item">
-   <span class="nav-icon"><i class="fa-solid fa-arrows-rotate"></i></span>
-   Revision Planner
-  </a>
-
   <a href="#weekly" class="nav-item">
    <span class="nav-icon"><i class="fa-solid fa-chart-column"></i></span>
    Performance
@@ -580,12 +575,6 @@ button,a{-webkit-tap-highlight-color:transparent}
    <p class="font-bold text-sm">Study Schedule</p>
   </button>
 
-  <button class="quick-tile" style="background:#e1faef;color:#16834d"
-  onclick="goTo('revision')">
-   <i class="fa-solid fa-arrows-rotate text-3xl mb-3"></i>
-   <p class="font-bold text-sm">Revision Planner</p>
-  </button>
-
   <button class="quick-tile" style="background:#fff0df;color:#d97706"
   onclick="goTo('configuration')">
    <i class="fa-solid fa-clipboard-list text-3xl mb-3"></i>
@@ -699,26 +688,6 @@ button,a{-webkit-tap-highlight-color:transparent}
 
  <div id="scheduleOutput" class="space-y-3 text-sm text-gray-400 text-center py-8">
   Add subjects and generate your schedule.
- </div>
-
-</section>
-
-<section id="revision" class="card p-5 md:p-6 mb-7">
-
- <div class="flex flex-wrap justify-between items-center gap-3 mb-4">
-  <div>
-   <h3 class="font-extrabold text-lg">Revision Planner</h3>
-   <p class="text-xs text-gray-400 mt-1">
-    Suggested revision reminders (+1, +3 and +7 days).
-   </p>
-  </div>
-  <span class="text-xs rounded-xl px-3 py-2 bg-purple-50 text-purple-700 font-bold">
-   Spaced Revision
-  </span>
- </div>
-
- <div id="revisionOutput" class="text-sm text-gray-400">
-  Generate a schedule to create your revision plan.
  </div>
 
 </section>
@@ -931,7 +900,6 @@ function generateSchedule(e){
 
  renderChart();
  renderSchedule();
- renderRevision();
  renderWeeklyReport();
  saveApp();
 
@@ -1144,76 +1112,6 @@ function renderChart(){
  `).join('');
 }
 
-function renderRevision(){
-
- let entries=[];
-
- app.subjects.forEach(s=>{
-
-  for(let ch=1;ch<=s.chapters;ch++){
-
-   let base=Math.max(1,Math.ceil(ch*app.days/s.chapters));
-
-   [1,3,7].forEach(offset=>{
-
-    let day=base+offset;
-
-    if(day<=app.days){
-
-     let d=new Date();
-     d.setHours(0,0,0,0);
-     d.setDate(d.getDate()+day);
-
-     entries.push({
-      name:s.name,
-      chapter:ch,
-      day,
-      date:d
-     });
-    }
-   });
-  }
- });
-
- entries.sort((a,b)=>a.day-b.day);
-
- document.getElementById('revisionOutput').innerHTML=
- entries.length?
- `
- <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-
- ${entries.slice(0,90).map(r=>`
-
-  <div class="rounded-2xl border p-3" style="border-color:var(--line)">
-
-   <p class="text-xs font-extrabold" style="color:#702be9">
-    DAY ${r.day} ·
-    ${r.date.toLocaleDateString('en-IN',{
-     day:'2-digit',
-     month:'short'
-    })}
-   </p>
-
-   <p class="font-bold text-sm mt-1">${escapeHTML(r.name)}</p>
-
-   <p class="text-xs text-gray-400">
-    Chapter ${r.chapter} revision
-   </p>
-
-  </div>
-
- `).join('')}
-
- </div>
-
- ${entries.length>90?
- '<p class="text-xs text-gray-400 mt-3">Showing first 90 revision reminders.</p>':''
- }
- `
- :
- '<p class="text-sm text-gray-400">No revision dates fall before the exam date.</p>';
-}
-
 function renderWeeklyReport(){
 
  if(!app.subjects.length){
@@ -1351,7 +1249,6 @@ function restoreApp(){
 
   renderChart();
   renderSchedule();
-  renderRevision();
   renderWeeklyReport();
 
   return true;
@@ -1432,7 +1329,6 @@ const sections=[
  'dashboard',
  'configuration',
  'schedule',
- 'revision',
  'weekly'
 ];
 
